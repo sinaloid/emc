@@ -1,0 +1,21 @@
+import Button from "./Button";
+import PubCardImg from "./imgs/PubCardImg";
+
+import PubDash from "./imgs/PubDash";
+
+const PubCard = () => {
+    return (
+        <div className="card p-0">
+            <PubCardImg />
+            <div className="text-center py-3">
+                <h4>Affichage 2m²</h4>
+                <span className="text-primary">Stade du 4 Août</span>
+                <Button classe={"btn-pub"}>
+                    <PubDash /> Ajouter au panier
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+export default PubCard;
