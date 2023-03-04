@@ -1,21 +1,47 @@
 import { Route, Routes } from "react-router-dom";
 import Accueil from "../pages/Accueil";
-import { ListLink } from "../utils/listLink";
+import Carte from "../pages/Carte";
+import Media from "../pages/Media";
+import { listLink } from "../utils/listLink";
+import PubContainer from "./PubContainer";
+
+const appRoute = [
+    {
+        path: listLink.index,
+        Element: Accueil,
+    },
+    {
+        path: listLink.home,
+        Element: Accueil,
+    }
+]
+
+const homeRoute = [
+    {
+        path: listLink.index,
+        Element: PubContainer,
+    },
+    {
+        path: listLink.affichage,
+        Element: PubContainer,
+    },
+    {
+        path: listLink.carte,
+        Element: Carte,
+    },
+    {
+        path: listLink.media,
+        Element: Media,
+    }
+]
 
 
-const ListRoute = () => {
 
-    const routeTab = [
-        {
-            path: ListLink.home,
-            Element: Accueil,
-        }
-    ]
-
+const GetRoute = ({list}) => {
     return (
         <Routes>
             {
-                routeTab.map(({path, Element}, idx) =>{
+                list.map(({path, Element}, idx) =>{
 
                     return <Route path={path} element={<Element />} key={idx}/>
                 })
@@ -24,4 +50,8 @@ const ListRoute = () => {
     )
 }
 
-export default ListRoute;
+export {
+    GetRoute,
+    appRoute,
+    homeRoute
+};

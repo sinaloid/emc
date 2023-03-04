@@ -7,8 +7,20 @@
     "file": "assets/bootstrap-icons-966620f9.woff2",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
+  "node_modules/leaflet/dist/images/layers-2x.png": {
+    "file": "assets/layers-2x-066daca8.png",
+    "src": "node_modules/leaflet/dist/images/layers-2x.png"
+  },
+  "node_modules/leaflet/dist/images/layers.png": {
+    "file": "assets/layers-1dbbe9d0.png",
+    "src": "node_modules/leaflet/dist/images/layers.png"
+  },
+  "node_modules/leaflet/dist/images/marker-icon.png": {
+    "file": "assets/marker-icon-574c3a5c.png",
+    "src": "node_modules/leaflet/dist/images/marker-icon.png"
+  },
   "resources/js/app.css": {
-    "file": "assets/app-541e0c98.css",
+    "file": "assets/app-03e164fd.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -16,16 +28,24 @@
       "assets/logo-c5c5f707.png",
       "assets/lg-fce38ed8.png",
       "assets/search-8b144877.png",
+      "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/bootstrap-icons-966620f9.woff2",
-      "assets/bootstrap-icons-c6569d46.woff"
+      "assets/bootstrap-icons-c6569d46.woff",
+      "assets/layers-1dbbe9d0.png",
+      "assets/layers-2x-066daca8.png",
+      "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-541e0c98.css"
+      "assets/app-03e164fd.css"
     ],
-    "file": "assets/app-ddca9578.js",
+    "file": "assets/app-66a7c4f9.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/src/assets/imgs/gps.svg": {
+    "file": "assets/gps-e5507b9b.svg",
+    "src": "resources/js/src/assets/imgs/gps.svg"
   },
   "resources/js/src/assets/imgs/lg.png": {
     "file": "assets/lg-fce38ed8.png",
