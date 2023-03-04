@@ -1,0 +1,5 @@
+
+
+export  const ListLink = {
+    home:"/"
+}

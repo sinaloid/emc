@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
-                <nav className="navbar navbar-expand-sm">
+                <nav className="navbar navbar-expand-md">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
                             <Logo />
@@ -46,7 +46,7 @@ const Header = () => {
                                     <Button
                                         name={"Se connecter"}
                                         classe={
-                                            "btn-secondary text-uppercase mx-1"
+                                            "btn-secondary text-uppercase mx-1 mb-3"
                                         }
                                         callback={() => {}}
                                     />
@@ -55,14 +55,14 @@ const Header = () => {
                                     <Button
                                         name={"accompagnement sur-mesure"}
                                         classe={
-                                            "btn-primary text-uppercase mx-1"
+                                            "btn-primary text-uppercase mx-1 mb-3"
                                         }
                                         callback={() => {}}
                                     />
                                 </li>
                                 <li className="nav-item">
                                     <div
-                                        class="btn-group"
+                                        class="btn-group mb-3"
                                         role="group"
                                         aria-label="Basic example"
                                     >

@@ -9,7 +9,7 @@ const PubCard = () => {
             <PubCardImg />
             <div className="text-center py-3">
                 <h4>Affichage 2m²</h4>
-                <span className="text-primary">Stade du 4 Août</span>
+                <span className="text-primary my-2 d-inline-block">Stade du 4 Août</span> <br />
                 <Button classe={"btn-pub"}>
                     <PubDash /> Ajouter au panier
                 </Button>
