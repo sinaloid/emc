@@ -87,6 +87,12 @@ body {
   .btn-primary {
     background-color: var(--secondary-color) !important;
     border-color: var(--secondary-color);
+    color:#FFF
+  }
+  .btn-primary:hover {
+    background-color: #FFF !important;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
   }
 
   .btn-secondary {
@@ -95,10 +101,22 @@ body {
     color: var(--secondary-color);
   }
 
+  .btn-secondary:hover {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color);
+    color: #fff
+  }
+
   .btn-tertiary {
     background-color: #FFF !important;
     border-color: var(--primary-color);
     color: var(--primary-color);
+  }
+
+  .btn-tertiary:hover{
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color);
+    color: #fff !important;
   }
 
   .btn-tertiary-full {
@@ -109,8 +127,14 @@ body {
 
   .btn-pub{
     background-color: #FFF !important;
-    border-color: #1F2E54;
-    color: #1F2E54;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .btn-pub:hover{
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color);
+    color: #FFF
   }
 
   .link{
