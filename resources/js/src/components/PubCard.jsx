@@ -5,7 +5,7 @@ import PubDash from "./imgs/PubDash";
 
 const PubCard = () => {
     return (
-        <div className="card p-0">
+        <div className="card p-0 shadow">
             <PubCardImg />
             <div className="text-center py-3">
                 <h4>Affichage 2m²</h4>

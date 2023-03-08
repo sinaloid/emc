@@ -1,4 +1,13 @@
-const InputField = ({ type, label, name, value, options, onChange }) => {
+const InputField = ({
+    type,
+    label,
+    name,
+    value,
+    placeholder,
+    options,
+    onChange,
+    col = "col-md-12",
+}) => {
     const handleChange = (event) => {
         console.log(event.target.name, event.target.value);
         onChange(event.target.name, event.target.value);
@@ -7,10 +16,54 @@ const InputField = ({ type, label, name, value, options, onChange }) => {
     const handleChangeImage = (event) => {
         onChange(event.target.name, event.target.files[0]);
     };
+    if (type === "text2") {
+        return (
+            <div className={col}>
+                <div className="mb-3">
+                    <label htmlFor={name} className="form-label">
+                        {label}
+                    </label>
+                    <input
+                        className="form-control form-control-sm form-floating-height"
+                        type="text"
+                        id={name}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    if (type === "select2") {
+        return (
+            <div className="col-md-3 mb-3">
+                <label htmlFor={name} className="form-label">
+                    {label}
+                </label>
+                <select
+                    className="form-select form-select-sm"
+                    id={name}
+                    name={name}
+                    value={value}
+                    onChange={handleChange}
+                >
+                    <option>{"Selectionnez une " + label}</option>
+                    {options.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        );
+    }
 
     if (type === "text") {
         return (
-            <div className="col-md-12">
+            <div className={col}>
                 <div className="form-floating mb-3">
                     <input
                         className="form-control form-control-sm form-floating-height"
@@ -52,8 +105,11 @@ const InputField = ({ type, label, name, value, options, onChange }) => {
 
     if (type === "file") {
         return (
-            <div className="col-md-12">
-                <div className="form-floating mb-3">
+            <div className={col}>
+                <div className="mb-3">
+                    <label htmlFor={name} className="form-label mb-4">
+                        {label}
+                    </label>
                     <input
                         className="form-control form-control-sm form-floating-height"
                         type="file"
@@ -63,9 +119,6 @@ const InputField = ({ type, label, name, value, options, onChange }) => {
                         placeholder={label}
                         onChange={handleChangeImage}
                     />
-                    <label htmlFor={name} className="form-label mb-4">
-                        {label}
-                    </label>
                 </div>
             </div>
         );

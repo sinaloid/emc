@@ -20,7 +20,7 @@
     "src": "node_modules/leaflet/dist/images/marker-icon.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-79647861.css",
+    "file": "assets/app-b7b99773.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -30,6 +30,7 @@
       "assets/search-8b144877.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
+      "assets/logo200-59eba22d.png",
       "assets/bootstrap-icons-966620f9.woff2",
       "assets/bootstrap-icons-c6569d46.woff",
       "assets/layers-1dbbe9d0.png",
@@ -37,9 +38,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-79647861.css"
+      "assets/app-b7b99773.css"
     ],
-    "file": "assets/app-6448f90c.js",
+    "file": "assets/app-5b8bf8e2.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -54,6 +55,10 @@
   "resources/js/src/assets/imgs/logo.png": {
     "file": "assets/logo-c5c5f707.png",
     "src": "resources/js/src/assets/imgs/logo.png"
+  },
+  "resources/js/src/assets/imgs/logo200.png": {
+    "file": "assets/logo200-59eba22d.png",
+    "src": "resources/js/src/assets/imgs/logo200.png"
   },
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",

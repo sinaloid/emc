@@ -7,7 +7,6 @@ import Accueil from "./pages/Accueil";
 const App = () => {
     return (
         <>
-            <Header />
             <GetRoute list={appRoute} />
             <Footer />
         </>

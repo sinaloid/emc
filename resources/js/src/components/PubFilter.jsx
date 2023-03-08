@@ -5,7 +5,7 @@ import InputField from "./InputField";
 
 const PubFilter = () => {
     return (
-        <div className="card">
+        <div className="card shadow">
             <div className="card-header">
                 <div className="d-flex">
                     <div className="me-auto">
@@ -87,7 +87,7 @@ const PubFilter = () => {
                 <FilterCollapse id={"Emplacement"} name={"Emplacement"}>
                     <InputField
                         type={"select"}
-                        label={"élite Régie"}
+                        label={"élite régie"}
                         options={["Tanghin", "Cissin", "Gougin"]}
                     />
                 </FilterCollapse>

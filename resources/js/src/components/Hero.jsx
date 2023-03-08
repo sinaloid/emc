@@ -41,11 +41,11 @@ const Hero = () => {
                         <div className="d-flex text-white">
                             <div className="me-auto">
                                 <i class="bi bi-check-circle-fill"></i>
-                                <span>0% de commission</span>
+                                <span> 0% de commission</span>
                             </div>
                             <div>
                                 <i class="bi bi-check-circle-fill"></i>
-                                <span>0% de commission</span>
+                                <span> 0% de commission</span>
                             </div>
                         </div>
                     </div>

@@ -63,20 +63,20 @@ const Header = () => {
                                 </li>
                                 <li className="nav-item">
                                     <div
-                                        class="btn-group mb-3"
+                                        className="btn-group mb-3"
                                         role="group"
                                         aria-label="Basic example"
                                     >
                                         <button
                                             type="button"
-                                            class="btn btn-tertiary-full"
+                                            className="btn btn-tertiary-full"
                                         >
                                             {" "}
                                             <Dash />
                                         </button>
                                         <button
                                             type="button"
-                                            class="btn btn-tertiary p-0"
+                                            className="btn btn-tertiary p-0"
                                         >
                                             <span
                                                 className="d-block mx-1 text-start"
