@@ -10,6 +10,7 @@ const Banier = ({
     buttonName,
     bg = "",
     hasImgs = true,
+    callback = () =>{}
 }) => {
     return (
         <Section bg={bg}>
@@ -43,6 +44,7 @@ const Banier = ({
                                 <Button
                                     name={buttonName}
                                     classe="btn-secondary text-uppercase"
+                                    callback={callback}
                                 />
                             )}
                         </div>

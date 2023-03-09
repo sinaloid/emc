@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Button from "./Button";
 import Dash from "./imgs/Dash";
@@ -7,6 +7,7 @@ import Logo from "./imgs/Logo";
 import Section from "./Section";
 
 const Header = () => {
+    const navigate = useNavigate()
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
@@ -58,7 +59,9 @@ const Header = () => {
                                         classe={
                                             "btn-primary text-uppercase mx-1 mb-3"
                                         }
-                                        callback={() => {}}
+                                        callback={() => {
+                                            navigate(listLink.accompagnement)
+                                        }}
                                     />
                                 </li>
                                 <li className="nav-item">

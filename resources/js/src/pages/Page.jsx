@@ -1,11 +1,12 @@
 import Hero from "../components/Hero";
 import Banier from "../components/Banier";
 import FAQ from "../components/FAQ";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import { useEffect } from "react";
 
 const Page = ({children}) => {
+    const navigate = useNavigate()
     useEffect(()=>{
         window.scrollTo(0, 0)
     },[])
@@ -26,6 +27,9 @@ const Page = ({children}) => {
                 }
                 buttonName={"référencer un média"}
                 bg={"bg-gray"}
+                callback={() => {
+                    navigate(listLink.accompagnement)
+                }}
             />
             <Banier
                 fitrstTitle={"Ils nous font confiance"}

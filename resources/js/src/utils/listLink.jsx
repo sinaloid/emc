@@ -11,6 +11,7 @@ export  const listLink = {
     radio:"/radios",
     produit:"produits",
     devis:"devis",
+    accompagnement:"accompagnement-sur-mesure",
     telecharger_devis:"telecharger-le-devis",
     tele_:"/televisions/*",
     tele:"/televisions",

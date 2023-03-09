@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Accompagnement from "../pages/Accompagnement";
 import Accueil from "../pages/Accueil";
 import Carte from "../pages/Carte";
 import Devis from "../pages/Devis";
@@ -45,6 +46,10 @@ const appRoute = [
     {
         path: listLink.panier,
         Element: <Panier />,
+    },
+    {
+        path: listLink.accompagnement,
+        Element: <Accompagnement />,
     },
 ];
 
