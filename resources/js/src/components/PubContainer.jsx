@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AddPubComfirmationModal from "./AddPubComfirmationModal";
 import AddPuBModal from "./addPubModal";
 import Menu from "./Menu";
 import PubCard from "./PubCard";
@@ -33,6 +34,7 @@ const PubContainer = () => {
                 <Link className="text-primary" to={"#"}>Voir plus</Link>
             </div>
             <AddPuBModal />
+            <AddPubComfirmationModal />
         </Section>
     );
 };

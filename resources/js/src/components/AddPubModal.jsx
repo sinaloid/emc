@@ -84,6 +84,8 @@ const AddPuBModal = () => {
                                     <button
                                         type="button"
                                         className="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addComfirmationModal"
                                     >
                                         Ajouter au panier
                                     </button>
