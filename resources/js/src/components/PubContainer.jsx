@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AddPuBModal from "./addPubModal";
 import Menu from "./Menu";
 import PubCard from "./PubCard";
 import PubFilter from "./PubFilter";
@@ -31,6 +32,7 @@ const PubContainer = () => {
             <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
                 <Link className="text-primary" to={"#"}>Voir plus</Link>
             </div>
+            <AddPuBModal />
         </Section>
     );
 };

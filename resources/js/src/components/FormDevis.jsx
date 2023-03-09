@@ -61,6 +61,7 @@ const FormDevis = () => {
                                 />
                             </div>
                             <InputField
+                                col="col-md-3"
                                 type={"select2"}
                                 label={"Type d'entreprise"}
                                 value={""}
@@ -73,6 +74,7 @@ const FormDevis = () => {
                         <div className="row">
                             <div>
                                 <InputField
+                                    col="col-md-3"
                                     type={"select2"}
                                     label={"Tranches journalières"}
                                     value={""}
@@ -81,6 +83,7 @@ const FormDevis = () => {
                             </div>
                             <div>
                                 <InputField
+                                    col="col-md-3"
                                     type={"select2"}
                                     label={"Plage horaire"}
                                     value={""}
@@ -89,6 +92,7 @@ const FormDevis = () => {
                             </div>
                             <div className="row">
                                 <InputField
+                                    col="col-md-3"
                                     type={"select2"}
                                     label={"Durée du spot"}
                                     value={""}
@@ -135,8 +139,22 @@ const FormDevis = () => {
                                 hendrerit purus. Suspendisse lacinia neque vitae
                                 metus viverra accumsan.
                             </p>
+                            <div>
+                                <InputField
+                                    col="col-md-12"
+                                    type={"checkbox"}
+                                    label={
+                                        "Je certifie avoir lu et accepté les conditions"
+                                    }
+                                    value={""}
+                                    options={[]}
+                                />
+                            </div>
                             <div className="col-md-4">
-                                <Link to={"/radios/telecharger-le-devis"} className="btn btn-primary">
+                                <Link
+                                    to={"/radios/telecharger-le-devis"}
+                                    className="btn btn-primary"
+                                >
                                     Envoyer la demande de service
                                 </Link>
                             </div>

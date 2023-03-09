@@ -39,7 +39,7 @@ const InputField = ({
 
     if (type === "select2") {
         return (
-            <div className="col-md-3 mb-3">
+            <div className={"mb-3 "+col}>
                 <label htmlFor={name} className="form-label">
                     {label}
                 </label>
@@ -147,7 +147,7 @@ const InputField = ({
 
     if (type === "checkbox") {
         return (
-            <div className="col-md-12 mb-3">
+            <div className={"mb-3 "+col}>
                 <div class="form-check">
                     <input
                         class="form-check-input"
@@ -158,7 +158,7 @@ const InputField = ({
                         onChange={handleChange}
                     />
                     <label
-                        class="form-check-label"
+                        class="form-check-label text-primary"
                         for="flexCheckIndeterminate"
                     >
                         {label}

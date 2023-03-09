@@ -157,3 +157,7 @@ body {
   .link {
     color: var(--primary-color) !important;
   }
+
+  div.border-bottom.d-inline-block{
+    border-bottom: 2px solid var(--secondary-color) !important;
+  }

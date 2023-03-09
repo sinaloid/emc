@@ -1,14 +1,43 @@
-const Button = ({ children, name, classe, callback = () => {} }) => {
+const Button = ({
+    children,
+    name,
+    classe,
+    callback = () => {},
+    isModal = false,
+    idModal = ""
+}) => {
     return (
-        <button className={"rounded-1 btn " + classe} onClick={callback}>
-            {children ? (
-                children
+        <>
+            {isModal ? (
+                <button
+                    data-bs-toggle="modal"
+                    data-bs-target={idModal}
+                    className={"rounded-1 btn " + classe}
+                    onClick={callback}
+                >
+                    {children ? (
+                        children
+                    ) : (
+                        <>
+                            <span>{name}</span>
+                        </>
+                    )}
+                </button>
             ) : (
-                <>
-                    <span>{name}</span>
-                </>
+                <button
+                    className={"rounded-1 btn " + classe}
+                    onClick={callback}
+                >
+                    {children ? (
+                        children
+                    ) : (
+                        <>
+                            <span>{name}</span>
+                        </>
+                    )}
+                </button>
             )}
-        </button>
+        </>
     );
 };
 

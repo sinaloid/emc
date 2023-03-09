@@ -10,7 +10,7 @@ const PubCard = () => {
             <div className="text-center py-3">
                 <h4>Affichage 2m²</h4>
                 <span className="text-primary my-2 d-inline-block">Stade du 4 Août</span> <br />
-                <Button classe={"btn-pub"}>
+                <Button classe={"btn-pub"} isModal={true} idModal={"#addModal"}>
                     <PubDash /> Ajouter au panier
                 </Button>
             </div>
