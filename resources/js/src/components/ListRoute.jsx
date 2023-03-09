@@ -5,6 +5,7 @@ import Devis from "../pages/Devis";
 import Journaux from "../pages/Journaux";
 import Media from "../pages/Media";
 import MediaDetail from "../pages/MediaDetail";
+import Panier from "../pages/Panier";
 import Presse from "../pages/Presse";
 import Produit from "../pages/Produit";
 import Radio from "../pages/Radio";
@@ -40,6 +41,10 @@ const appRoute = [
     {
         path: listLink.journaux_,
         Element: <Journaux />,
+    },
+    {
+        path: listLink.panier,
+        Element: <Panier />,
     },
 ];
 

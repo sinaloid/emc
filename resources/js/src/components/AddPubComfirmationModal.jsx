@@ -1,6 +1,11 @@
+import { list } from "postcss";
+import { useNavigate } from "react-router-dom";
+import { listLink } from "../utils/listLink";
 import InputField from "./InputField";
 
 const AddPubComfirmationModal = () => {
+
+    const navigate = useNavigate()
     return (
         <div id="addComfirmationModal" className="modal" tabindex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -51,6 +56,10 @@ const AddPubComfirmationModal = () => {
                                     type="button"
                                     className="btn btn-primary mb-3 me-1"
                                     data-bs-dismiss="modal"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        navigate(listLink.index)
+                                    }}
                                 >
                                     Continuer mes achats
                                 </button>
@@ -58,6 +67,10 @@ const AddPubComfirmationModal = () => {
                                     type="button"
                                     className="btn btn-secondary mb-3"
                                     data-bs-dismiss="modal"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        navigate(listLink.panier)
+                                    }}
                                 >
                                     Voir mon panier
                                 </button>

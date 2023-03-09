@@ -6,6 +6,7 @@ export  const listLink = {
     affichage:"/publicites",
     carte:"/publicites-sur-carte",
     media:"/medias",
+    panier:"/panier",
     radio_:"/radios/*",
     radio:"/radios",
     produit:"produits",

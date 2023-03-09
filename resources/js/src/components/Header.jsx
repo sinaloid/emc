@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Button from "./Button";
 import Dash from "./imgs/Dash";
@@ -74,7 +74,8 @@ const Header = () => {
                                             {" "}
                                             <Dash />
                                         </button>
-                                        <button
+                                        <Link
+                                            to={listLink.panier}
                                             type="button"
                                             className="btn btn-tertiary p-0"
                                         >
@@ -89,7 +90,7 @@ const Header = () => {
                                                     02 produits
                                                 </span>
                                             </span>
-                                        </button>
+                                        </Link>
                                     </div>
                                 </li>
                             </ul>
