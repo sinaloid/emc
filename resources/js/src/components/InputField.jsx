@@ -158,6 +158,29 @@ const InputField = ({
                         onChange={handleChange}
                     />
                     <label
+                        class="form-check-label"
+                        for="flexCheckIndeterminate"
+                    >
+                        {label}
+                    </label>
+                </div>
+            </div>
+        );
+    }
+
+    if (type === "checkbox2") {
+        return (
+            <div className={"mb-3 "+col}>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id={name}
+                        name={name}
+                        value={value}
+                        onChange={handleChange}
+                    />
+                    <label
                         class="form-check-label text-primary"
                         for="flexCheckIndeterminate"
                     >

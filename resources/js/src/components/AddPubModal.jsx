@@ -74,7 +74,7 @@ const AddPuBModal = () => {
                                 <div>
                                     <InputField
                                         col="col-md-12"
-                                        type={"checkbox"}
+                                        type={"checkbox2"}
                                         label={"Je certifie avoir lu et accepté les conditions"}
                                         value={""}
                                         options={[]}
