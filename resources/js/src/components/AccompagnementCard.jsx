@@ -1,36 +1,125 @@
-import { Link } from "react-router-dom";
-import Button from "./Button";
-import RadioIMG from "./imgs/RadioIMG";
+import InputField from "./InputField";
 
-const AccompagnementCard = ({ title = "", prix, link, linkText, btn }) => {
+const AccompagnementCard = () => {
     return (
-        <div className="card shadow">
-            <div className="card-header bg-primary">
-                <h2 className="text-white text-18 text-center">{title}</h2>
-            </div>
-            <div className="py-3 mx-auto px-2">
-                <span className="my-2 d-inline-block">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam mattis eleifend tellus, vel viverra ante tincidunt
-                    placerat. Nulla mi dolor, massa pellentesque ut massa et,
-                    fermentum hendrerit purus. Suspendisse lacinia neque vitae
-                    metus viverra accumsan.
-                </span>{" "}
-                <p className="text-40 fw-bold text-center py-2">
-                    {prix} <sup>CFA</sup>
-                </p>
-                <ul>
-                    {[...Array(9).keys()].map((data, idx) => {
-                        return <li key={idx}>Media mis en avant</li>;
-                    })}
-                </ul>
-                <div className="d-flex justify-content-center">
-                    <Link
-                        to={link}
-                        className={"btn text-uppercase " + btn}
-                    >
-                        {linkText}
-                    </Link>
+        <div id="accompagnement" className="modal fade" tabindex="-1">
+            <div className="modal-dialog modal-lg modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header bg-primary">
+                        <h5 className="modal-title text-white">
+                            Pour ajouter ce produit à votre panier, veuillez
+                            nous fournir quelques détails
+                        </h5>
+                        <button
+                            type="button"
+                            className="btn-close bg-white"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="row">
+                            <div className="col-md-8 mx-auto">
+                                <div className="border-bottom d-inline-block mb-3 text-22">
+                                    Description du produit
+                                </div>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Aliquam mattis eleifend
+                                    tellus, vel viverra ante tincidunt placerat.
+                                    Nulla mi dolor, pellentesque ut massa et,
+                                    fermentum hendrerit purus. Suspendisse
+                                    lacinia neque vitae metus viverra accumsan.
+                                </p>
+                                <div className="border-bottom d-inline-block mb-3 text-22">
+                                    Détails de la campagne
+                                </div>
+                                <div>
+                                    <InputField
+                                        col="col-md-6"
+                                        type={"select2"}
+                                        label={"Tranches journalières"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <div>
+                                    <InputField
+                                        col="col-md-6"
+                                        type={"select2"}
+                                        label={"Plage horaire"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <div>
+                                    <InputField
+                                        col="col-md-6"
+                                        type={"select2"}
+                                        label={"Date de diffusion"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <div className="d-flex">
+                                    <InputField
+                                        col="col-md-6 me-2"
+                                        type={"select2"}
+                                        label={"Durée du spot"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                    <InputField
+                                        col="col-md-6"
+                                        type={"text2"}
+                                        label={"Coût"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <div className="border-bottom d-inline-block mb-3 text-22">
+                                    Fichiers
+                                </div>
+                                <div>
+                                    <InputField
+                                        col="col-md-6"
+                                        type={"file"}
+                                        label={"Télécharger votre fichier"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit. Aliquam mattis eleifend
+                                    tellus, vel viverra ante tincidunt placerat.
+                                    Nulla mi dolor, pellentesque ut massa et,
+                                    fermentum hendrerit purus. Suspendisse
+                                    lacinia neque vitae metus viverra accumsan.
+                                </p>
+                                <div>
+                                    <InputField
+                                        col="col-md-12"
+                                        type={"checkbox2"}
+                                        label={"Je certifie avoir lu et accepté les conditions"}
+                                        value={""}
+                                        options={[]}
+                                    />
+                                </div>
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#addComfirmationModal"
+                                    >
+                                        Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

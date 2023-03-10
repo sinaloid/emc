@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Accompagnement from "../pages/Accompagnement";
+import Accompagnement from "../pages/ReferencerMedia";
 import Accueil from "../pages/Accueil";
 import Carte from "../pages/Carte";
 import Devis from "../pages/Devis";
@@ -47,10 +47,6 @@ const appRoute = [
         path: listLink.panier,
         Element: <Panier />,
     },
-    {
-        path: listLink.accompagnement,
-        Element: <Accompagnement />,
-    },
 ];
 
 const homeRoute = [
@@ -69,6 +65,10 @@ const homeRoute = [
     {
         path: listLink.media,
         Element: <Media />,
+    },
+    {
+        path: listLink.referencer,
+        Element: <Accompagnement />,
     },
 ];
 

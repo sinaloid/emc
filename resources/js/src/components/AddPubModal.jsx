@@ -2,7 +2,7 @@ import InputField from "./InputField";
 
 const AddPuBModal = () => {
     return (
-        <div id="addModal" className="modal" tabindex="-1">
+        <div id="addModal" className="modal fade" tabindex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header bg-primary">
@@ -27,7 +27,7 @@ const AddPuBModal = () => {
                                 />
                             </div>
                             <div className="col-md-8 border-start">
-                                <div className="border-bottom d-inline-block mb-3">
+                                <div className="border-bottom d-inline-block mb-3 text-22">
                                     Description du produit
                                 </div>
 
@@ -39,7 +39,7 @@ const AddPuBModal = () => {
                                     fermentum hendrerit purus. Suspendisse
                                     lacinia neque vitae metus viverra accumsan.
                                 </p>
-                                <div className="border-bottom d-inline-block mb-3">
+                                <div className="border-bottom d-inline-block mb-3 text-22">
                                     Détails de la campagne
                                 </div>
                                 <div>
@@ -51,7 +51,7 @@ const AddPuBModal = () => {
                                         options={[]}
                                     />
                                 </div>
-                                <div className="border-bottom d-inline-block mb-3">
+                                <div className="border-bottom d-inline-block mb-3 text-22">
                                     Fichiers
                                 </div>
                                 <div>

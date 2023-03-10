@@ -7,7 +7,7 @@ const AddPubComfirmationModal = () => {
 
     const navigate = useNavigate()
     return (
-        <div id="addComfirmationModal" className="modal" tabindex="-1">
+        <div id="addComfirmationModal" className="modal fade" tabindex="-1">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header bg-primary">

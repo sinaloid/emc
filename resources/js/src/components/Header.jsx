@@ -35,7 +35,7 @@ const Header = () => {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={"#"}>
+                                    <NavLink className="nav-link" to={listLink.referencer}>
                                         Tarifs
                                     </NavLink>
                                 </li>
@@ -45,24 +45,22 @@ const Header = () => {
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Button
-                                        name={"Se connecter"}
-                                        classe={
-                                            "btn-secondary text-uppercase mx-1 mb-3"
-                                        }
-                                        callback={() => {}}
-                                    />
+                                <button
+                                    className="btn btn-secondary text-uppercase mx-1 mb-3"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#loginModal"
+                                    >
+                                        Se connecter
+                                    </button>
                                 </li>
                                 <li className="nav-item">
-                                    <Button
-                                        name={"accompagnement sur-mesure"}
-                                        classe={
-                                            "btn-primary text-uppercase mx-1 mb-3"
-                                        }
-                                        callback={() => {
-                                            navigate(listLink.accompagnement)
-                                        }}
-                                    />
+                                    <button
+                                    className="btn btn-primary text-uppercase mx-1 mb-3"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#accompagnement"
+                                    >
+                                        accompagnement sur-mesure
+                                    </button>
                                 </li>
                                 <li className="nav-item">
                                     <div

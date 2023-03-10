@@ -20,7 +20,7 @@ const InputField = ({
         return (
             <div className={col}>
                 <div className="mb-3">
-                    <label htmlFor={name} className="form-label">
+                    <label htmlFor={name} className="form-label fw-bold ">
                         {label}
                     </label>
                     <input
@@ -40,7 +40,7 @@ const InputField = ({
     if (type === "select2") {
         return (
             <div className={"mb-3 "+col}>
-                <label htmlFor={name} className="form-label">
+                <label htmlFor={name} className="form-label fw-bold ">
                     {label}
                 </label>
                 <select
@@ -64,7 +64,7 @@ const InputField = ({
     if (type === "text") {
         return (
             <div className={col}>
-                <div className="form-floating mb-3">
+                <div className="form-floating mb-3 fw-bold">
                     <input
                         className="form-control form-control-sm form-floating-height"
                         type="text"
@@ -85,7 +85,7 @@ const InputField = ({
     if (type === "date") {
         return (
             <div className="col-md-12">
-                <div className="form-floating mb-3">
+                <div className="form-floating mb-3 fw-bold">
                     <input
                         className="form-control form-control-sm form-floating-height"
                         type="date"
@@ -107,7 +107,7 @@ const InputField = ({
         return (
             <div className={col}>
                 <div className="mb-3">
-                    <label htmlFor={name} className="form-label mb-4">
+                    <label htmlFor={name} className="form-label mb-4 fw-bold">
                         {label}
                     </label>
                     <input

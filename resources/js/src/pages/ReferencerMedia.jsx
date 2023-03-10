@@ -1,9 +1,10 @@
 import Page from "./Page";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import AccompagnementCard from "../components/AccompagnementCard";
+import AccompagnementCard from "../components/ReferencerMediaCard";
+import ReferencerMediaCard from "../components/ReferencerMediaCard";
 
-const Accompagnement = () => {
+const ReferenceMedia = () => {
     return (
         <>
             <Header />
@@ -66,7 +67,7 @@ const Accompagnement = () => {
                             </div>
                             <div className="row justify-content-center">
                                 <div className="col-md-5">
-                                    <AccompagnementCard
+                                    <ReferencerMediaCard
                                         title={"Gratuit"}
                                         prix={"0 F"}
                                         linkText={"Lancez-vous"}
@@ -74,7 +75,7 @@ const Accompagnement = () => {
                                     />
                                 </div>
                                 <div className="col-md-5">
-                                    <AccompagnementCard
+                                    <ReferencerMediaCard
                                         title={"Annuel"}
                                         prix={"800 000 F"}
                                         linkText={"Demandez un devis"}
@@ -90,4 +91,4 @@ const Accompagnement = () => {
     );
 };
 
-export default Accompagnement;
+export default ReferenceMedia;

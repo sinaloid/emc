@@ -4,6 +4,8 @@ import FAQ from "../components/FAQ";
 import { Link, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import { useEffect } from "react";
+import AccompagnementCard from "../components/AccompagnementCard";
+import LoginModal from "../components/LoginModal";
 
 const Page = ({children}) => {
     const navigate = useNavigate()
@@ -28,7 +30,7 @@ const Page = ({children}) => {
                 buttonName={"référencer un média"}
                 bg={"bg-gray"}
                 callback={() => {
-                    navigate(listLink.accompagnement)
+                    navigate(listLink.referencer)
                 }}
             />
             <Banier
@@ -56,6 +58,8 @@ const Page = ({children}) => {
                 hasImgs={false}
             />
             <FAQ />
+            <AccompagnementCard />
+            <LoginModal />
         </>
     );
 };
