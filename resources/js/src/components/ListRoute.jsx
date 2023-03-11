@@ -251,6 +251,14 @@ const dashboardRoute = [
         Element: <>Devis</>,
     },
     {
+        path: listLink.dashboard_paiement,
+        Element: <>Mes paiement</>,
+    },
+    {
+        path: listLink.dashboard_article,
+        Element: <>Mes articles</>,
+    },
+    {
         path: listLink.dashboard_compte,
         Element: <><Compte /></>,
     },

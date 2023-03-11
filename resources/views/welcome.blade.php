@@ -390,8 +390,7 @@
             font-family: 'Montserrat', sans-serif;
         }
     </style>
-    <script src="/js/app.js" defer></script>
-    
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 
 <body>
@@ -400,5 +399,6 @@
     </div>
     <!-- React JS -->
 </body>
+<script src="{{ mix('js/app.js') }}"></script>
 
 </html>

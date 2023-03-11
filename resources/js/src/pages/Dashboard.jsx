@@ -19,7 +19,8 @@ const Dashboard = () => {
                             <img className="rounded-circle" width="64px" src="https://source.unsplash.com/random/600x600/?person=1" alt="" />
                             </div>
                             <div className="">
-                                <span className="fw-bold text-18">Traore Ali</span>
+                                <span className="fw-bold text-18">Traore Ali</span><br />
+                                <span className="">Type de compte</span>
                             </div>
                         </div>
                         <ul className="nav flex-column px-2">
@@ -69,6 +70,30 @@ const Dashboard = () => {
                                     to={listLink.dashboard_devis}
                                 >
                                     Mes devis
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <NavLink
+                                    className={({ isActive }) =>
+                                    isActive
+                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                }
+                                    to={listLink.dashboard_paiement}
+                                >
+                                    Mes paiements
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <NavLink
+                                    className={({ isActive }) =>
+                                    isActive
+                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                }
+                                    to={listLink.dashboard_article}
+                                >
+                                    Mes articles
                                 </NavLink>
                             </li>
                         </ul>
