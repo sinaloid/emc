@@ -2,7 +2,7 @@ import InputField from "./InputField";
 
 const AddPuBModal = () => {
     return (
-        <div id="addModal" className="modal fade" tabindex="-1">
+        <div id="addModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header bg-primary">

@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { listLink } from "../utils/listLink";
 import InputField from "./InputField";
 
 const LoginModal = () => {
+    const navigate = useNavigate()
+
+    const onConnect = () => {
+
+        navigate(listLink.dashboard)
+    }
     return (
-        <div id="loginModal" className="modal fade" tabindex="-1">
+        <div id="loginModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -65,7 +72,8 @@ const LoginModal = () => {
                                     <button
                                         type="button"
                                         className="btn btn-primary w-100"
-                                        
+                                        data-bs-dismiss="modal"
+                                        onClick={onConnect}
                                     >
                                         Je me connecte
                                     </button>

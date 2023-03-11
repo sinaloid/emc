@@ -1,8 +1,8 @@
 import InputField from "./InputField";
 
-const AccompagnementCard = () => {
+const AccompagnementModal = () => {
     return (
-        <div id="accompagnement" className="modal fade" tabindex="-1">
+        <div id="accompagnement" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header bg-primary">
@@ -126,4 +126,4 @@ const AccompagnementCard = () => {
     );
 };
 
-export default AccompagnementCard;
+export default AccompagnementModal;

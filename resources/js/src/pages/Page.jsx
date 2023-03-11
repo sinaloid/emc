@@ -4,8 +4,9 @@ import FAQ from "../components/FAQ";
 import { Link, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import { useEffect } from "react";
-import AccompagnementCard from "../components/AccompagnementCard";
 import LoginModal from "../components/LoginModal";
+import AccompagnementModal from "../components/AccompagnementModal";
+import Footer from "../components/Footer";
 
 const Page = ({children}) => {
     const navigate = useNavigate()
@@ -58,8 +59,9 @@ const Page = ({children}) => {
                 hasImgs={false}
             />
             <FAQ />
-            <AccompagnementCard />
+            <AccompagnementModal />
             <LoginModal />
+            <Footer />
         </>
     );
 };

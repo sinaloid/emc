@@ -19,4 +19,12 @@ export  const listLink = {
     presse:"/presse-ecrite",
     journaux_:"/journaux-en-ligne/*",
     journaux:"/journaux-en-ligne",
+    dashboard_:"/tableau-de-bord/*",
+    dashboard:"/tableau-de-bord/",
+    dashboard_home:"tableau-de-bord/",
+    dashboard_demande:"demandes",
+    dashboard_campagne:"campagne",
+    dashboard_devis:"devis",
+    dashboard_compte:"compte",
+    dashboard_admin:"administration",
 }

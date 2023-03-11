@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import { Link } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Delete from "../components/imgs/Delete";
+import Footer from "../components/Footer";
 
 const Panier = () => {
     return (
@@ -48,6 +49,7 @@ const Panier = () => {
                     </div>
                 </div>
             </Section>
+            <Footer />
         </>
     );
 };

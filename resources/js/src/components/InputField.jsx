@@ -159,7 +159,7 @@ const InputField = ({
                     />
                     <label
                         class="form-check-label"
-                        for="flexCheckIndeterminate"
+                        htmlFor="flexCheckIndeterminate"
                     >
                         {label}
                     </label>
@@ -182,7 +182,7 @@ const InputField = ({
                     />
                     <label
                         class="form-check-label text-primary"
-                        for="flexCheckIndeterminate"
+                        htmlFor="flexCheckIndeterminate"
                     >
                         {label}
                     </label>

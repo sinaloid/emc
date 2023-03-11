@@ -17,6 +17,8 @@ import FormDevis from "./FormDevis";
 import ProduitHeader from "./ProduitHeader";
 import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
+import Dashboard from "../pages/DashBoard";
+import Compte from "../pages/Compte";
 
 const appRoute = [
     {
@@ -46,6 +48,10 @@ const appRoute = [
     {
         path: listLink.panier,
         Element: <Panier />,
+    },
+    {
+        path: listLink.dashboard_,
+        Element: <Dashboard />,
     },
 ];
 
@@ -227,6 +233,33 @@ const journauxRoute = [
     },
 ];
 
+const dashboardRoute = [
+    {
+        path: listLink.index,
+        Element: <>Tableau de bord</>,
+    },
+    {
+        path: listLink.dashboard_demande,
+        Element: <>Demandes de réservation</>,
+    },
+    {
+        path: listLink.dashboard_campagne,
+        Element: <>Campagne</>,
+    },
+    {
+        path: listLink.dashboard_devis,
+        Element: <>Devis</>,
+    },
+    {
+        path: listLink.dashboard_compte,
+        Element: <><Compte /></>,
+    },
+    {
+        path: listLink.dashboard_admin,
+        Element: <>Administration</>,
+    },
+];
+
 const GetRoute = ({ list }) => {
     return (
         <Routes>
@@ -237,4 +270,4 @@ const GetRoute = ({ list }) => {
     );
 };
 
-export { GetRoute, appRoute, homeRoute, radioRoute, teleRoute, presseRoute, journauxRoute};
+export { GetRoute, appRoute, homeRoute, radioRoute, teleRoute, presseRoute, journauxRoute, dashboardRoute};

@@ -8,7 +8,7 @@ const App = () => {
     return (
         <>
             <GetRoute list={appRoute} />
-            <Footer />
+            
         </>
     );
 };
