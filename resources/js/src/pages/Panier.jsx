@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Delete from "../components/imgs/Delete";
 import Footer from "../components/Footer";
+import LoginModal from "../components/LoginModal";
 
 const Panier = () => {
     return (
@@ -47,6 +48,7 @@ const Panier = () => {
                     </div>
                     </div>
                 </div>
+                <LoginModal />
             </Section>
             <Footer />
         </>
