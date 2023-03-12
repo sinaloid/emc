@@ -20,7 +20,9 @@ import Dashboard from "../pages/DashBoard";
 import Compte from "../pages/Compte";
 import Demande from "../dashboard/Demande";
 import Paiement from "../dashboard/Paiement";
-import Article from "../dashboard/Article";
+import DevisDash from "../dashboard/DevisDash";
+import SupportPublicitaire from "../dashboard/SupportPublicitaire";
+import Campagne from "../dashboard/Campagne";
 
 const appRoute = [
     {
@@ -246,19 +248,19 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_campagne,
-        Element: <>Campagne</>,
+        Element: <Campagne />,
     },
     {
         path: listLink.dashboard_devis,
-        Element: <>Devis</>,
+        Element: <DevisDash />,
     },
     {
         path: listLink.dashboard_paiement,
         Element: <Paiement />,
     },
     {
-        path: listLink.dashboard_article,
-        Element: <Article />,
+        path: listLink.dashboard_support,
+        Element: <SupportPublicitaire />,
     },
     {
         path: listLink.dashboard_compte,

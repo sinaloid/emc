@@ -4,7 +4,10 @@ import ContentHeader from "./ContentHeader";
 const Paiement = () => {
     return (
         <>
-            <ContentHeader title={"Mes paiements"} />
+            <ContentHeader 
+                title={"Mes paiements"} 
+                addBtn="Faire un paiement"
+            />
             <div className="row">
                 <div className="col-12">
                     <table class="table table-striped">

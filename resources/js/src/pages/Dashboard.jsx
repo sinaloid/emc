@@ -103,10 +103,9 @@ const Dashboard = () => {
                                             ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
                                             : "btn nav-link border py-0 btn-dash text-start pt-1"
                                     }
-                                    to={listLink.dashboard_article}
+                                    to={listLink.dashboard_support}
                                 >
-                                    Mes articles
-                                </NavLink>
+                                    Mes supports publicitaires                                </NavLink>
                             </li>
                         </ul>
 

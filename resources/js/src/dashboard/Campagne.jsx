@@ -1,12 +1,12 @@
 import ActionButton from "../components/ActionButton";
 import ContentHeader from "./ContentHeader";
 
-const Demande = () => {
+const Campagne = () => {
     return (
         <>
             <ContentHeader
-                title={"Mes demandes de réservations"}
-                addBtn="Faire une demande de réservation"
+                title={"Mes campagnes"}
+                
             />
 
             <div className="row">
@@ -36,16 +36,15 @@ const Demande = () => {
                                         <td>
                                             {idx % 2 === 0 ? (
                                                 <span className="badge text-bg-success">
-                                                    Accepter
+                                                    Terminer
                                                 </span>
                                             ) : (
                                                 <span className="badge text-bg-info">
-                                                    En cours <br />
-                                                    Refuser
+                                                    En cours
                                                 </span>
                                             )}
                                         </td>
-                                        <td>150.000 FCFA</td>
+                                        <td>250.000 FCFA</td>
                                         <td className="text-center">
                                             <ActionButton />
                                         </td>
@@ -60,4 +59,4 @@ const Demande = () => {
     );
 };
 
-export default Demande;
+export default Campagne;
