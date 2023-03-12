@@ -12,13 +12,15 @@ import Produit from "../pages/Produit";
 import Radio from "../pages/Radio";
 import Tele from "../pages/Tele";
 import { listLink } from "../utils/listLink";
-import Banier from "./Banier";
 import FormDevis from "./FormDevis";
 import ProduitHeader from "./ProduitHeader";
 import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
 import Dashboard from "../pages/DashBoard";
 import Compte from "../pages/Compte";
+import Demande from "../dashboard/Demande";
+import Paiement from "../dashboard/Paiement";
+import Article from "../dashboard/Article";
 
 const appRoute = [
     {
@@ -240,7 +242,7 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_demande,
-        Element: <>Demandes de réservation</>,
+        Element: <Demande />,
     },
     {
         path: listLink.dashboard_campagne,
@@ -252,11 +254,11 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_paiement,
-        Element: <>Mes paiement</>,
+        Element: <Paiement />,
     },
     {
         path: listLink.dashboard_article,
-        Element: <>Mes articles</>,
+        Element: <Article />,
     },
     {
         path: listLink.dashboard_compte,

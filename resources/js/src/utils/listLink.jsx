@@ -27,7 +27,6 @@ export  const listLink = {
     dashboard_devis:"devis",
     dashboard_paiement:"paiement",
     dashboard_article:"article",
-    dashboard_devis:"devis",
     dashboard_compte:"compte",
     dashboard_admin:"administration",
 }

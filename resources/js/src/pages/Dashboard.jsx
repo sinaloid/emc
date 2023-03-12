@@ -1,13 +1,15 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/dashboard.css";
-import Logo from "../components/imgs/Logo";
 import { dashboardRoute, GetRoute } from "../components/ListRoute";
+import Message from "../components/Message";
+import Notification from "../components/Notification";
+import ProfileOption from "../components/ProfileOption";
 import { listLink } from "../utils/listLink";
 
 const Dashboard = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     return (
-        <div className="container-fluid">
+        <div className="container-fluid px-0">
             <div className="row">
                 <nav
                     id="sidebarMenu"
@@ -16,10 +18,18 @@ const Dashboard = () => {
                     <div className="position-sticky pt-1 sidebar-sticky h-100">
                         <div className="d-flex pb-5 px-2 align-items-center">
                             <div className="me-2">
-                            <img className="rounded-circle" width="64px" src="https://source.unsplash.com/random/600x600/?person=1" alt="" />
+                                <img
+                                    className="rounded-circle"
+                                    width="64px"
+                                    src="https://source.unsplash.com/random/600x600/?person=1"
+                                    alt=""
+                                />
                             </div>
                             <div className="">
-                                <span className="fw-bold text-18">Traore Ali</span><br />
+                                <span className="fw-bold text-18">
+                                    Traore Ali
+                                </span>
+                                <br />
                                 <span className="">Type de compte</span>
                             </div>
                         </div>
@@ -30,19 +40,21 @@ const Dashboard = () => {
                                     className={({ isActive }) =>
                                         isActive
                                             ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border-0 py-0 btn-dash text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
                                     }
                                 >
-                                    <span className="mt-1 d-block">Tableau de bord</span>
+                                    <span className="mt-1 d-block">
+                                        Tableau de bord
+                                    </span>
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
                                 <NavLink
                                     className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                }
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
                                     to={listLink.dashboard_demande}
                                 >
                                     Mes demandes
@@ -51,10 +63,10 @@ const Dashboard = () => {
                             <li className="nav-item mb-2">
                                 <NavLink
                                     className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                }
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
                                     to={listLink.dashboard_campagne}
                                 >
                                     Mes campagnes
@@ -63,10 +75,10 @@ const Dashboard = () => {
                             <li className="nav-item mb-2">
                                 <NavLink
                                     className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                }
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
                                     to={listLink.dashboard_devis}
                                 >
                                     Mes devis
@@ -75,10 +87,10 @@ const Dashboard = () => {
                             <li className="nav-item mb-2">
                                 <NavLink
                                     className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                }
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
                                     to={listLink.dashboard_paiement}
                                 >
                                     Mes paiements
@@ -87,10 +99,10 @@ const Dashboard = () => {
                             <li className="nav-item mb-2">
                                 <NavLink
                                     className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                        : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                }
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
                                     to={listLink.dashboard_article}
                                 >
                                     Mes articles
@@ -125,7 +137,7 @@ const Dashboard = () => {
                             </a>
                         </h6>
                         <ul className="nav flex-column w-100 position-absolute bottom-0 mb-2 px-2">
-                        <li className="nav-item my-1">
+                            <li className="nav-item my-1">
                                 <NavLink
                                     to={listLink.dashboard_admin}
                                     className={({ isActive }) =>
@@ -150,12 +162,12 @@ const Dashboard = () => {
                                 </NavLink>
                             </li>
                             <li className="nav-item my-1">
-                                <span className="btn nav-link border-0 py-0 btn-warning text-start pt-1"
-                                onClick={(e)=> {
-                                    e.preventDefault()
-                                    navigate("/")
-                                }
-                                }
+                                <span
+                                    className="btn nav-link border-0 py-0 btn-warning text-start pt-1"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate("/");
+                                    }}
                                 >
                                     Me déconnecter
                                 </span>
@@ -164,20 +176,25 @@ const Dashboard = () => {
                     </div>
                 </nav>
 
-                <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <div className="chartjs-size-monitor">
-                        <div className="chartjs-size-monitor-expand">
-                            <div className=""></div>
+                <main className="col-md-9 ms-sm-auto col-lg-10 px-0">
+                    
+                    <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom px-1 px-md-2 shadow">
+                        <div className="ms-auto d-flex">
+                            <div className="d-flex align-items-center me-2">
+                                <Message />
+                                <Notification />
+                            </div>
+                            <div className="d-flex px-2 align-items-center border-start">
+                                <ProfileOption />
+                            </div>
                         </div>
-                        <div className="chartjs-size-monitor-shrink">
-                            <div className=""></div>
-                        </div>
+                        
                     </div>
-                    <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 className="h2">Dashboard</h1>
-                    </div>
+                    
 
+                    <div className="container-fluid px-4">
                     <GetRoute list={dashboardRoute} />
+                    </div>
                 </main>
             </div>
         </div>

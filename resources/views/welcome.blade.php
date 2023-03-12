@@ -390,7 +390,8 @@
             font-family: 'Montserrat', sans-serif;
         }
     </style>
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @viteReactRefresh
+    @vite('resources/js/app.js')
 </head>
 
 <body>
@@ -399,6 +400,5 @@
     </div>
     <!-- React JS -->
 </body>
-<script src="{{ mix('js/app.js') }}"></script>
 
 </html>

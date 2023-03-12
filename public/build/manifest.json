@@ -19,15 +19,20 @@
     "file": "assets/marker-icon-574c3a5c.png",
     "src": "node_modules/leaflet/dist/images/marker-icon.png"
   },
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
   "resources/js/app.css": {
-    "file": "assets/app-b7b99773.css",
+    "file": "assets/app-ff4de3d4.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
+      "assets/search-8b144877.png",
       "assets/logo-c5c5f707.png",
       "assets/lg-fce38ed8.png",
-      "assets/search-8b144877.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/logo200-59eba22d.png",
@@ -38,9 +43,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-b7b99773.css"
+      "assets/app-ff4de3d4.css"
     ],
-    "file": "assets/app-5b8bf8e2.js",
+    "file": "assets/app-4e497274.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -67,10 +72,5 @@
   "resources/js/src/assets/imgs/search.png": {
     "file": "assets/search-8b144877.png",
     "src": "resources/js/src/assets/imgs/search.png"
-  },
-  "resources/sass/app.scss": {
-    "file": "assets/app-67dcdfd2.css",
-    "isEntry": true,
-    "src": "resources/sass/app.scss"
   }
 }

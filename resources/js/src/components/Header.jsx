@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
-import Button from "./Button";
 import Dash from "./imgs/Dash";
 import Logo from "./imgs/Logo";
 import Section from "./Section";
