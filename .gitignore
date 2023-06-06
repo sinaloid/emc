@@ -2,6 +2,11 @@
 #/public/build
 /public/categories
 /public/hot
+/public/medias
+/public/pdf
+/public/produits
+/public/users
+/public/files
 /public/storage
 /storage/*.key
 /vendor

@@ -5,9 +5,31 @@ import Message from "../components/Message";
 import Notification from "../components/Notification";
 import ProfileOption from "../components/ProfileOption";
 import { listLink } from "../utils/listLink";
+import { useContext, useEffect } from "react";
+import { AppContext, initialUser } from "../services/context";
+import { URL } from "../services/request";
 
 const Dashboard = () => {
+    const appCtx = useContext(AppContext);
+    const { user, onUserChange } = appCtx;
     const navigate = useNavigate();
+
+    useEffect(() =>{
+        isAuth()
+    })
+
+    const isAuth = () =>{
+        if(user.isAuth === false || user.isAuth === "" || user.isAuth === null){
+            navigate("/")
+        }
+    }
+
+    const deconnection = (e) =>{
+        e.preventDefault()
+        onUserChange(initialUser)
+        isAuth()
+    }
+
     return (
         <div className="container-fluid px-0">
             <div className="row">
@@ -21,16 +43,16 @@ const Dashboard = () => {
                                 <img
                                     className="rounded-circle"
                                     width="64px"
-                                    src="https://source.unsplash.com/random/600x600/?person=1"
+                                    src={URL+"/"+user.profile}
                                     alt=""
                                 />
                             </div>
                             <div className="">
                                 <span className="fw-bold text-18">
-                                    Traore Ali
+                                    {user.name}
                                 </span>
                                 <br />
-                                <span className="">Type de compte</span>
+                                <span className="">{user.status}</span>
                             </div>
                         </div>
                         <ul className="nav flex-column px-2">
@@ -163,10 +185,7 @@ const Dashboard = () => {
                             <li className="nav-item my-1">
                                 <span
                                     className="btn nav-link border-0 py-0 btn-warning text-start pt-1"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        navigate("/");
-                                    }}
+                                    onClick={deconnection}
                                 >
                                     Me déconnecter
                                 </span>

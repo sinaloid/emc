@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
+import { useContext } from "react";
+import { AppContext } from "../services/context";
+import { URL } from "../services/request";
 
 const ProfileOption = () => {
-
+    const appCtx = useContext(AppContext);
+    const { user, onUserChange } = appCtx;
     const navigate = useNavigate()
     return (
         <div className="dropdown">
@@ -15,15 +19,15 @@ const ProfileOption = () => {
             >
                 <div className="d-none d-md-block" style={{ lineHeight: "100%" }}>
                     <span className="fw-bold text-14 d-block m-0 p-0">
-                        Traore Ali
+                        {user.name}
                     </span>
-                    <span className="text-14">Type de compte</span>
+                    <span className="text-14">{user.status}</span>
                 </div>
                 <div className="ms-2">
                     <img
                         className="rounded-circle"
                         width="32px"
-                        src="https://source.unsplash.com/random/600x600/?person=1"
+                        src={URL+"/"+user.profile}
                         alt=""
                     />
                 </div>

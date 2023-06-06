@@ -4,11 +4,8 @@ import { getUser,setUser as updateUser } from "./storage";
 
 export const initialUser = {
     isAuth: false,
-    roles: [],
-    organisation: null,
-    organisationRef: null,
-    organisations: [],
     profile:"",
+    status:"",
     name: null,
     token: null,
 }

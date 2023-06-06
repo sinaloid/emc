@@ -104,8 +104,9 @@ class DevisController extends Controller
             'slug' => Str::random(8),
             'reference' => 'DEV-' . date('YmdHis')
         ]);
-        
+        //dd("ok");
         $pdf = Pdf::loadView('devis', compact('user','data','details'));
+        return $pdf->download();
         
         // Générez un nom de fichier unique pour le PDF
         $pdfPath = 'pdf/devis/devis-pdf-' . time() . '.pdf';
