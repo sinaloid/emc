@@ -1,14 +1,14 @@
 import ActionButton from "../components/ActionButton";
 import ContentHeader from "./ContentHeader";
 
-const SupportPublicitaire = () => {
+const MesMedias = () => {
     return (
         <>
             <ContentHeader
-                title={"Mes supports publicitaires "}
+                title={"Mes offres publicitaires "}
                 firstBtn="Liste des offres"
-                secondBtn="Liste des supports"
-                addBtn="Ajouter un support"
+                secondBtn="Liste des medias"
+                addBtn="Ajouter un media"
             />
 
             <div className="row">
@@ -57,4 +57,4 @@ const SupportPublicitaire = () => {
     );
 };
 
-export default SupportPublicitaire;
+export default MesMedias;

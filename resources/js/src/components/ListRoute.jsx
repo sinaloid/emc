@@ -21,8 +21,9 @@ import Compte from "../pages/Compte";
 import Demande from "../dashboard/Demande";
 import Paiement from "../dashboard/Paiement";
 import DevisDash from "../dashboard/DevisDash";
-import SupportPublicitaire from "../dashboard/SupportPublicitaire";
 import Campagne from "../dashboard/Campagne";
+import Administration from "../dashboard/Administration";
+import MesMedias from "../dashboard/MesMedias";
 
 const appRoute = [
     {
@@ -260,7 +261,7 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_support,
-        Element: <SupportPublicitaire />,
+        Element: <MesMedias />,
     },
     {
         path: listLink.dashboard_compte,
@@ -268,7 +269,7 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_admin,
-        Element: <>Administration</>,
+        Element: <Administration />,
     },
 ];
 

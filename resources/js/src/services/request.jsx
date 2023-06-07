@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const URL = "https://emc.edic-municipalities.com/"
-//export const URL = "http://127.0.0.1:8000/api/"
+//export const URL = "http://127.0.0.1:8000"
 
 const request = axios.create({
     baseURL: URL+"api/",

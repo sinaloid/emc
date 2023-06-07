@@ -1,4 +1,3 @@
-import dash from "../../assets/imgs/logo.png";
 
 const Dash = () => {
     return (

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import InputField from "./InputField";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useFormik } from "formik";
 import Input from "./Input";
 import request from "../services/request";
@@ -40,6 +40,7 @@ const LoginModal = () => {
             button: "Créer mon compte",
         },
     };
+    const modalBtn = useRef()
     const onConnect = () => {
         navigate(listLink.dashboard);
     };
@@ -151,6 +152,7 @@ const LoginModal = () => {
                             name: data.data.user.lastname + " "+data.data.user.firstname,
                             token: data.data.user.access_token,
                         });
+                        modalBtn.current.click()
                         onConnect();
                         return data.data.message;
                     },
@@ -179,6 +181,7 @@ const LoginModal = () => {
                             name: data.data.user.lastname + " "+data.data.user.firstname,
                             token: data.data.access_token,
                         });
+                        modalBtn.current.click()
                         onConnect();
                         return data.data.message;
                     },
@@ -198,6 +201,7 @@ const LoginModal = () => {
                 <div className="modal-content">
                     <div className="modal-header">
                         <button
+                            ref={modalBtn}
                             type="button"
                             className="btn-close bg-white"
                             data-bs-dismiss="modal"

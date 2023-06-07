@@ -14,21 +14,25 @@ const Dashboard = () => {
     const { user, onUserChange } = appCtx;
     const navigate = useNavigate();
 
-    useEffect(() =>{
-        isAuth()
-    })
+    useEffect(() => {
+        isAuth();
+    });
 
-    const isAuth = () =>{
-        if(user.isAuth === false || user.isAuth === "" || user.isAuth === null){
-            navigate("/")
+    const isAuth = () => {
+        if (
+            user.isAuth === false ||
+            user.isAuth === "" ||
+            user.isAuth === null
+        ) {
+            navigate("/");
         }
-    }
+    };
 
-    const deconnection = (e) =>{
-        e.preventDefault()
-        onUserChange(initialUser)
-        isAuth()
-    }
+    const deconnection = (e) => {
+        e.preventDefault();
+        onUserChange(initialUser);
+        isAuth();
+    };
 
     return (
         <div className="container-fluid px-0">
@@ -43,7 +47,7 @@ const Dashboard = () => {
                                 <img
                                     className="rounded-circle"
                                     width="64px"
-                                    src={URL+"/"+user.profile}
+                                    src={URL + "/" + user.profile}
                                     alt=""
                                 />
                             </div>
@@ -127,7 +131,8 @@ const Dashboard = () => {
                                     }
                                     to={listLink.dashboard_support}
                                 >
-                                    Mes supports publicitaires                                </NavLink>
+                                    Mes medias{" "}
+                                </NavLink>
                             </li>
                         </ul>
 
@@ -195,7 +200,6 @@ const Dashboard = () => {
                 </nav>
 
                 <main className="col-md-9 ms-sm-auto col-lg-10 px-0">
-                    
                     <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom px-1 px-md-2 shadow">
                         <div className="ms-auto d-flex">
                             <div className="d-flex align-items-center me-2">
@@ -206,12 +210,10 @@ const Dashboard = () => {
                                 <ProfileOption />
                             </div>
                         </div>
-                        
                     </div>
-                    
 
                     <div className="container-fluid px-4">
-                    <GetRoute list={dashboardRoute} />
+                        <GetRoute list={dashboardRoute} />
                     </div>
                 </main>
             </div>
