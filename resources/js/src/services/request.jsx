@@ -14,7 +14,7 @@ const request = axios.create({
     baseURL: URL+"api/",
     headers: {
         'Accept':'application/json',
-        'Authorization' : `Bearer ${user.token}`,
+        'Authorization' : `Bearer ${user?.token}`,
         "Content-Type":"multipart/form-data"
     },
 });
