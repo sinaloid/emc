@@ -7,9 +7,14 @@ import TabCategorieFiltre from "./components/TabCategorieFiltre";
 import TabUtilisateur from "./components/TabUtilisateur";
 import TabFiltre from "./components/TabFiltre";
 import TabMessage from "./components/TabMessage";
+import TabAbonnement from "./components/TabAbonnement";
+import TabAccompagnement from "./components/TabAccompagnement";
+import TabAttestation from "./components/TabAttestation";
 
 const Administration = () => {
-    const [tabView, setTabView] = useState("categorieMedia")
+    const [tabView, setTabView] = useState("categorieMedia");
+    const [btnName, setBtnName] = useState("")
+    const [restForm, setRestForm] = useState(() =>{})
     const stats = [
         {
             title: "Total media",
@@ -41,15 +46,19 @@ const Administration = () => {
         },
     ];
     const view = [
-        'categorieMedia',
-        'categorieFiltre',
-        'utilisateur',
-        'message',
-    ]
-    const changeTab = (e, name) =>{
-        e.preventDefault()
-        setTabView(name)
-    }
+        "filtre",
+        "message",
+        "utilisateur",
+        "abonnement",
+        "categorieFiltre",
+        "categorieMedia",
+        "accompagnement",
+        "attestation",
+    ];
+    const changeTab = (e, name) => {
+        e.preventDefault();
+        setTabView(name);
+    };
     return (
         <>
             <div className="row row-cols-1 row-cols-md-4">
@@ -72,23 +81,25 @@ const Administration = () => {
 
             <div className="row">
             <ContentHeaderIniline
-                title={"Administration"}
-                addBtn="Faire une demande de réservation"
-            />
+                    title={"Administration"}
+                    addBtn={btnName}
+                    tabView={tabView}
+                    restForm={restForm}
+                />
                 <div className="d-flex">
                     <div className="border">
                         <p className="fw-bold text-white text-center p-0 py-1  text-18 bg-primary">
                             Menu
                         </p>
-                        <div class="d-flex align-items-start mx-2">
+                        <div className="d-flex align-items-start mx-2">
                             <div
-                                class="nav flex-column nav-pills me-3"
+                                className="nav flex-column nav-pills me-3"
                                 id="v-pills-tab"
                                 role="tablist"
                                 aria-orientation="vertical"
                             >
                                 <button
-                                    class="nav-link text-start"
+                                    className="nav-link text-start"
                                     id="v-pills-disabled-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-disabled"
@@ -96,12 +107,12 @@ const Administration = () => {
                                     role="tab"
                                     aria-controls="v-pills-disabled"
                                     aria-selected="false"
-                                    onClick={e => changeTab(e,view[3])}
+                                    onClick={(e) => changeTab(e, view[0])}
                                 >
                                     Filtres
                                 </button>
                                 <button
-                                    class="nav-link text-start"
+                                    className="nav-link text-start"
                                     id="v-pills-messages-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-messages"
@@ -109,12 +120,12 @@ const Administration = () => {
                                     role="tab"
                                     aria-controls="v-pills-messages"
                                     aria-selected="false"
-                                    onClick={e => changeTab(e,view[4])}
+                                    onClick={(e) => changeTab(e, view[1])}
                                 >
                                     Messages
                                 </button>
                                 <button
-                                    class="nav-link text-start"
+                                    className="nav-link text-start"
                                     id="v-pills-utilisateurs-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-utilisateurs"
@@ -122,27 +133,25 @@ const Administration = () => {
                                     role="tab"
                                     aria-controls="v-pills-utilisateurs"
                                     aria-selected="false"
-                                    onClick={e => changeTab(e,view[2])}
-
+                                    onClick={(e) => changeTab(e, view[2])}
                                 >
                                     Utilisateurs
                                 </button>
-
                                 <button
-                                    class="nav-link active text-start"
-                                    id="v-pills-home-tab"
+                                    className="nav-link text-start"
+                                    id="v-pills-demande-tab"
                                     data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-home"
+                                    data-bs-target="#v-pills-demande"
                                     type="button"
                                     role="tab"
-                                    aria-controls="v-pills-home"
-                                    aria-selected="true"
-                                    onClick={e => changeTab(e,view[0])}
+                                    aria-controls="v-pills-demande"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[3])}
                                 >
-                                    Catégories Medias
+                                    Abonnements
                                 </button>
                                 <button
-                                    class="nav-link text-start"
+                                    className="nav-link text-start"
                                     id="v-pills-profile-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile"
@@ -150,14 +159,53 @@ const Administration = () => {
                                     role="tab"
                                     aria-controls="v-pills-profile"
                                     aria-selected="false"
-                                    onClick={e => changeTab(e,view[1])}
+                                    onClick={(e) => changeTab(e, view[4])}
                                 >
                                     Catégories Filtres
                                 </button>
-                                {
-                                    /**
+                                <button
+                                    className="nav-link active text-start"
+                                    id="v-pills-home-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-home"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-home"
+                                    aria-selected="true"
+                                    onClick={(e) => changeTab(e, view[5])}
+                                >
+                                    Catégories Médias
+                                </button>
+
+                                <button
+                                    className="nav-link text-start"
+                                    id="v-pills-demande-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-demande"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-demande"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[6])}
+                                >
+                                    Accompagnement SM
+                                </button>
+                                <button
+                                    className="nav-link text-start"
+                                    id="v-pills-attestation-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-attestation"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-attestation"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[7])}
+                                >
+                                    Attestation de service
+                                </button>
+                                {/**
                                      * <button
-                                    class="nav-link"
+                                    className="nav-link"
                                     id="v-pills-settings-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings"
@@ -168,28 +216,19 @@ const Administration = () => {
                                 >
                                     Settings
                                 </button>
-                                     */
-                                }
+                                     */}
                             </div>
                         </div>
                     </div>
                     <div className="flex-grow-1">
-                        {
-                            tabView === view[0] && <TabCategorieMedia />
-                        }
-                        {
-                            tabView === view[1] && <TabCategorieFiltre />
-                        }
-                        {
-                            tabView === view[2] && <TabUtilisateur />
-                        }
-                        {
-                            tabView === view[3] && <TabFiltre />
-                        }
-                        {
-                            tabView === view[4] && <TabMessage />
-                        }
-                        
+                        {tabView === view[0] && <TabFiltre setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[1] && <TabMessage setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[2] && <TabUtilisateur setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[3] && <TabAbonnement setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[4] && <TabCategorieFiltre setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[5] && <TabCategorieMedia setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[6] && <TabAccompagnement setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[7] && <TabAttestation setRestForm={setRestForm} setBtnName={setBtnName} />}
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ import { AppContext } from "../services/context";
 const initUser = {
     email: "",
     otp: "",
-    numero: "",
+    number: "",
     firstname: "",
     lastname: "",
     status: "",
@@ -40,6 +40,11 @@ const LoginModal = () => {
             button: "Créer mon compte",
         },
     };
+    const statuts = [
+        {name:"Média",slug:"Média"},
+        {name:"Annonceur",slug:"Annonceur"},
+        {name:"Régie publicitaire",slug:"Régie publicitaire"},
+    ]
     const modalBtn = useRef()
     const onConnect = () => {
         navigate(listLink.dashboard);
@@ -76,11 +81,10 @@ const LoginModal = () => {
 
             if (formStep === "creation") {
                 const { email, otp, ...user } = values;
-                setUserForm({
+                register({
                     ...userForm,
                     ...user,
                 });
-                register();
             }
         },
     });
@@ -135,9 +139,9 @@ const LoginModal = () => {
         console.log(response);
     };
 
-    const register = async () => {
+    const register = async (data) => {
         const response = await toast.promise(
-            request.post(endPoint.register, userForm, {
+            request.post(endPoint.register, data, {
                 headers: { "Content-Type": "multipart/form-data" },
             }),
             {
@@ -145,20 +149,23 @@ const LoginModal = () => {
                 success: {
                     render({ data }) {
                         setFormStep("creation");
+                        console.log(data)
                         onUserChange({
                             isAuth: true,
                             status: data.data.user.status,
                             profile: data.data.user.image,
                             name: data.data.user.lastname + " "+data.data.user.firstname,
-                            token: data.data.user.access_token,
+                            token: data.data.access_token,
                         });
                         modalBtn.current.click()
                         onConnect();
-                        return data.data.message;
+                        return "Félicitations, votre compte a été créé avec succès";
                     },
                 },
                 error: {
                     render({ data }) {
+                        console.log(data)
+
                         return data.response.data.errors[0];
                     },
                 },
@@ -183,11 +190,13 @@ const LoginModal = () => {
                         });
                         modalBtn.current.click()
                         onConnect();
-                        return data.data.message;
+                        console.log(data.data)
+                        return "Connexion réussi !";
                     },
                 },
                 error: {
                     render({ data }) {
+                        console.log(data)
                         return data.response.data.errors;
                     },
                 },
@@ -390,10 +399,7 @@ const LoginModal = () => {
                                                 }
                                                 name={"status"}
                                                 formik={formik}
-                                                options={[
-                                                    "Annonceur",
-                                                    "Régie publicitaire",
-                                                ]}
+                                                options={statuts}
                                             />
                                             <Input
                                                 type={"password"}
@@ -450,7 +456,7 @@ const LoginModal = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer position="top-center" />
+            
         </div>
     );
 };

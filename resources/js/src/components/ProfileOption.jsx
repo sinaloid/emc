@@ -27,7 +27,7 @@ const ProfileOption = () => {
                     <img
                         className="rounded-circle"
                         width="32px"
-                        src={URL+"/"+user.profile}
+                        src={URL+""+user.profile}
                         alt=""
                     />
                 </div>
@@ -39,7 +39,7 @@ const ProfileOption = () => {
                         className="dropdown-item"
                         type="button"
                     >
-                        <i class="bi bi-person-fill"></i> Profile
+                        <i className="bi bi-person-fill"></i> Profile
                     </Link>
                 </li>
                 <li>
@@ -50,7 +50,7 @@ const ProfileOption = () => {
                             navigate("/");
                         }}
                     >
-                        <i class="bi bi-x-circle-fill"></i> Me déconnecter
+                        <i className="bi bi-x-circle-fill"></i> Me déconnecter
                     </button>
                 </li>
             </ul>

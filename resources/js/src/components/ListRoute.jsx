@@ -24,6 +24,9 @@ import DevisDash from "../dashboard/DevisDash";
 import Campagne from "../dashboard/Campagne";
 import Administration from "../dashboard/Administration";
 import MesMedias from "../dashboard/MesMedias";
+import MesDocuments from "../dashboard/MesDocuments";
+import ListeOffres from "../dashboard/medias/ListeOffres";
+import ListeMedia from "../dashboard/medias/ListeMedia";
 
 const appRoute = [
     {
@@ -86,14 +89,14 @@ const homeRoute = [
 const radioRoute = [
     {
         path: listLink.index,
-        Element: <MediaDetail title={"Radios"} buttonName={"choisir cette radio"}/>,
+        Element: (
+            <MediaDetail title={"Radios"} buttonName={"choisir cette radio"} />
+        ),
     },
     {
         path: listLink.produit,
         Element: (
-            <Produit title={"Radios"}
-            link={"/radios/devis"}
-            >
+            <Produit title={"Radios"} link={"/radios/devis"}>
                 <ProduitHeader
                     fitrstTitle={"Radios"}
                     firstContent={
@@ -124,15 +127,20 @@ const radioRoute = [
 const teleRoute = [
     {
         path: listLink.index,
-        Element: <MediaDetail title={"Télévision"} buttonName={"choisir cette télévision"}/>,
+        Element: (
+            <MediaDetail
+                title={"Télévision"}
+                buttonName={"choisir cette télévision"}
+            />
+        ),
     },
     {
         path: listLink.produit,
         Element: (
-            <Produit 
+            <Produit
                 title={"Les produits de la télévision BF1"}
                 link={"/televisions/devis"}
-                >
+            >
                 <ProduitHeader
                     fitrstTitle={"BF1 TV"}
                     firstContent={
@@ -163,15 +171,20 @@ const teleRoute = [
 const presseRoute = [
     {
         path: listLink.index,
-        Element: <MediaDetail title={"Presse écrite"} buttonName={"choisir cette presse écrite"}/>,
+        Element: (
+            <MediaDetail
+                title={"Presse écrite"}
+                buttonName={"choisir cette presse écrite"}
+            />
+        ),
     },
     {
         path: listLink.produit,
         Element: (
-            <Produit 
+            <Produit
                 title={"Les produits de la presse écrite"}
                 link={"/presse-ecrite/devis"}
-                >
+            >
                 <ProduitHeader
                     fitrstTitle={"Presse écrite"}
                     firstContent={
@@ -202,15 +215,20 @@ const presseRoute = [
 const journauxRoute = [
     {
         path: listLink.index,
-        Element: <MediaDetail title={"Journaux en ligne"} buttonName={"choisir ce journal en ligne"} />,
+        Element: (
+            <MediaDetail
+                title={"Journaux en ligne"}
+                buttonName={"choisir ce journal en ligne"}
+            />
+        ),
     },
     {
         path: listLink.produit,
         Element: (
-            <Produit 
+            <Produit
                 title={"Les produits du journal en ligne"}
                 link={"/journaux-en-ligne/devis"}
-                >
+            >
                 <ProduitHeader
                     fitrstTitle={"Journal en ligne"}
                     firstContent={
@@ -260,16 +278,35 @@ const dashboardRoute = [
         Element: <Paiement />,
     },
     {
-        path: listLink.dashboard_support,
+        path: listLink.dashboard_support_,
         Element: <MesMedias />,
     },
     {
+        path: listLink.dashboard_docs,
+        Element: <MesDocuments />,
+    },
+    {
         path: listLink.dashboard_compte,
-        Element: <><Compte /></>,
+        Element: (
+            <>
+                <Compte />
+            </>
+        ),
     },
     {
         path: listLink.dashboard_admin,
         Element: <Administration />,
+    },
+];
+
+const mediaRoute = [
+    {
+        path: listLink.index,
+        Element: <ListeOffres />,
+    },
+    {
+        path: listLink.dashboard_liste_media,
+        Element: <ListeMedia />,
     },
 ];
 
@@ -283,4 +320,14 @@ const GetRoute = ({ list }) => {
     );
 };
 
-export { GetRoute, appRoute, homeRoute, radioRoute, teleRoute, presseRoute, journauxRoute, dashboardRoute};
+export {
+    GetRoute,
+    appRoute,
+    homeRoute,
+    radioRoute,
+    teleRoute,
+    presseRoute,
+    journauxRoute,
+    dashboardRoute,
+    mediaRoute,
+};

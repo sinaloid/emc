@@ -47,7 +47,7 @@ const Dashboard = () => {
                                 <img
                                     className="rounded-circle"
                                     width="64px"
-                                    src={URL + "/" + user.profile}
+                                    src={URL + "" + user.profile}
                                     alt=""
                                 />
                             </div>
@@ -131,36 +131,37 @@ const Dashboard = () => {
                                     }
                                     to={listLink.dashboard_support}
                                 >
-                                    Mes medias{" "}
+                                    Mes médias{" "}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item mb-2">
+                                <NavLink
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
+                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
+                                    }
+                                    to={listLink.dashboard_docs}
+                                >
+                                    Mes documents{" "}
                                 </NavLink>
                             </li>
                         </ul>
 
                         <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                            <span>Ajouter une campagne</span>
-                            <a
-                                className="link-secondary"
-                                href="#"
-                                aria-label="Add a new report"
+                            <NavLink
+                                className="text-primary text-muted text-decoration-none"
+                                to={listLink.index}
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="feather feather-plus-circle align-text-bottom"
-                                    aria-hidden="true"
-                                >
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                </svg>
-                            </a>
+                                Retour{" "}
+                            </NavLink>
+                            <NavLink
+                                className="link-secondary text-primary"
+                                to={listLink.index}
+                                
+                            >
+                                <i className="bi bi-arrow-left-circle-fill"></i>
+                            </NavLink>
                         </h6>
                         <ul className="nav flex-column w-100 position-absolute bottom-0 mb-2 px-2">
                             <li className="nav-item my-1">

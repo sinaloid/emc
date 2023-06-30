@@ -225,3 +225,10 @@ body {
    background-color: var(--primary-color) !important;
    color: #fff !important;
 }
+
+.text-container {
+  width: 200px; /* Largeur de votre conteneur de texte */
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  overflow: hidden; /* Masque le contenu débordant du conteneur */
+  text-overflow: ellipsis; /* Affiche "..." à la fin du texte masqué */
+}

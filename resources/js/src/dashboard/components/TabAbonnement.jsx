@@ -1,18 +1,20 @@
-import { useEffect } from "react";
 import ActionButton from "../../components/ActionButton";
 import { useFormik } from "formik";
 import Input from "../../components/Input";
+import { useEffect } from "react";
 
-const initMessage = {
-    user:"",
-    message:""
-}
-const TabMessage = ({ setBtnName = () => {} }) => {
+const initAbonnement = {
+    name: "",
+    prix: "",
+    type: "",
+    description: "",
+};
+const TabAbonnement = ({ setBtnName = () => {} }) => {
     useEffect(() => {
-        setBtnName("Envoyer un message");
+        setBtnName("Ajouter un abonnement");
     }, []);
     const formik = useFormik({
-        initialValues: initMessage,
+        initialValues: initAbonnement,
         onSubmit: (values) => {
             console.log(values);
         },
@@ -24,9 +26,9 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                     <thead className="bg-primary text-white">
                         <tr>
                             <th>#</th>
-                            <th>Auteur du Message</th>
-                            <th>Type de compte</th>
-                            <th>Message</th>
+                            <th>Nom de l'abonnement</th>
+                            <th>Type d'abonnement</th>
+                            <th>prix</th>
                             <th className="text-center">Action</th>
                         </tr>
                     </thead>
@@ -47,12 +49,12 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                     </tbody>
                 </table>
             </div>
-            <div className="modal fade" id="message">
+            <div className="modal fade" id="abonnement">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Envoi d’un message
+                                Ajout d’un abonnement
                             </h4>
                             <button
                                 type="button"
@@ -64,20 +66,39 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                             <div className="modal-body">
                                 <Input
                                     type={"text"}
-                                    name={"user"}
-                                    label={"adresse mail"}
+                                    name={"name"}
+                                    label={"Nom de l'abonnement"}
                                     placeholder={
-                                        "Entrez l'adresse mail du destinateur"
+                                        "Entrez le nom de l'abonnement"
                                     }
                                     formik={formik}
                                 />
-                                
+
+                                <Input
+                                    type={"text"}
+                                    name={"prix"}
+                                    label={"Prix de l'abonnement"}
+                                    placeholder={
+                                        "Entrez le prix de l'abonnement"
+                                    }
+                                    formik={formik}
+                                />
+
+                                <Input
+                                    type={"select"}
+                                    name={"type"}
+                                    label={"Type d'abonnement"}
+                                    placeholder={
+                                        "Sélectionnez un type d'abonnement"
+                                    }
+                                    formik={formik}
+                                />
                                 <Input
                                     type={"textarea"}
-                                    name={"message"}
-                                    label={"Message"}
+                                    name={"description"}
+                                    label={"Description de l'abonnement"}
                                     placeholder={
-                                        "Entrez votre message"
+                                        "Entrez la description de l'abonnement"
                                     }
                                     formik={formik}
                                 />
@@ -106,4 +127,4 @@ const TabMessage = ({ setBtnName = () => {} }) => {
     );
 };
 
-export default TabMessage;
+export default TabAbonnement;

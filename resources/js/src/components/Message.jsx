@@ -11,32 +11,32 @@ const Message = () => {
                 data-bs-display="static"
                 aria-expanded="false"
             >
-                <i class="bi bi-chat-dots-fill"></i>
+                <i className="bi bi-chat-dots-fill"></i>
             </div>
-            <div class="dropdown-list dropdown-menu dropdown-menu-end shadow py-0"
+            <div className="dropdown-list dropdown-menu dropdown-menu-end shadow py-0"
                 aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header bg-primary text-white">
+                <h6 className="dropdown-header bg-primary text-white">
                     Messages
                 </h6>
                 {
                     [...Array(4).keys()].map((data, idx) =>{
                         return<Link key={"msg"+idx} className="dropdown-item d-flex align-items-center border-bottom" to="#">
-                        <div class="dropdown-list-image me-3">
-                            <img class="rounded-circle" 
+                        <div className="dropdown-list-image me-3">
+                            <img className="rounded-circle" 
                             width="32px"
                             src="https://source.unsplash.com/random/600x600/?person=1"
                                 alt="..." />
-                            <div class="status-indicator bg-success"></div>
+                            <div className="status-indicator bg-success"></div>
                         </div>
-                        <div class="font-weight-bold">
-                            <div class="d-inline-block text-truncate" style={{maxWidth:"300px"}}>Bonjour à tous! Je me demande si vous pouvez m'aider avec le problème que j'ai eu.</div>
-                            <div class="small text-gray-500"> Admin Sara · 58m</div>
+                        <div className="font-weight-bold">
+                            <div className="d-inline-block text-truncate" style={{maxWidth:"300px"}}>Bonjour à tous! Je me demande si vous pouvez m'aider avec le problème que j'ai eu.</div>
+                            <div className="small text-gray-500"> Admin Sara · 58m</div>
                         </div>
                     </Link>
                     })
                 }
                 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Lire plus de messages</a>
+                <a className="dropdown-item text-center small text-gray-500" href="#">Lire plus de messages</a>
             </div>
         </div>
     );

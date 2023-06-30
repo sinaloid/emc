@@ -26,7 +26,10 @@ export  const listLink = {
     dashboard_campagne:"campagne",
     dashboard_devis:"devis",
     dashboard_paiement:"paiement",
+    dashboard_support_:"supports-publicitaires/*",
     dashboard_support:"supports-publicitaires",
+    dashboard_docs:"mes-documents",
     dashboard_compte:"compte",
     dashboard_admin:"administration",
+    dashboard_liste_media:"liste-medias"
 }

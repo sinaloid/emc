@@ -14,4 +14,8 @@ class CategorieFiltre extends Model
         "slug",
         "is_deleted",
     ];
+
+    public function filtres(){
+        return $this->hasMany(Filtre::class);
+    }
 }

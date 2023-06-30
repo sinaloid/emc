@@ -6,8 +6,25 @@ import Menu from "./Menu";
 import PubCard from "./PubCard";
 import PubFilter from "./PubFilter";
 import Section from "./Section";
+import { useEffect, useState } from "react";
+import request from "../services/request";
+import endPoint from "../services/endPoint";
 
 const PubContainer = () => {
+    const [datas, setDatas] = useState([])
+
+    useEffect(() =>{
+        get()
+    },[])
+
+    const get = () =>{
+        request.get(endPoint.offres).then((res) =>{
+            //console.log(res.data)
+            setDatas(res.data.data)
+        }).catch((error) =>{
+            console.log(error)
+        })
+    }
     return (
         <Section>
             <Menu />
@@ -40,9 +57,9 @@ const PubContainer = () => {
                     <div className="col-md-9 order-2 order-md-1 mb-3">
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                             {
-                                [...Array(15).keys()].map((data, idx) =>{
+                                datas.map((data, idx) =>{
                                     return <div className="col">
-                                        <PubCard />
+                                        <PubCard data={data} key={idx}/>
                                     </div>
                                 })
                             }

@@ -3,16 +3,26 @@ import ActionButton from "../../components/ActionButton";
 import { useFormik } from "formik";
 import Input from "../../components/Input";
 
-const initMessage = {
+const initAttestation = {
     user:"",
-    message:""
+    description:""
 }
-const TabMessage = ({ setBtnName = () => {} }) => {
+
+const TabAttestation = ({setBtnName = () => {}}) => {
+    const btnViewProps = {
+        text: 'Cliquez-moi',
+        onClick: () => {
+          // Logique de gestion du clic du bouton
+          alert("ok")
+        },
+        //disabled: true // Exemple d'une propriété disabled
+      };
+    
     useEffect(() => {
-        setBtnName("Envoyer un message");
+        setBtnName("Envoyer une attestation");
     }, []);
     const formik = useFormik({
-        initialValues: initMessage,
+        initialValues: initAttestation,
         onSubmit: (values) => {
             console.log(values);
         },
@@ -24,9 +34,10 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                     <thead className="bg-primary text-white">
                         <tr>
                             <th>#</th>
-                            <th>Auteur du Message</th>
-                            <th>Type de compte</th>
-                            <th>Message</th>
+                            <th>Image</th>
+                            <th>Nom prénom</th>
+                            <th>Contact</th>
+                            <th>Date d'envoi</th>
                             <th className="text-center">Action</th>
                         </tr>
                     </thead>
@@ -34,12 +45,13 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                         {[...Array(10).keys()].map((data, idx) => {
                             return (
                                 <tr key={idx}>
-                                    <td>{idx + 1}</td>
-                                    <td>nom de l'auteur</td>
-                                    <td>Annonceur</td>
-                                    <td>Lorem ipsum ilaqp</td>
+                                    <td>{idx+1}</td>
+                                    <td>image</td>
+                                    <td>nom du filter</td>
+                                    <td>+226 xx xx xx xx</td>
+                                    <td>12/01/2023</td>
                                     <td className="text-center">
-                                        <ActionButton />
+                                        <ActionButton btnViewProps={btnViewProps} />
                                     </td>
                                 </tr>
                             );
@@ -47,12 +59,12 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                     </tbody>
                 </table>
             </div>
-            <div className="modal fade" id="message">
+            <div className="modal fade" id="attestation">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Envoi d’un message
+                                Envoi d’une attestation
                             </h4>
                             <button
                                 type="button"
@@ -74,10 +86,10 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                                 
                                 <Input
                                     type={"textarea"}
-                                    name={"message"}
-                                    label={"Message"}
+                                    name={"description"}
+                                    label={"Description"}
                                     placeholder={
-                                        "Entrez votre message"
+                                        "Entrez la description"
                                     }
                                     formik={formik}
                                 />
@@ -106,4 +118,4 @@ const TabMessage = ({ setBtnName = () => {} }) => {
     );
 };
 
-export default TabMessage;
+export default TabAttestation;

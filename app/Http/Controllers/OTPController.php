@@ -52,14 +52,14 @@ class OTPController extends Controller
             $otp->update([
                 'is_verified' => false, 
                 'code' => $otpCode,
-                'expires_at' => now()->addMinutes(2)
+                'expires_at' => now()->addMinutes(5)
             ]);
         } else {
             OTP::create([
                 'email' => $request->email,
                 'code' => $otpCode,
                 'is_verified' => false, 
-                'expires_at' => now()->addMinutes(2), // Expiration du code après 10 minutes
+                'expires_at' => now()->addMinutes(5), // Expiration du code après 5 minutes
             ]);
         }
 
@@ -89,14 +89,14 @@ class OTPController extends Controller
             $otp->update([
                 'is_verified' => false, 
                 'code' => $otpCode,
-                'expires_at' => now()->addMinutes(2)
+                'expires_at' => now()->addMinutes(5)
             ]);
         } else {
             OTP::create([
                 'number' => $request->number,
                 'code' => $otpCode,
                 'is_verified' => false, 
-                'expires_at' => now()->addMinutes(2), // Expiration du code après 10 minutes
+                'expires_at' => now()->addMinutes(5), // Expiration du code après 10 minutes
             ]);
         }
         

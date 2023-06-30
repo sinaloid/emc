@@ -27,6 +27,13 @@ return new class extends Migration
                     ->on('categorie_media')
                     ->onDelete('restrict')
                     ->onUpdate('restrict');
+                
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('restrict')
+                    ->onUpdate('restrict');
             $table->timestamps();
         });
     }

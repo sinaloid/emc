@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('firstname');
             $table->string('status');
+            $table->string('isActive')->nullable();
             $table->string('image')->unique()->nullable();
             $table->string('number')->unique()->nullable();
             $table->string('email')->unique()->nullable();

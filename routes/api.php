@@ -35,7 +35,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
     //Route::middleware([])->group(function () {
     Route::middleware('auth:api')->group(function () {
-        Route::get('/user', [AuthController::class,'index']);
+        Route::get('/users', [AuthController::class,'index']);
+        Route::get('/users/auth', [AuthController::class,'userAuth']);
+        Route::post('/users/update', [AuthController::class,'update']);
+        Route::post('/users/changePassword', [AuthController::class,'changePassword']);
+        Route::post('/users/get', [AuthController::class,'userBy']);
+        Route::post('/users/disable', [AuthController::class,'disable']);
         Route::resources([
             'categorieMedias' => CategorieMediaController::class,
             'medias' => MediaController::class,

@@ -2,18 +2,37 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
     if (type === "text") {
         return (
             <div className="mb-3">
-                <label htmlFor={name} className="form-label fw-bold ">
+                <label htmlFor={name} className="form-label fw-bold1 ">
                     {label}
                 </label>
                 <input
-                    className="form-control form-control-sm form-floating-height"
+                    className="form-control form-control-sm1 form-floating-height1"
                     type="text"
                     id={name}
                     name={name}
                     placeholder={placeholder}
                     onChange={formik.handleChange}
-                    value={formik.values[name]}
+                    value={formik.values[name]} 
                 />
+            </div>
+        );
+    }
+
+    if (type === "textarea") {
+        return (
+            <div className="mb-3">
+                <label htmlFor={name} className="form-label fw-bold1 ">
+                    {label}
+                </label>
+                <textarea
+                    className="form-control"
+                    id={name}
+                    name={name}
+                    placeholder={placeholder}
+                    onChange={formik.handleChange}
+                    value={formik.values[name]} 
+                    rows={3}
+                ></textarea>
             </div>
         );
     }
@@ -21,11 +40,11 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
     if (type === "select") {
         return (
             <div className="mb-3">
-                <label htmlFor={name} className="form-label fw-bold ">
+                <label htmlFor={name} className="form-label">
                     {label}
                 </label>
                 <select
-                    className="form-select form-select-sm form-floating-height"
+                    className="form-select"
                     id={name}
                     name={name}
                     onChange={formik.handleChange}
@@ -34,7 +53,7 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     <option value={""}>{placeholder}</option>
                     {
                         options.map((data, idx) =>{
-                            return <option value={data} key={data+idx}>{data}</option>
+                            return <option value={data.slug} key={data+idx}>{data.name}</option>
                         })
                     }
                 </select>
@@ -64,11 +83,11 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
     if (type === "file") {
         return (
             <div className="mb-3">
-                <label htmlFor={name} className="form-label fw-bold ">
+                <label htmlFor={name} className="form-label">
                     {label}
                 </label>
                 <input
-                    className="form-control form-control-sm form-floating-height"
+                    className="form-control"
                     type="file"
                     id={name}
                     name={name}

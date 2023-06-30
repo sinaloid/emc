@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { getUser,setUser as updateUser } from "./storage";
+import { ToastContainer } from "react-toastify";
 
 
 export const initialUser = {
@@ -32,6 +33,7 @@ export const AppContextProvider = ({children}) => {
     return(
         <AppContext.Provider value={contextValue}>
             {children}
+            <ToastContainer position="top-center" />
         </AppContext.Provider>
     )
 }

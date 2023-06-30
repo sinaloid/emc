@@ -19,7 +19,7 @@ class MediaProduitController extends Controller
      */
     public function index()
     {
-        $data = MediaProduit::where("is_deleted", false)->get();
+        $data = MediaProduit::with("media")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucune produit trouvé'], 404);
@@ -93,7 +93,7 @@ class MediaProduitController extends Controller
      */
     public function show($slug)
     {
-        $data = MediaProduit::where("slug",$slug)->first();
+        $data = MediaProduit::with("media")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Produit non trouvé'], 404);

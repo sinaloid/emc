@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Dash from "./imgs/Dash";
 import Logo from "./imgs/Logo";
 import Section from "./Section";
+import { AppContext } from "../services/context";
 
 const Header = () => {
-    const navigate = useNavigate()
+    const appCtx = useContext(AppContext);
+    const { user } = appCtx;
+    const navigate = useNavigate();
+    const isAuth = () => {
+        alert(user.isAuth)
+        if (
+            user.isAuth === false ||
+            user.isAuth === "" ||
+            user.isAuth === null
+        ) {
+            return true;
+        }
+        return false;
+    };
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
@@ -29,34 +43,54 @@ const Header = () => {
                         >
                             <ul className="navbar-nav ms-auto">
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={listLink.index}>
+                                    <NavLink
+                                        className="nav-link"
+                                        to={listLink.index}
+                                    >
                                         Accueil
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={listLink.referencer}>
+                                    <NavLink
+                                        className="nav-link"
+                                        to={listLink.referencer}
+                                    >
                                         Tarifs
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to={listLink.media}>
+                                    <NavLink
+                                        className="nav-link"
+                                        to={listLink.media}
+                                    >
                                         Média
                                     </NavLink>
                                 </li>
-                                <li className="nav-item">
-                                <button
-                                    className="btn btn-secondary text-uppercase mx-1 mb-3"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#loginModal"
-                                    >
-                                        Se connecter
-                                    </button>
-                                </li>
+                                {user.isAuth ? (
+                                    <li className="nav-item">
+                                        <NavLink
+                                            className="btn btn-secondary text-uppercase mx-1 mb-3"
+                                            to={listLink.dashboard}
+                                        >
+                                            Mon compte
+                                        </NavLink>
+                                    </li>
+                                ) : (
+                                    <li className="nav-item">
+                                        <button
+                                            className="btn btn-secondary text-uppercase mx-1 mb-3"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#loginModal"
+                                        >
+                                            Se connecter
+                                        </button>
+                                    </li>
+                                )}
                                 <li className="nav-item">
                                     <button
-                                    className="btn btn-primary text-uppercase mx-1 mb-3"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#accompagnement"
+                                        className="btn btn-primary text-uppercase mx-1 mb-3"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#accompagnement"
                                     >
                                         accompagnement sur-mesure
                                     </button>

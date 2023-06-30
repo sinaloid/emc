@@ -15,4 +15,8 @@ class Filtre extends Model
         "is_deleted",
         "categorie_filtre_id"
     ];
+
+    public function categorieFiltre(){
+        return $this->belongsTo(CategorieFiltre::class);
+    }
 }

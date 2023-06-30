@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import JournauxIMG from "../components/imgs/JournauxIMG";
 import PresseIMG from "../components/imgs/PresseIMG";
 import RadioIMG from "../components/imgs/RadioIMG";
@@ -6,6 +7,8 @@ import Map from "../components/Map";
 import MediaCard from "../components/MediaCard";
 import Menu from "../components/Menu";
 import Section from "../components/Section";
+import endPoint from "../services/endPoint";
+import request from "../services/request";
 import { listLink } from "../utils/listLink";
 
 const Media = () => {
@@ -35,6 +38,20 @@ const Media = () => {
             linkText:"J'AI BESOIN DES SERVICES D'UN JOURNAL EN LIGNE"
         }, 
     ]
+    const [datas,setDatas] = useState([])
+
+    useEffect(() =>{
+        get()
+    },[])
+
+    const get = () => {
+        request.get(endPoint.categorieMedias).then((res) =>{
+            console.log(res.data.data)
+            setDatas(res.data.data)
+        }).catch((error) =>{
+            console.log(error)
+        })
+    }
     return (
         <Section>
             <Menu />
@@ -42,10 +59,10 @@ const Media = () => {
                 <div className="row">
                     <div className="col-md-12 order-2 order-md-1 mb-3">
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
-                            {imgs.map(({img, title, link, linkText}, idx) => {
+                            {datas.map((data, idx) => {
                                 return (
                                     <div className="col">
-                                        <MediaCard  Img={img} title={title} link={link} linkText={linkText}/>
+                                        <MediaCard data={data}  Img={data.image} link={listLink.radio} linkText={"J'AI BESOIN DES SERVICES"}/>
                                     </div>
                                 );
                             })}

@@ -1,4 +1,4 @@
-const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = ""}) => {
+const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = "", restForm}) => {
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 px-1 px-md-2">
@@ -6,7 +6,7 @@ const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = ""}) => {
             </div>
             <div className="row">
                 <div className="col-12 col-md-6">
-                    <div class="input-group mb-3">
+                    <div className="input-group mb-3">
                         <input
                             type="text"
                             className="form-control"
@@ -15,7 +15,7 @@ const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = ""}) => {
                         />
                         <span
                             type="button"
-                            class="input-group-text bg-primary text-white"
+                            className="input-group-text bg-primary text-white"
                             id="basic-addon2"
                         >
                             Rechercher
@@ -40,17 +40,17 @@ const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = ""}) => {
                     <div>
                         <div className="d-inline-block me-2">
                             <button className="btn btn-tertiary-full">
-                                <i class="bi bi-arrow-left-square-fill"></i>
+                                <i className="bi bi-arrow-left-square-fill"></i>
                             </button>
                             <div className="d-inline-block mx-2">
                                 1 - sur 10
                             </div>
                             <button className="btn btn-tertiary-full">
-                                <i class="bi bi-arrow-right-square-fill"></i>
+                                <i className="bi bi-arrow-right-square-fill"></i>
                             </button>
                         </div>
                         <button className="btn btn-tertiary me-2">
-                            <i class="bi bi-filter-circle-fill"></i> Filtrer
+                            <i className="bi bi-filter-circle-fill"></i> Filtrer
                         </button>
                         {
                             addBtn !=="" && <button className="btn btn-tertiary-full">

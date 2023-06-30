@@ -18,7 +18,7 @@ class CategorieFiltreController extends Controller
      */
     public function index()
     {
-        $data = CategorieFiltre::where("is_deleted", false)->get();
+        $data = CategorieFiltre::with("filtres")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucune catégorie trouvée'], 404);

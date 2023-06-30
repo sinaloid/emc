@@ -19,7 +19,7 @@ class FiltreController extends Controller
      */
     public function index()
     {
-        $data = Filtre::where("is_deleted", false)->get();
+        $data = Filtre::with("categorieFiltre")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucun filtre trouvée'], 404);
@@ -72,7 +72,7 @@ class FiltreController extends Controller
      */
     public function show($slug)
     {
-        $data = Filtre::where("slug",$slug)->first();
+        $data = Filtre::with("categorieFiltre")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Filtre non trouvé'], 404);

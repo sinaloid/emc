@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import RadioIMG from "./imgs/RadioIMG";
+import { URL } from "../services/request";
 
-const MediaCard = ({Img, title, link, linkText}) => {
+const MediaCard = ({data, Img, title, link, linkText}) => {
     
     return (
         <div className="card py-4 shadow">
-            <div className="d-flex justify-content-center"><Img /></div>
+            <div className="d-flex justify-content-center">
+                <img src={URL+""+data.image} alt="" />
+            </div>
             <div className="text-center py-3">
-                <h4 className="text-40 fw-bold">{title}</h4>
+                <h4 className="text-40 fw-bold">{data.name}</h4>
                 <span className="my-2 d-inline-block">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam mattis eleifend tellus, vel viverra ante tincidunt
-                    placerat. Nulla mi dolor, massa pellentesque ut massa et,
-                    fermentum hendrerit purus. Suspendisse lacinia neque vitae
-                    metus viverra accumsan.
+                    {data.description}
                 </span>{" "}
                 <br />
                 <Link to={link} className={"btn btn-secondary text-uppercase"}>
