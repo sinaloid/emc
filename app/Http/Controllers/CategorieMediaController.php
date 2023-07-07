@@ -83,7 +83,7 @@ class CategorieMediaController extends Controller
      */
     public function show($slug)
     {
-        $data = CategorieMedia::where("slug",$slug)->first();
+        $data = CategorieMedia::with("medias","medias.mediaTarifs")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Catégorie non trouvée'], 404);

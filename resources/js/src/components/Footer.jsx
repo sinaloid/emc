@@ -23,7 +23,7 @@ const Footer = () => {
                         </p>
                     </div>
                     <div className="col"></div>
-                    <div className="col">
+                    <div className="col text-white">
                         <h5 className="text-uppercase text-18 fw-bold">
                             Nos Service
                         </h5>

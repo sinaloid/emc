@@ -1,3 +1,4 @@
+import { URL } from "../services/request";
 import ProduitIMG from "./imgs/ProduitIMG";
 import Section from "./Section";
 
@@ -5,6 +6,7 @@ const ProduitHeader = ({
     fitrstTitle,
     firstContent,
     bg = "",
+    image=""
 }) => {
     return (
         <Section bg={bg}>
@@ -12,7 +14,7 @@ const ProduitHeader = ({
                 <div className="row">
                     <div className="col-12 col-md-10">
                         <p>
-                            <ProduitIMG />
+                            <img width="100px" src={URL+""+ image} alt="" />
                         </p>
                         <h2 className={"fw-bold text-40 "}>{fitrstTitle}</h2>
                         <p>{firstContent}</p>

@@ -19,7 +19,7 @@ class MediaController extends Controller
      */
     public function index()
     {
-        $data = Media::with("categorieMedia","mediaTarifs")->where("is_deleted", false)->get();
+        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucune media trouvé'], 404);
@@ -92,7 +92,7 @@ class MediaController extends Controller
      */
     public function show($slug)
     {
-        $data = Media::with("categorieMedia","mediaTarifs")->where("slug",$slug)->first();
+        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Media non trouvé'], 404);

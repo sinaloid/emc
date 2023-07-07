@@ -226,6 +226,11 @@ body {
    color: #fff !important;
 }
 
+.text-white{
+  color: #fff !important;
+}
+
+
 .text-container {
   width: 200px; /* Largeur de votre conteneur de texte */
   white-space: nowrap; /* Empêche le texte de passer à la ligne */

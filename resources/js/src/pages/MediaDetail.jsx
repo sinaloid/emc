@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Banier from "../components/Banier";
 import Button from "../components/Button";
 import JournauxIMG from "../components/imgs/JournauxIMG";
@@ -8,7 +9,10 @@ import MediaCard from "../components/MediaCard";
 import MediaCardDetail from "../components/MediaCardDetail";
 import Menu from "../components/Menu";
 import Section from "../components/Section";
+import endPoint from "../services/endPoint";
+import request from "../services/request";
 import { listLink } from "../utils/listLink";
+import { useParams } from "react-router-dom";
 
 const MediaDetail = ({ title, buttonName }) => {
     const imgs = [
@@ -33,13 +37,27 @@ const MediaDetail = ({ title, buttonName }) => {
             link: listLink.journaux,
         },
     ];
+
+    const [categorie,setCategorie] = useState({})
+    const {slug} = useParams()
+
+    useEffect(() =>{
+        get(slug)
+    },[])
+
+    const get = () =>{
+        request.get(endPoint.categorieMedias+"/"+slug).then((res) =>{
+            console.log(res.data.data)
+            setCategorie(res.data.data)
+        }).catch((error) =>{
+            console.log(error)
+        })
+    }
     return (
         <Section>
             <Banier
-                fitrstTitle={title}
-                firstContent={
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
-                }
+                fitrstTitle={categorie?.name}
+                firstContent={categorie?.description}
                 secondTitle={""}
                 secondContent={""}
                 buttonName={""}
@@ -50,13 +68,14 @@ const MediaDetail = ({ title, buttonName }) => {
                 <div className="row">
                     <div className="col-md-12 order-2 order-md-1 mb-3">
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                            {[...Array(9).keys()].map((idx) => {
+                            {categorie?.medias?.map((data,idx) => {
                                 return (
-                                    <div className="col" key={idx}>
+                                    <div className="col" key={data.slug}>
                                         <MediaCardDetail
+                                            data={data}
                                             Img={RadioIMG}
                                             //title={title}
-                                            link={listLink.produit}
+                                            link={data.slug}
                                             buttonName={buttonName}
                                         />
                                     </div>

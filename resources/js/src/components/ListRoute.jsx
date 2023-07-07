@@ -27,6 +27,7 @@ import MesMedias from "../dashboard/MesMedias";
 import MesDocuments from "../dashboard/MesDocuments";
 import ListeOffres from "../dashboard/medias/ListeOffres";
 import ListeMedia from "../dashboard/medias/ListeMedia";
+import DetailMedia from "../pages/MediaCategorieDetail";
 
 const appRoute = [
     {
@@ -37,6 +38,29 @@ const appRoute = [
         path: listLink.home,
         Element: <Accueil />,
     },
+    {
+        path: listLink.detail_media,
+        Element: <DetailMedia />,
+    },
+    {
+        path: listLink.detail_media_produit,
+        Element: (
+            <Produit />
+        ),
+    },
+    {
+        path: listLink.devis,
+        Element: (
+            <Devis />
+        ),
+    },
+    {
+        path: listLink.telecharger_devis,
+        Element: (
+            <Devis />
+        ),
+    },
+    //delete
     {
         path: listLink.radio_,
         Element: <Radio />,
@@ -95,6 +119,44 @@ const radioRoute = [
     },
     {
         path: listLink.produit,
+        Element: (
+            <Produit title={"Radios"} link={"/radios/devis"}>
+                <ProduitHeader
+                    fitrstTitle={"Radios"}
+                    firstContent={
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+                    }
+                />
+            </Produit>
+        ),
+    },
+    {
+        path: listLink.devis,
+        Element: (
+            <Devis title={"Kiff Radio FM"}>
+                <FormDevis />
+            </Devis>
+        ),
+    },
+    {
+        path: listLink.telecharger_devis,
+        Element: (
+            <Devis title={"Kiff Radio FM"}>
+                <TelechargerDevis />
+            </Devis>
+        ),
+    },
+];
+
+const mediaDetailRoute = [
+    {
+        path: listLink.index,
+        Element: (
+            <MediaDetail title={"Radios"} buttonName={"choisir cette radio"} />
+        ),
+    },
+    {
+        path: listLink.detail_media_produit,
         Element: (
             <Produit title={"Radios"} link={"/radios/devis"}>
                 <ProduitHeader
@@ -330,4 +392,5 @@ export {
     journauxRoute,
     dashboardRoute,
     mediaRoute,
+    mediaDetailRoute
 };

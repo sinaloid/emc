@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
+import { URL } from "../services/request";
 
-const MediaCardDetail = ({ Img, buttonName, link }) => {
+const MediaCardDetail = ({ data, Img, buttonName, link }) => {
     return (
         <div className="card py-4 shadow">
             <div className="d-flex justify-content-center">
-                <Img />
+                <img width="100px" src={URL+""+data.image} alt="" />
             </div>
             <div className="text-center py-3">
+                <h2>{data.name}</h2>
                 <span className="my-2 d-inline-block">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam mattis eleifend tellus, vel viverra ante tincidunt
-                    placerat. Nulla mi dolor, pellentesque ut massa.
+                    {data.description}
                 </span>{" "}
                 <br />
                 <span className="my-2 d-inline-block">
                     <ul>
-                        {[...Array(4).keys()].map((idx) => {
-                            return <li key={idx}>100 000 Auditeurs /jour</li>;
+                        {data.media_tarifs?.map((tarif) => {
+                            return <li key={tarif.slug}>{tarif.price + " FCFA"} / {tarif.period}</li>;
                         })}
                     </ul>
                 </span>{" "}

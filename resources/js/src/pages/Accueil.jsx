@@ -9,7 +9,6 @@ const Accueil = () => {
         <>
             <Header />
             <Page>
-                <Hero />
                 <GetRoute list={homeRoute} />
             </Page>
         </>

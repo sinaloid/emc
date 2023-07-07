@@ -25,7 +25,7 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-5cff694f.css",
+    "file": "assets/app-8c12ea6a.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -35,7 +35,6 @@
       "assets/lg-fce38ed8.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
-      "assets/logo200-59eba22d.png",
       "assets/filtre-842a5333.png",
       "assets/bootstrap-icons-966620f9.woff2",
       "assets/bootstrap-icons-c6569d46.woff",
@@ -44,9 +43,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-5cff694f.css"
+      "assets/app-8c12ea6a.css"
     ],
-    "file": "assets/app-98e5c85b.js",
+    "file": "assets/app-de01f07d.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

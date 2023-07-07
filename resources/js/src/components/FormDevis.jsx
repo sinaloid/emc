@@ -3,14 +3,14 @@ import { listLink } from "../utils/listLink";
 import Banier from "./Banier";
 import InputField from "./InputField";
 
-const FormDevis = () => {
+const FormDevis = ({produit}) => {
     return (
         <>
             <div className="col-12 col-md-10 col-lg-9 mx-auto pb-5 bg-gray">
                 <div className="row">
                     <div className="col-md-10 mx-auto py-4 order-2 order-md-1">
                         <h2 className="fw-bold text-40 mb-3">
-                            Demande de devis pour spot radio
+                            Demande de devis pour {produit?.name}
                         </h2>
                         <p className="mb-3">
                             Les champs marqués d'un * sont obligatoires
@@ -163,7 +163,7 @@ const FormDevis = () => {
                 </div>
             </div>
             <Banier
-                fitrstTitle={"Qu'est-ce qu'un spot publicitaire radio ?"}
+                fitrstTitle={"Qu'est-ce qu'un spot publicitaire ?"}
                 firstContent={
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
                 }

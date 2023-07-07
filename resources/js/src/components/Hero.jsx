@@ -1,7 +1,31 @@
+import { useState } from "react";
 import Search from "./imgs/Search";
 import Section from "./Section";
+import { makeSearch } from "../services/function";
 
-const Hero = () => {
+const Hero = ({categories, setList, datas}) => {
+    const [search,setSearch] = useState("")
+    const [categorie, setCategorie] = useState("")
+    const [datasByCategorie, setDataByCategorie] = useState(datas)
+
+    const onSearch = (e) =>{
+        setSearch(e.target.value)
+        makeSearch(e,setList,datasByCategorie,[
+            "name"
+        ])
+    }
+
+    const filter = (e) =>{
+        setCategorie(e.target.value)
+        if(e.target.value !== "Tout" && e.target.value !== ""){
+            const tab = datas.filter((data) => data.media?.categorie_media?.slug === categorie)
+            setDataByCategorie(tab)
+            setList(tab)
+        }else{
+            setDataByCategorie(datas)
+            setList(datas)
+        }
+    }
     return (
         <Section bg="bg-primary">
             <div className="col-12 col-md-10 col-lg-9 mx-auto py-5">
@@ -16,23 +40,27 @@ const Hero = () => {
                 </p>
                 <div className="row mt-5">
                     <div className="col-10 mx-auto">
-                        <div class="input-group mb-3">
+                        <div className="input-group mb-3">
                         <select
                                 className="input-group-text"
+                                value={categorie}
+                                onChange={filter}
                                 >
-                                    <option>Filtrer par catégorie</option>
+                                    <option value={""}>Filtrer par catégorie</option>
+                                    <option value={""}>Tout</option>
                                     {
-                                        [...Array(11).keys()].map((data, idx) => {
-                                            return <option key={idx} value={data}>catégorie {data}</option>
+                                        categories.map((data, idx) => {
+                                            return <option key={data.slug} value={data.slug}>{data.name}</option>
                                         })
                                     }
                                 </select>
                             <input
                                 type="text"
                                 className="form-control"
-                                aria-label="Amount (to the nearest dollar)"
+                                value={search}
+                                onChange={onSearch}
                             />
-                            <span class="input-group-text btn-primary">
+                            <span className="input-group-text btn-primary">
                                 <Search />
                             </span>
                         </div>
@@ -40,11 +68,11 @@ const Hero = () => {
                     <div className="col-8 mx-auto">
                         <div className="d-flex text-white">
                             <div className="me-auto">
-                                <i class="bi bi-check-circle-fill"></i>
+                                <i className="bi bi-check-circle-fill"></i>
                                 <span> 0% de commission</span>
                             </div>
                             <div>
-                                <i class="bi bi-check-circle-fill"></i>
+                                <i className="bi bi-check-circle-fill"></i>
                                 <span> 0% de commission</span>
                             </div>
                         </div>

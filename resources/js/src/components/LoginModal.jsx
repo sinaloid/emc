@@ -197,7 +197,8 @@ const LoginModal = () => {
                 error: {
                     render({ data }) {
                         console.log(data)
-                        return data.response.data.errors;
+                        const res = data.response.data
+                        return res.errors !== undefined ? res.errors : res.error;
                     },
                 },
             }

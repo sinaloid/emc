@@ -148,9 +148,9 @@ const InputField = ({
     if (type === "checkbox") {
         return (
             <div className={"mb-3 "+col}>
-                <div class="form-check">
+                <div className="form-check">
                     <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id={name}
                         name={name}
@@ -158,7 +158,7 @@ const InputField = ({
                         onChange={handleChange}
                     />
                     <label
-                        class="form-check-label"
+                        className="form-check-label"
                         htmlFor="flexCheckIndeterminate"
                     >
                         {label}
@@ -171,9 +171,9 @@ const InputField = ({
     if (type === "checkbox2") {
         return (
             <div className={"mb-3 "+col}>
-                <div class="form-check">
+                <div className="form-check">
                     <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id={name}
                         name={name}
@@ -181,7 +181,7 @@ const InputField = ({
                         onChange={handleChange}
                     />
                     <label
-                        class="form-check-label text-primary"
+                        className="form-check-label text-primary"
                         htmlFor="flexCheckIndeterminate"
                     >
                         {label}

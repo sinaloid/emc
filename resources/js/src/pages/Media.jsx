@@ -61,8 +61,8 @@ const Media = () => {
                         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
                             {datas.map((data, idx) => {
                                 return (
-                                    <div className="col">
-                                        <MediaCard data={data}  Img={data.image} link={listLink.radio} linkText={"J'AI BESOIN DES SERVICES"}/>
+                                    <div className="col" key={data.slug}>
+                                        <MediaCard data={data}  Img={data.image} link={"/media-detail/"+data.slug} linkText={"J'AI BESOIN DES SERVICES"}/>
                                     </div>
                                 );
                             })}
