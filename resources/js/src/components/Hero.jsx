@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "./imgs/Search";
 import Section from "./Section";
 import { makeSearch } from "../services/function";
@@ -7,6 +7,10 @@ const Hero = ({categories, setList, datas}) => {
     const [search,setSearch] = useState("")
     const [categorie, setCategorie] = useState("")
     const [datasByCategorie, setDataByCategorie] = useState(datas)
+
+    useEffect(() =>{
+        setDataByCategorie(datas)
+    },[])
 
     const onSearch = (e) =>{
         setSearch(e.target.value)

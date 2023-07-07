@@ -6,8 +6,8 @@ const makeSearch = (e,setList, datas, keys ) => {
       return verify(str, keys, data) && data
     });
 
-    console.log(dd.lenght)
-    dd.lenght !== 0 ? setList(dd) : setList(datas);
+    console.log(dd.length)
+    dd.length !== 0 ? setList(dd) : setList(datas);
   };
 
   const verify = (str, keys, data) =>{
