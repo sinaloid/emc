@@ -33,27 +33,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/generateOTP', [OTPController::class,'generateOTP']);
     Route::post('/verifyOTP', [OTPController::class,'verifyOTP']);
 
-
-    Route::get('categorieMedias', [CategorieMediaController::class,'index']);
-    Route::get('categorieMedias/{slug}', [CategorieMediaController::class,'show']);
-
-    Route::get('medias', [MediaController::class,'index']);
-    Route::get('medias/{slug}', [MediaController::class,'show']);
-
-    Route::get('mediaTarifs', [MediaTarifController::class,'index']);
-    Route::get('mediaTarifs/{slug}', [MediaTarifController::class,'show']);
-    
-    Route::get('mediaProduits', [MediaProduitController::class,'index']);
-    Route::get('mediaProduits/{slug}', [MediaProduitController::class,'show']);
-
-    Route::get('categorieFiltres', [CategorieFiltreController::class,'index']);
-    Route::get('categorieFiltres/{slug}', [CategorieFiltreController::class,'show']);
-
-    Route::get('filtres', [FiltreController::class,'index']);
-    Route::get('filtres/{slug}', [FiltreController::class,'show']);
-
     //Route::middleware([])->group(function () {
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware(['auth:api'])->group(function () {
         Route::get('/users', [AuthController::class,'index']);
         Route::get('/users/auth', [AuthController::class,'userAuth']);
         Route::post('/users/update', [AuthController::class,'update']);
@@ -75,7 +56,23 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         ]);
     });
 
-    
+    //Route::get('/mediaProduits', [MediaProduitController::class, 'index']);
+    Route::get('categorieMedias', [CategorieMediaController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('categorieMedias/{slug}', [CategorieMediaController::class,'show'])->withoutMiddleware(['auth:api']);
 
+    Route::get('medias', [MediaController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('medias/{slug}', [MediaController::class,'show'])->withoutMiddleware(['auth:api']);
+
+    Route::get('mediaTarifs', [MediaTarifController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('mediaTarifs/{slug}', [MediaTarifController::class,'show'])->withoutMiddleware(['auth:api']);
+    
+    Route::get('mediaProduits', [MediaProduitController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('mediaProduits/{slug}', [MediaProduitController::class,'show'])->withoutMiddleware(['auth:api']);
+
+    Route::get('categorieFiltres', [CategorieFiltreController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('categorieFiltres/{slug}', [CategorieFiltreController::class,'show'])->withoutMiddleware(['auth:api']);
+
+    Route::get('filtres', [FiltreController::class,'index'])->withoutMiddleware(['auth:api']);
+    Route::get('filtres/{slug}', [FiltreController::class,'show'])->withoutMiddleware(['auth:api']);
 
 });
