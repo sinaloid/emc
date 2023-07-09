@@ -1,6 +1,33 @@
+import { useEffect } from "react";
+import { URL } from "../services/request";
 import InputField from "./InputField";
+import { getCampagne, setCampagne } from "../services/storage";
+import { useFormik } from "formik";
+import Input from "./Input";
 
-const AddPuBModal = () => {
+const initData = {
+    startDate: "",
+    endDate: "",
+    file: "",
+};
+const AddPuBModal = ({ data }) => {
+    useEffect(() => {
+        //console.log(data)
+    }, []);
+
+    const ajoutPanier = (values) => {
+        const oldCampagne = getCampagne();
+        console.log({ ...data, ...values })
+        setCampagne([...oldCampagne, { ...data, ...values }]);
+    };
+
+    const formik = useFormik({
+        initialValues: initData,
+        onSubmit: (values) => {
+            console.log(values);
+            ajoutPanier(values);
+        },
+    });
     return (
         <div id="addModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -22,45 +49,46 @@ const AddPuBModal = () => {
                             <div className="col-md-4">
                                 <img
                                     width={"100%"}
-                                    src="https://source.unsplash.com/random/800x600/?product=1"
+                                    src={URL + data.image}
                                     alt=""
                                 />
+                                <h2 className="text-center">{data.name}</h2>
                             </div>
                             <div className="col-md-8 border-start">
                                 <div className="border-bottom d-inline-block mb-3 text-22">
                                     Description du produit
                                 </div>
 
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Aliquam mattis eleifend
-                                    tellus, vel viverra ante tincidunt placerat.
-                                    Nulla mi dolor, pellentesque ut massa et,
-                                    fermentum hendrerit purus. Suspendisse
-                                    lacinia neque vitae metus viverra accumsan.
-                                </p>
+                                <p>{data.description}</p>
                                 <div className="border-bottom d-inline-block mb-3 text-22">
                                     Détails de la campagne
                                 </div>
-                                <div>
-                                    <InputField
-                                        col="col-md-6"
-                                        type={"select2"}
+                                <div className="col-md-6 fw-bold">
+                                    <Input
+                                        type={"date"}
+                                        name={"startDate"}
                                         label={"Date de diffusion"}
-                                        value={""}
-                                        options={[]}
+                                        placeholder={""}
+                                        formik={formik}
+                                    />
+                                    <Input
+                                        type={"date"}
+                                        name={"endDate"}
+                                        label={"Date de fin de la diffusion"}
+                                        placeholder={""}
+                                        formik={formik}
                                     />
                                 </div>
                                 <div className="border-bottom d-inline-block mb-3 text-22">
                                     Fichiers
                                 </div>
-                                <div>
-                                    <InputField
-                                        col="col-md-6"
+                                <div className="col-md-6">
+                                    <Input
                                         type={"file"}
+                                        name={"file"}
                                         label={"Télécharger votre fichier"}
-                                        value={""}
-                                        options={[]}
+                                        placeholder={""}
+                                        formik={formik}
                                     />
                                 </div>
                                 <p>
@@ -75,7 +103,9 @@ const AddPuBModal = () => {
                                     <InputField
                                         col="col-md-12"
                                         type={"checkbox2"}
-                                        label={"Je certifie avoir lu et accepté les conditions"}
+                                        label={
+                                            "Je certifie avoir lu et accepté les conditions"
+                                        }
                                         value={""}
                                         options={[]}
                                     />
@@ -86,6 +116,7 @@ const AddPuBModal = () => {
                                         className="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
+                                        onClick={formik.handleSubmit}
                                     >
                                         Ajouter au panier
                                     </button>

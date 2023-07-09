@@ -2,10 +2,11 @@ import { list } from "postcss";
 import { useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import InputField from "./InputField";
+import { URL } from "../services/request";
 
-const AddPubComfirmationModal = () => {
-
-    const navigate = useNavigate()
+const AddPubComfirmationModal = ({ data }) => {
+    const navigate = useNavigate();
+    console.log(data);
     return (
         <div id="addComfirmationModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -25,29 +26,29 @@ const AddPubComfirmationModal = () => {
                         <div className="row">
                             <div className="col-md-12 text-center mx-auto">
                                 <span>Il y a 1 produit dans votre panier</span>
-                                <h2>Affichage</h2>
+                                <h2>{data.name}</h2>
                             </div>
                             <div className="col-md-10 mx-auto">
                                 <img
                                     width={"100%"}
-                                    src="https://source.unsplash.com/random/800x600/?product=1"
+                                    src={URL + "" + data.image}
                                     alt=""
                                 />
                             </div>
                             <div className="col-md-12 my-3">
                                 <div className="col-md-10 mx-auto">
                                     <span className="fw-bold">
-                                        Dimensions :
+                                        Catégorie :
                                     </span>
-                                    <span> 4/3</span> <br />
+                                    <span> {data?.media?.categorie_media?.name}</span> <br />
                                     <span className="fw-bold">
-                                        Situation géographique :
+                                        Média :
                                     </span>
-                                    <span> Tanghin</span> <br />
+                                    <span> {data?.media?.name}</span> <br />
                                     <span className="fw-bold">
                                         Disponibilité :
                                     </span>
-                                    <span> à partir du 26 juin 2021</span>{" "}
+                                    <span> {data.status !== null ? <>à partir du 26 juin 2021</>:<> Immédiate</>}</span>{" "}
                                     <br />
                                 </div>
                             </div>
@@ -57,8 +58,8 @@ const AddPubComfirmationModal = () => {
                                     className="btn btn-primary mb-3 me-1"
                                     data-bs-dismiss="modal"
                                     onClick={(e) => {
-                                        e.preventDefault()
-                                        navigate(listLink.index)
+                                        e.preventDefault();
+                                        navigate(listLink.index);
                                     }}
                                 >
                                     Continuer mes achats
@@ -68,8 +69,8 @@ const AddPubComfirmationModal = () => {
                                     className="btn btn-secondary mb-3"
                                     data-bs-dismiss="modal"
                                     onClick={(e) => {
-                                        e.preventDefault()
-                                        navigate(listLink.panier)
+                                        e.preventDefault();
+                                        navigate(listLink.panier);
                                     }}
                                 >
                                     Voir mon panier

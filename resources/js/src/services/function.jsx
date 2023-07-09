@@ -23,6 +23,33 @@ const makeSearch = (e,setList, datas, keys ) => {
   }
 
 
+  const formatDate = (originalDate) => {
+    const parts = originalDate?.split("-"); // Divise la chaîne de date en parties
+
+    // Récupère les parties de la date (année, mois, jour)
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+
+    // Crée une nouvelle date avec les parties récupérées
+    const formattedDate = new Date(year, month - 1, day);
+
+    // Récupère les informations de la date formatée
+    const formattedDay = String(formattedDate.getDate()).padStart(2, "0");
+    const formattedMonth = String(formattedDate.getMonth() + 1).padStart(
+        2,
+        "0"
+    );
+    const formattedYear = formattedDate.getFullYear();
+
+    // Formate la date au format souhaité (jour/mois/année)
+    const formattedDateString = `${formattedDay}/${formattedMonth}/${formattedYear}`;
+
+    return formattedDateString;
+};
+
+
   export {
-    makeSearch
+    makeSearch,
+    formatDate
   }

@@ -10,7 +10,7 @@ const Hero = ({categories, setList, datas}) => {
 
     useEffect(() =>{
         setDataByCategorie(datas)
-    },[])
+    },[datas])
 
     const onSearch = (e) =>{
         setSearch(e.target.value)

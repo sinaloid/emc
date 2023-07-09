@@ -100,6 +100,24 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
             </div>
         );
     }
+
+    if (type === "date") {
+        return (
+            <div className="mb-3">
+                <label htmlFor={name} className="form-label fw-bold1 ">
+                    {label}
+                </label>
+                <input
+                    className="form-control form-control-sm1 form-floating-height1"
+                    type="date"
+                    id={name}
+                    name={name}
+                    onChange={formik.handleChange}
+                    value={formik.values[name]} 
+                />
+            </div>
+        );
+    }
 };
 
 export default Input;

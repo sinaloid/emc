@@ -15,6 +15,7 @@ const PubContainer = () => {
     const [datas, setDatas] = useState([]);
     const [list, setList] = useState([]);
     const [categories,setCategories] = useState([])
+    const [selectedData,setSelectedData] = useState("")
 
     useEffect(() => {
         get();
@@ -80,7 +81,7 @@ const PubContainer = () => {
                                 {list.map((data) => {
                                     return (
                                         <div className="col" key={data.slug}>
-                                            <PubCard data={data} />
+                                            <PubCard data={data} setSelectedData={setSelectedData} />
                                         </div>
                                     );
                                 })}
@@ -96,8 +97,8 @@ const PubContainer = () => {
                         Voir plus
                     </Link>
                 </div>
-                <AddPuBModal />
-                <AddPubComfirmationModal />
+                <AddPuBModal data={selectedData} />
+                <AddPubComfirmationModal data={selectedData} />
             </Section>
         </>
     );
