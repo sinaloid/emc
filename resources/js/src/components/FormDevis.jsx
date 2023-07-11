@@ -3,7 +3,7 @@ import { listLink } from "../utils/listLink";
 import Banier from "./Banier";
 import InputField from "./InputField";
 
-const FormDevis = ({produit}) => {
+const FormDevis = ({produit,link}) => {
     return (
         <>
             <div className="col-12 col-md-10 col-lg-9 mx-auto pb-5 bg-gray">
@@ -152,7 +152,7 @@ const FormDevis = ({produit}) => {
                             </div>
                             <div className="col-md-4">
                                 <Link
-                                    to={"/radios/telecharger-le-devis"}
+                                    to={link}
                                     className="btn btn-primary"
                                 >
                                     Envoyer la demande de service

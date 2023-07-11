@@ -64,9 +64,9 @@ const Hero = ({categories, setList, datas}) => {
                                 value={search}
                                 onChange={onSearch}
                             />
-                            <span className="input-group-text btn-primary">
+                            <div className="pt-2 btn btn-secondary">
                                 <Search />
-                            </span>
+                            </div>
                         </div>
                     </div>
                     <div className="col-8 mx-auto">

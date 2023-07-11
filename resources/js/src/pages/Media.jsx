@@ -10,6 +10,7 @@ import Section from "../components/Section";
 import endPoint from "../services/endPoint";
 import request from "../services/request";
 import { listLink } from "../utils/listLink";
+import endPointPublic from "../services/endPointPublic";
 
 const Media = () => {
     const imgs = [
@@ -45,7 +46,7 @@ const Media = () => {
     },[])
 
     const get = () => {
-        request.get(endPoint.categorieMedias).then((res) =>{
+        request.get(endPointPublic.categorieMedias).then((res) =>{
             console.log(res.data.data)
             setDatas(res.data.data)
         }).catch((error) =>{

@@ -13,6 +13,7 @@ import endPoint from "../services/endPoint";
 import request from "../services/request";
 import { listLink } from "../utils/listLink";
 import { useParams } from "react-router-dom";
+import endPointPublic from "../services/endPointPublic";
 
 const MediaDetail = ({ title, buttonName }) => {
     const imgs = [
@@ -46,7 +47,7 @@ const MediaDetail = ({ title, buttonName }) => {
     },[])
 
     const get = () =>{
-        request.get(endPoint.categorieMedias+"/"+slug).then((res) =>{
+        request.get(endPointPublic.categorieMedias+"/"+slug).then((res) =>{
             console.log(res.data.data)
             setCategorie(res.data.data)
         }).catch((error) =>{

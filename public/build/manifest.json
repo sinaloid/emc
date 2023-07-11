@@ -30,7 +30,6 @@
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/search-8b144877.png",
       "assets/logo-c5c5f707.png",
       "assets/lg-fce38ed8.png",
       "assets/gps-e5507b9b.svg",
@@ -45,7 +44,7 @@
     "css": [
       "assets/app-8c12ea6a.css"
     ],
-    "file": "assets/app-383900fe.js",
+    "file": "assets/app-b30a5737.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -72,9 +71,5 @@
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",
     "src": "resources/js/src/assets/imgs/pub_card.png"
-  },
-  "resources/js/src/assets/imgs/search.png": {
-    "file": "assets/search-8b144877.png",
-    "src": "resources/js/src/assets/imgs/search.png"
   }
 }

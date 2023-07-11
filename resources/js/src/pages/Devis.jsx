@@ -18,6 +18,7 @@ import Page from "./Page";
 import Header from "../components/Header";
 import TelechargerDevis from "../components/TelechargerDevis";
 import FormDevis from "../components/FormDevis";
+import endPointPublic from "../services/endPointPublic";
 
 const Devis = ({ children, title }) => {
     const [produit, setProduit] = useState();
@@ -53,7 +54,7 @@ const Devis = ({ children, title }) => {
 
     const get = () => {
         request
-            .get(endPoint.offres + "/" + slug)
+            .get(endPointPublic.offres + "/" + slug)
             .then((res) => {
                 console.log(res.data);
                 setProduit(res.data.data)
@@ -77,7 +78,7 @@ const Devis = ({ children, title }) => {
                         firstContent={produit?.media?.description}
                         image={produit?.media?.image}
                     />
-                    {location.includes("telecharger-le-devis") ? <TelechargerDevis produit={produit} /> : <FormDevis produit={produit} />}
+                    {location.includes("telecharger-le-devis") ? <TelechargerDevis produit={produit} /> : <FormDevis produit={produit} link={"/telecharger-le-devis/"+slug} />}
                     <div className="col-12 col-md-10 col-lg-9 mx-auto pb-5">
                         <div className="row">
                             <div className="col-md-12 order-2 order-md-1">
@@ -97,7 +98,7 @@ const Devis = ({ children, title }) => {
                                                         data={data}
                                                         Img={data.image}
                                                         title={data.name}
-                                                        link={"/radios/devis"}
+                                                        link={"/telecharger-le-devis/"+slug}
                                                         classe="text-primary"
                                                     />
                                                 </div>

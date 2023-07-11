@@ -12,6 +12,7 @@ import request from "../services/request";
 import endPoint from "../services/endPoint";
 import Page from "./Page";
 import Header from "../components/Header";
+import endPointPublic from "../services/endPointPublic";
 
 const Produit = ({ children, title, link }) => {
     useEffect(() => {
@@ -49,7 +50,7 @@ const Produit = ({ children, title, link }) => {
 
     const get = () => {
         request
-            .get(endPoint.medias + "/" + produit)
+            .get(endPointPublic.medias + "/" + produit)
             .then((res) => {
                 console.log(res.data.data);
                 setMedia(res.data.data);

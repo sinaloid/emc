@@ -14,7 +14,7 @@ export  const listLink = {
     produit:"produits",
     devis:"devis/:slug",
     referencer:"/referencer-un-media",
-    telecharger_devis:"telecharger-le-devis",
+    telecharger_devis:"telecharger-le-devis/:slug",
     tele_:"/televisions/*",
     tele:"/televisions",
     presse_:"/presse-ecrite/*",

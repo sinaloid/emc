@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import request from "../services/request";
 import endPoint from "../services/endPoint";
 import Hero from "./Hero";
+import endPointPublic from "../services/endPointPublic";
 
 const PubContainer = () => {
     const [datas, setDatas] = useState([]);
@@ -24,7 +25,7 @@ const PubContainer = () => {
 
     const get = () => {
         request
-            .get(endPoint.offres)
+            .get(endPointPublic.offres)
             .then((res) => {
                 console.log(res.data)
                 setDatas(res.data.data);
@@ -36,7 +37,7 @@ const PubContainer = () => {
     };
     const getCategorie = () => {
         request
-            .get(endPoint.categorieMedias)
+            .get(endPointPublic.categorieMedias)
             .then((res) => {
                 //console.log(res.data)
                 setCategories(res.data.data);
