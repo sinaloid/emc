@@ -39,10 +39,10 @@ const Dashboard = () => {
             <div className="row">
                 <nav
                     id="sidebarMenu"
-                    className="col-md-3 col-lg-2 d-md-block sidebar collapse"
+                    className="pt-2 col-md-3 col-lg-2 d-md-block sidebar collapse"
                 >
                     <div className="position-sticky pt-1 sidebar-sticky h-100">
-                        <div className="d-flex pb-5 px-2 align-items-center">
+                        <div className="d-flex pb-2 px-2 align-items-center">
                             <div className="me-2">
                                 <img
                                     className="rounded-circle"
