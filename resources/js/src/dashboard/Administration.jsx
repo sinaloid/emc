@@ -10,6 +10,7 @@ import TabMessage from "./components/TabMessage";
 import TabAbonnement from "./components/TabAbonnement";
 import TabAccompagnement from "./components/TabAccompagnement";
 import TabAttestation from "./components/TabAttestation";
+import TabCategorieAbonnement from "./components/TabCategorieAbonnement";
 
 const Administration = () => {
     const [tabView, setTabView] = useState("categorieMedia");
@@ -49,11 +50,12 @@ const Administration = () => {
         "filtre",
         "message",
         "utilisateur",
-        "abonnement",
+        "categorieAbonnement",
         "categorieFiltre",
         "categorieMedia",
         "accompagnement",
         "attestation",
+        "abonnement",
     ];
     const changeTab = (e, name) => {
         e.preventDefault();
@@ -98,19 +100,7 @@ const Administration = () => {
                                 role="tablist"
                                 aria-orientation="vertical"
                             >
-                                <button
-                                    className="nav-link text-start"
-                                    id="v-pills-disabled-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-disabled"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="v-pills-disabled"
-                                    aria-selected="false"
-                                    onClick={(e) => changeTab(e, view[0])}
-                                >
-                                    Filtres
-                                </button>
+                                
                                 <button
                                     className="nav-link text-start"
                                     id="v-pills-messages-tab"
@@ -148,6 +138,19 @@ const Administration = () => {
                                     aria-selected="false"
                                     onClick={(e) => changeTab(e, view[3])}
                                 >
+                                    Catégories Abonnements
+                                </button>
+                                <button
+                                    className="nav-link text-start"
+                                    id="v-pills-attestation-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-attestation"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-attestation"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[8])}
+                                >
                                     Abonnements
                                 </button>
                                 <button
@@ -162,6 +165,19 @@ const Administration = () => {
                                     onClick={(e) => changeTab(e, view[4])}
                                 >
                                     Catégories Filtres
+                                </button>
+                                <button
+                                    className="nav-link text-start"
+                                    id="v-pills-disabled-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-disabled"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-disabled"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[0])}
+                                >
+                                    Filtres
                                 </button>
                                 <button
                                     className="nav-link active text-start"
@@ -203,6 +219,7 @@ const Administration = () => {
                                 >
                                     Attestation de service
                                 </button>
+                                
                                 {/**
                                      * <button
                                     className="nav-link"
@@ -224,11 +241,12 @@ const Administration = () => {
                         {tabView === view[0] && <TabFiltre setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[1] && <TabMessage setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[2] && <TabUtilisateur setRestForm={setRestForm} setBtnName={setBtnName} />}
-                        {tabView === view[3] && <TabAbonnement setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[3] && <TabCategorieAbonnement setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[4] && <TabCategorieFiltre setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[5] && <TabCategorieMedia setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[6] && <TabAccompagnement setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[7] && <TabAttestation setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[8] && <TabAbonnement setRestForm={setRestForm} setBtnName={setBtnName} />}
                     </div>
                 </div>
             </div>

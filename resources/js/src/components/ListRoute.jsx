@@ -18,7 +18,7 @@ import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
 import Dashboard from "../pages/DashBoard";
 import Compte from "../pages/Compte";
-import Demande from "../dashboard/Demande";
+import Demande from "../dashboard/Publicite";
 import Paiement from "../dashboard/Paiement";
 import DevisDash from "../dashboard/DevisDash";
 import Campagne from "../dashboard/Campagne";

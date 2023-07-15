@@ -83,7 +83,7 @@ const Dashboard = () => {
                                     }
                                     to={listLink.dashboard_demande}
                                 >
-                                    Mes demandes
+                                    Mes publicités
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">

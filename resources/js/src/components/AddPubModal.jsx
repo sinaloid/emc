@@ -10,14 +10,18 @@ const initData = {
     endDate: "",
     file: "",
 };
-const AddPuBModal = ({ data }) => {
+const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
     useEffect(() => {
-        //console.log(data)
-    }, []);
+        console.log(idx);
+        if (update) {
+            formik.setFieldValue("startDate", data.startDate);
+            formik.setFieldValue("endDate", data.endDate);
+        }
+    }, [idx]);
 
     const ajoutPanier = (values) => {
         const oldCampagne = getCampagne();
-        console.log({ ...data, ...values })
+        console.log({ ...data, ...values });
         setCampagne([...oldCampagne, { ...data, ...values }]);
     };
 
@@ -25,9 +29,18 @@ const AddPuBModal = ({ data }) => {
         initialValues: initData,
         onSubmit: (values) => {
             console.log(values);
+            if (data.startDate !== "" || data.endDate !== "") {
+                updateValue(values);
+            }
             ajoutPanier(values);
         },
     });
+
+    const updateValue = (values) => {
+        const campagnes = getCampagne();
+        const tab = campagnes.filter((item) => item.slug !== values.slug && item);
+        setCampagne([...tab, values]);
+    };
     return (
         <div id="addModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -49,10 +62,10 @@ const AddPuBModal = ({ data }) => {
                             <div className="col-md-4">
                                 <img
                                     width={"100%"}
-                                    src={URL + data.image}
+                                    src={URL + data?.image}
                                     alt=""
                                 />
-                                <h2 className="text-center">{data.name}</h2>
+                                <h2 className="text-center">{data?.name}</h2>
                             </div>
                             <div className="col-md-8 border-start">
                                 <div className="border-bottom d-inline-block mb-3 text-22">
@@ -116,7 +129,11 @@ const AddPuBModal = ({ data }) => {
                                         className="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
-                                        onClick={formik.handleSubmit}
+                                        onClick={
+                                            update
+                                                ? callback()
+                                                : formik.handleSubmit
+                                        }
                                     >
                                         Ajouter au panier
                                     </button>

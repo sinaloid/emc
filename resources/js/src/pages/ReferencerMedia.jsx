@@ -4,8 +4,30 @@ import { Link } from "react-router-dom";
 import AccompagnementCard from "../components/ReferencerMediaCard";
 import ReferencerMediaCard from "../components/ReferencerMediaCard";
 import Section from "../components/Section";
+import { useEffect, useState } from "react";
+import request from "../services/request";
+import endPointPublic from "../services/endPointPublic";
 
 const ReferenceMedia = () => {
+    const [datas, setDatas] = useState([]);
+    const [categorie, setCategorie] = useState("");
+
+    useEffect(() => {
+        get();
+    }, []);
+
+    const get = () => {
+        request
+            .get(endPointPublic.categorieAbonnements)
+            .then((res) => {
+                console.log(res.data.data);
+                setDatas(res.data.data);
+                setCategorie(res.data.data[0].slug);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <Section>
             <div className="col-12 col-md-10 col-lg-9 mx-auto py-5">
@@ -51,34 +73,58 @@ const ReferenceMedia = () => {
                         </div>
                         <div className="d-flex justify-content-center my-5">
                             <div className="btn-group border rounded-5 p-1">
-                                <Link className="btn px-2" to={"#"}>
-                                    Standard
-                                </Link>
-                                <Link
-                                    className="btn btn-tertiary-full text-white rounded-5 px-5"
-                                    to={"#"}
-                                >
-                                    Avancé
-                                </Link>
+                                {datas.map((data, idx) => {
+                                    return (
+                                        <span
+                                            className={`btn px-2 ${
+                                                categorie === data.slug &&
+                                                " btn-tertiary-full text-white rounded-5 px-5"
+                                            }`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setCategorie(data.slug);
+                                            }}
+                                        >
+                                            {data.name}
+                                        </span>
+                                    );
+                                })}
                             </div>
                         </div>
-                        <div className="row justify-content-center">
-                            <div className="col-md-5">
-                                <ReferencerMediaCard
-                                    title={"Gratuit"}
-                                    prix={"0 F"}
-                                    linkText={"Lancez-vous"}
-                                    btn={"btn-tertiary"}
-                                />
-                            </div>
-                            <div className="col-md-5">
-                                <ReferencerMediaCard
-                                    title={"Annuel"}
-                                    prix={"800 000 F"}
-                                    linkText={"Demandez un devis"}
-                                    btn={"btn-primary"}
-                                />
-                            </div>
+                        <div className="row justify-content-center1">
+                            {datas.map((data, idx) => {
+                                if (data.slug !== categorie) {
+                                    return;
+                                }
+
+                                return (
+                                    <>
+                                        {data.abonnements?.map((abonn, idx) => {
+                                            return (
+                                                <div
+                                                    className="col-md-5 mb-3"
+                                                    key={data.slug}
+                                                >
+                                                    {" "}
+                                                    <ReferencerMediaCard
+                                                        key={abonn.slug}
+                                                        title={abonn.name}
+                                                        prix={abonn.price}
+                                                        avantage={
+                                                            abonn.avantage
+                                                        }
+                                                        description={
+                                                            abonn.description
+                                                        }
+                                                        linkText={"Lancez-vous"}
+                                                        btn={"btn-tertiary"}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

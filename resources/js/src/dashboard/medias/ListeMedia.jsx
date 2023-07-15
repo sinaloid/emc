@@ -101,7 +101,7 @@ const ListeMedia = () => {
                 pending: "Veuillez patienté...",
                 success: {
                     render({ data }) {
-                        console.log(data);
+                        console.log("okok");
                         close.current.click();
                         get();
                         return data.data.message;
@@ -389,7 +389,6 @@ const ListeMedia = () => {
 
                                 <div className="modal-footer d-flex justify-content-start border-0">
                                     <button
-                                        type="reset"
                                         className="btn btn-tertiary"
                                         data-bs-dismiss="modal"
                                         ref={close}

@@ -10,7 +10,13 @@ const endPoint = {
     users:"users",
     medias:"medias",
     offres:"mediaProduits",
-    mediaTarifs:"mediaTarifs"
+    mediaTarifs:"mediaTarifs",
+    accompagnements:"accompagnements",
+    categorieAbonnements:"categorieAbonnements",
+    abonnements:"abonnements",
+    campagnes:"campagnes",
+    devis:"devis",
+    publicites:"publicites",
 }
 
 export default endPoint

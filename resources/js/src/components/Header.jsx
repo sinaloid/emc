@@ -5,6 +5,7 @@ import Dash from "./imgs/Dash";
 import Logo from "./imgs/Logo";
 import Section from "./Section";
 import { AppContext } from "../services/context";
+import { getCampagne } from "../services/storage";
 
 const Header = () => {
     const appCtx = useContext(AppContext);
@@ -103,7 +104,7 @@ const Header = () => {
                                     >
                                         <button
                                             type="button"
-                                            className="btn btn-tertiary-full"
+                                            className="btn bg-primary btn-tertiary-full1"
                                         >
                                             {" "}
                                             <Dash />
@@ -111,7 +112,7 @@ const Header = () => {
                                         <Link
                                             to={listLink.panier}
                                             type="button"
-                                            className="btn btn-tertiary p-0"
+                                            className="btn btn-tertiary p-0 pt-1"
                                         >
                                             <span
                                                 className="d-block mx-1 text-start"
@@ -121,7 +122,7 @@ const Header = () => {
                                                     Panier
                                                 </span>{" "}
                                                 <span className="d-block text-13 text-primary">
-                                                    02 produits
+                                                    {  getCampagne().length + " produits"}
                                                 </span>
                                             </span>
                                         </Link>

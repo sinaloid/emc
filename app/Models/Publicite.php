@@ -13,6 +13,9 @@ class Publicite extends Model
         "is_deleted",
         "campagne_id",
         "media_produit_id",
+        "startDate",
+        "endDate",
+        "status",
     ];
 
     public function campagne(){

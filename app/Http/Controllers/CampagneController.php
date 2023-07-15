@@ -53,7 +53,8 @@ class CampagneController extends Controller
             return response(['errors' => $validator->errors()->all()], 422);
         }
         
-        
+        $user = Auth::user();
+        //dd($user);
         $data = Campagne::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
@@ -63,7 +64,7 @@ class CampagneController extends Controller
             'budget' => $request->input('budget'),
             'is_deleted' => false,
             'slug' => Str::random(8),
-            'user_id' => Auth::user()->id,
+            'user_id' => isset($user) ? $user->id : $request->input("user_id"),
         ]);
 
         if ($request->hasFile('file')) {

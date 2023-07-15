@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import RadioIMG from "./imgs/RadioIMG";
 
-const ReferencerMediaCard = ({ title = "", prix, link, linkText, btn }) => {
+const ReferencerMediaCard = ({ description, avantage, title = "", prix, link, linkText, btn }) => {
     return (
         <div className="card shadow">
             <div className="card-header bg-primary">
@@ -10,20 +10,18 @@ const ReferencerMediaCard = ({ title = "", prix, link, linkText, btn }) => {
             </div>
             <div className="py-3 mx-auto px-2">
                 <span className="my-2 d-inline-block">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam mattis eleifend tellus, vel viverra ante tincidunt
-                    placerat. Nulla mi dolor, massa pellentesque ut massa et,
-                    fermentum hendrerit purus. Suspendisse lacinia neque vitae
-                    metus viverra accumsan.
+                    {
+                        description
+                    }
                 </span>{" "}
                 <p className="text-40 fw-bold text-center py-2">
                     {prix} <sup>CFA</sup>
                 </p>
-                <ul>
-                    {[...Array(9).keys()].map((data, idx) => {
-                        return <li key={idx}>Media mis en avant</li>;
-                    })}
-                </ul>
+                <p>
+                    {
+                        avantage
+                    }
+                </p>
                 <div className="d-flex justify-content-center">
                     <Link
                         to={link}

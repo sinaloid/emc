@@ -6,11 +6,16 @@ import Delete from "../components/imgs/Delete";
 import Footer from "../components/Footer";
 import LoginModal from "../components/LoginModal";
 import { useEffect, useState } from "react";
-import { getCampagne } from "../services/storage";
+import { getCampagne, setCampagne } from "../services/storage";
 import { formatDate } from "../services/function";
+import AddPuBModal from "../components/addPubModal";
+import AddPubComfirmationModal from "../components/AddPubComfirmationModal";
+import CampagneModal from "../components/CampagneModal";
 
 const Panier = () => {
     const [list, setList] = useState([]);
+    const [selectedData, setSelectedData] = useState({})
+    const [id, setId] = useState()
 
     useEffect(() => {
         getCampagneList();
@@ -19,9 +24,16 @@ const Panier = () => {
     const getCampagneList = () => {
         const campagnes = getCampagne();
         setList(campagnes);
+        campagnes.length !== 0 && setSelectedData(campagnes[0])
     };
 
-    
+    const deleteProduit = (id) =>{
+        
+        console.log(id)
+        const tab = list.filter((data,idx) => idx !== id && data)
+        setList(tab)
+        setCampagne(tab)
+    }
     return (
         <>
             <Header />
@@ -38,13 +50,20 @@ const Panier = () => {
                                             {formatDate(data.endDate)}
                                         </span>
                                         <br />
-                                        <span className="text-primary">
+                                        <span className="text-primary" data-bs-toggle="modal" data-bs-target="#addModal" onClick={e =>{
+                                            e.preventDefault()
+                                            setId(idx)
+                                            setSelectedData(data)
+                                        }}>
                                             Modifier
                                         </span>
                                     </div>
-                                    <div>
+                                    <div onClick={e => {
+                                        e.preventDefault()
+                                        deleteProduit(idx)
+                                    }}>
                                         <Delete />
-                                    </div>
+                                    </div> 
                                 </div>
                             );
                         })}
@@ -55,6 +74,7 @@ const Panier = () => {
                                 <button
                                     type="button"
                                     className="btn btn-primary mb-3 me-1"
+                                    data-bs-toggle="modal" data-bs-target="#campagne"
                                 >
                                     Demander un devis
                                 </button>
@@ -70,6 +90,9 @@ const Panier = () => {
                     </div>
                 </div>
                 <LoginModal />
+                <CampagneModal />
+                <AddPuBModal data={selectedData} idx = {id} update={true} callBack = {deleteProduit} />
+                <AddPubComfirmationModal data={selectedData} />
             </Section>
             <Footer />
         </>

@@ -20,7 +20,7 @@ class PubliciteController extends Controller
      */
     public function index()
     {
-        $data = Publicite::where("is_deleted", false)->get();
+        $data = Publicite::with("campagne","mediaProduit","mediaProduit.media")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucune publicité trouvée'], 404);
@@ -43,7 +43,7 @@ class PubliciteController extends Controller
             'campagne' => 'required|string|max:8',
             'mediaProduit' => 'required|string|max:8',
         ]);
-        
+        //dd($request->all());
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
@@ -63,6 +63,9 @@ class PubliciteController extends Controller
         $data = Publicite::create([
             'campagne_id' => $campagne->id,
             'media_produit_id' => $mediaProduit->id,
+            'startDate' => $request->startDate,
+            'endDate' => $request->endDate,
+            'status' => 0,
             'is_deleted' => false,
             'slug' => Str::random(8),
         ]);
@@ -79,7 +82,7 @@ class PubliciteController extends Controller
      */
     public function show($slug)
     {
-        $data = Publicite::where("slug",$slug)->first();
+        $data = Publicite::with("campagne","mediaProduit","mediaProduit.media")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Publicité non trouvée'], 404);
@@ -103,15 +106,16 @@ class PubliciteController extends Controller
     {
         // Vérifier que les champs obligatoires sont remplis
         $validator = Validator::make($request->all(), [
-            'campagne' => 'required|string|max:8',
-            'mediaProduit' => 'required|string|max:8',
+            //'campagne' => 'required|string|max:8',
+            //'mediaProduit' => 'required|string|max:8',
+            'status' => 'required|string|max:8',
         ]);
         
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
 
-        $campagne = Campagne::where('slug',$request->campagne)->where("is_deleted",false)->first();
+        /*$campagne = Campagne::where('slug',$request->campagne)->where("is_deleted",false)->first();
         
         if (!$campagne) {
             return response()->json(['message' => 'Campagne non trouvée'], 404);
@@ -121,7 +125,7 @@ class PubliciteController extends Controller
         
         if (!$mediaProduit) {
             return response()->json(['message' => 'Produit non trouvé'], 404);
-        }
+        }*/
 
         $data = Publicite::where('slug',$slug)->where("is_deleted",false)->first();
         
@@ -130,8 +134,8 @@ class PubliciteController extends Controller
         }
         
         $data->update([
-            'campagne_id' => $campagne->id,
-            'media_produit_id' => $mediaProduit->id, 
+            //'campagne_id' => $campagne->id,
+            'status' => $request->status, 
         ]);
 
 

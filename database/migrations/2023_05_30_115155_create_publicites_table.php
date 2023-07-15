@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('publicites', function (Blueprint $table) {
             $table->id();
             $table->string("slug");
+            $table->date("startDate");
+            $table->date("endDate");
+            $table->string("status")->nullable();
             $table->boolean("is_deleted");
             
             $table->unsignedBigInteger('campagne_id');

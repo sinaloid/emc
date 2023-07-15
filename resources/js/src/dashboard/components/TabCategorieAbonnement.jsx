@@ -1,49 +1,48 @@
 import { useEffect, useRef, useState } from "react";
 import ActionButton from "../../components/ActionButton";
-import { toast } from "react-toastify";
-import endPoint from "../../services/endPoint";
+import Input from "../../components/Input";
 import { useFormik } from "formik";
 import request from "../../services/request";
-import Input from "../../components/Input";
+import endPoint from "../../services/endPoint";
+import { toast } from "react-toastify";
+import filter from "../../assets/imgs/filtre.png";
 
-const initData = {
+const initCategorie = {
     slug: "",
-    lastname: "",
-    firstname: "",
-    phone: "",
-    budget: "",
-    status: "",
-    date: "",
+    name: "",
     description: "",
 };
-const TabAccompagnement = ({ setBtnName = () => {} }) => {
+const TabCategorieAbonnement = ({ setBtnName = () => {}, setRestForm }) => {
     const close = useRef();
     const [datas, setDatas] = useState([]);
-    const [viewData, setViewData] = useState({});
+    const [viewData, setViewData] = useState(initCategorie);
     const viewRef = useRef();
 
     useEffect(() => {
-        setBtnName("");
-        //setRestForm(formik);
+        setBtnName("Ajouter une catégorie d'abonnement");
+        setRestForm(formik);
         get();
     }, []);
     const btnEditProps = {
-        "data-bs-target": "#statut",
+        "data-bs-target": "#categorieAbonnement",
     };
 
     const formik = useFormik({
-        initialValues: initData,
+        initialValues: initCategorie,
         onSubmit: (values) => {
-            values._method = "put";
             console.log(values);
-
-            status(values);
+            if (values.slug !== "") {
+                values._method = "put";
+                update(values);
+            } else {
+                post(values);
+            }
         },
     });
 
     const get = () => {
         request
-            .get(endPoint.accompagnements)
+            .get(endPoint.categorieAbonnements)
             .then((res) => {
                 setDatas(res.data.data);
             })
@@ -51,10 +50,31 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                 console.log(error);
             });
     };
-
+    const post = async (values) => {
+        const response = await toast.promise(
+            request.post(endPoint.categorieAbonnements, values),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
     const view = async (values) => {
         const response = await toast.promise(
-            request.get(endPoint.accompagnements + "/" + values.slug),
+            request.get(endPoint.categorieAbonnements + "/" + values.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -75,9 +95,9 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
         );
     };
 
-    const status = async (values) => {
+    const update = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.accompagnements + "/" + values.slug,values),
+            request.post(endPoint.categorieAbonnements + "/" + values.slug, values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -100,7 +120,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
 
     const destroy = async (values) => {
         const response = await toast.promise(
-            request.delete(endPoint.accompagnements + "/" + values.slug),
+            request.delete(endPoint.categorieAbonnements + "/" + values.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -124,11 +144,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
     const editData = (data) => {
         console.log(data);
         formik.setFieldValue("slug", data.slug);
-        formik.setFieldValue("lastname", data.lastname);
-        formik.setFieldValue("firstname", data.firstname);
-        formik.setFieldValue("phone", data.phone);
-        formik.setFieldValue("budget", data.budget);
-        formik.setFieldValue("date", data.startDate);
+        formik.setFieldValue("name", data.name);
         formik.setFieldValue("description", data.description);
     };
     return (
@@ -138,11 +154,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                     <thead className="bg-primary text-white">
                         <tr>
                             <th>#</th>
-                            <th>Nom prénom</th>
-                            <th>Contact</th>
-                            <th>Budget</th>
-                            <th>Date de diffusion</th>
-                            <th>Demande</th>
+                            <th>Nom</th>
                             <th>Description</th>
                             <th className="text-center">Action</th>
                         </tr>
@@ -152,16 +164,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                             return (
                                 <tr key={idx}>
                                     <td>{idx + 1}</td>
-                                    <td>
-                                        {data.lastname + " " + data.firstname}
-                                    </td>
-                                    <td>{data.phone}</td>
-                                    <td>{data.budget + " FCFA"}</td>
-                                    <td>{data.startDate}</td>
-                                    <td>
-                                    <span className={`px-2 fw-bold ${data.status == 1 ? "bg-primary-light":"bg-danger text-white"}`}>{data.status == 1 ? "Traitée" : "En attente"}</span>
-
-                                    </td>
+                                    <td>{data.name}</td>
                                     <td>
                                         <p className="text-container">
                                             {data.description}
@@ -182,12 +185,15 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                     </tbody>
                 </table>
             </div>
-            <div className="modal fade" id="statut">
+            <div className="modal fade" id="categorieAbonnement">
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Statut de la demande sur mésure
+                                
+                                {
+                                    formik.values["slug"] !=="" ? "Modification de la catégorie d'abonnement" :"Ajout d’une catégorie d'abonnement"
+                                }
                             </h4>
                             <button
                                 type="button"
@@ -198,17 +204,22 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                         <form onSubmit={formik.handleSubmit}>
                             <div className="modal-body">
                                 <Input
-                                    type={"select"}
-                                    name={"status"}
-                                    label={"statut"}
+                                    type={"text"}
+                                    name={"name"}
+                                    label={"Nom"}
                                     placeholder={
-                                        "Sélectionnez le statut de la demande"
+                                        "Entrez le nom de la catégorie"
                                     }
                                     formik={formik}
-                                    options={[
-                                        { slug: 1, name: "Traitée" },
-                                        { slug: 0, name: "En attente" },
-                                    ]}
+                                />
+                                <Input
+                                    type={"textarea"}
+                                    name={"description"}
+                                    label={"Description"}
+                                    placeholder={
+                                        "Entrez la description de la catégorie"
+                                    }
+                                    formik={formik}
                                 />
                             </div>
 
@@ -243,7 +254,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Détails de la demande
+                                Détails de la catégorie
                             </h4>
                             <button
                                 type="button"
@@ -253,50 +264,12 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                         </div>
                         <div className="modal-body">
                             <div className="row">
-                                <div className="col-12 col-md-11 mx-auto">
-                                    <div className="d-flex align-items-center">
-                                        <h2 className="me-auto">
-                                            {viewData.lastname +
-                                                " " +
-                                                viewData.firstname}
-                                        </h2>
-                                        <span
-                                            className={`px-2 fw-bold ${
-                                                viewData.status == 1
-                                                    ? "bg-primary-light"
-                                                    : "bg-danger text-white"
-                                            }`}
-                                        >
-                                            Demande :{" "}
-                                            {viewData.status == 1
-                                                ? "Traitée"
-                                                : "En attente"}
-                                        </span>
-                                    </div>
-                                    <p>
-                                        Budget prévu:{" "}
-                                        <span className="fw-bold">
-                                            {viewData.budget + " FCFA"}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Téléphone:{" "}
-                                        <span className="fw-bold">
-                                            {viewData.phone}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Date de la diffusion:{" "}
-                                        <span className="fw-bold">
-                                            {viewData.startDate}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Description:{" "}
-                                        <span className="fw-bold">
-                                            {viewData.description}
-                                        </span>
-                                    </p>
+                                <div className="col-12 col-md-4 text-40">
+                                    <img width="90%" src={filter} alt="" />
+                                </div>
+                                <div className="col-12 col-md-8">
+                                    <h2>{viewData.name}</h2>
+                                    <p>{viewData.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -307,4 +280,4 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
     );
 };
 
-export default TabAccompagnement;
+export default TabCategorieAbonnement;

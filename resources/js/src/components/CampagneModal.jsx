@@ -5,39 +5,61 @@ import { toast } from "react-toastify";
 import { useRef } from "react";
 import request from "../services/request";
 import endPointPublic from "../services/endPointPublic";
+import { list } from "postcss";
+import { getCampagne } from "../services/storage";
 
 const initData = {
-    lastname: "",
-    firstname: "",
-    phone: "",
-    date: "",
-    //budget: "",
+    lastname:"",
+    firstname:"",
+    email:"",
+    number:"",
+    name: "",
+    file: "",
+    budget: "",
+    startDate: "",
+    endDate: "",
     description: "",
+    status: "En cours",
 };
-const AccompagnementModal = () => {
+const CampagneModal = () => {
     const close = useRef();
-    const comfirm = useRef()
+    const comfirm = useRef();
+    const list = getCampagne();
+
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
-            console.log(values);
-            post(values);
-            formik.resetForm()
+            //console.log(values);
+            const {lastname, firstname, email, number, ...data} = values
+            const user = {
+                lastname:lastname,
+                firstname:firstname,
+                email:email,
+                number:number,
+                status:"Annonceur"
+            }
+            postDemande({
+                user:user,
+                campagne:data,
+                publicite:list
+            });
+            //formik.resetForm();
         },
     });
 
-    const post = async (values) => {
+    const postDemande = async (values) => {
+        console.log(values);
         const response = await toast.promise(
-            request.post(endPointPublic.accompagnements, values),
+            request.post(endPointPublic.demandeDevis,values),
             {
                 pending: "Veuillez patienté...",
                 success: {
                     render({ data }) {
                         console.log(data);
-                        close.current.click();
-                        comfirm.current.click()
+                        //close.current.click();
+                        comfirm.current.click();
                         //get();
-                        return "Votre demande d'accompagnement a bien été reçue !";
+                        return "Votre demande de devis a bien été reçue !";
                     },
                 },
                 error: {
@@ -54,13 +76,12 @@ const AccompagnementModal = () => {
     };
     return (
         <>
-            <div id="accompagnement" className="modal fade" tabIndex="-1">
+            <div id="campagne" className="modal fade" tabIndex="-1">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header bg-primary">
                             <h5 className="modal-title text-white">
-                                Pour ajouter ce produit à votre panier, veuillez
-                                nous fournir quelques détails
+                                Demande de devis
                             </h5>
                             <button
                                 type="button"
@@ -74,44 +95,75 @@ const AccompagnementModal = () => {
                             <div className="row">
                                 <div className="col-md-8 mx-auto">
                                     <div className="border-bottom d-inline-block mb-3 text-22">
-                                        C'est quoi l'accompagnement sur mésure ?
-                                    </div>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Aliquam mattis eleifend
-                                        tellus, vel viverra ante tincidunt
-                                        placerat. Nulla mi dolor, pellentesque
-                                        ut massa et, fermentum hendrerit purus.
-                                        Suspendisse lacinia neque vitae metus
-                                        viverra accumsan.
-                                    </p>
-                                    <div className="border-bottom d-inline-block mb-3 text-22">
-                                        Détails de l'accompagnement
+                                        Informations personnel
                                     </div>
                                     <div>
                                         <Input
                                             type={"text"}
                                             name={"lastname"}
                                             label={"Nom"}
-                                            placeholder={"Entrez votre nom"}
+                                            placeholder={
+                                                "Entrez votre nom"
+                                            }
+                                            formik={formik}
+                                        />
+                                        <Input
+                                            type={"text"}
+                                            name={"firstname"}
+                                            label={"Prénom"}
+                                            placeholder={
+                                                "Entrez votre prénom"
+                                            }
+                                            formik={formik}
+                                        />
+                                        <Input
+                                            type={"text"}
+                                            name={"email"}
+                                            label={"Email"}
+                                            placeholder={
+                                                "Entrez votre email"
+                                            }
+                                            formik={formik}
+                                        />
+                                        <Input
+                                            type={"text"}
+                                            name={"number"}
+                                            label={"Téléphone"}
+                                            placeholder={
+                                                "Entrez votre numéro"
+                                            }
+                                            formik={formik}
+                                        />
+                                    </div>
+
+                                    <div className="border-bottom d-inline-block mb-3 text-22">
+                                        Détails de le campagne publicitaire
+                                    </div>
+                                    <div>
+                                        <Input
+                                            type={"text"}
+                                            name={"name"}
+                                            label={"Nom"}
+                                            placeholder={
+                                                "Entrez le nom de campagne"
+                                            }
                                             formik={formik}
                                         />
                                     </div>
                                     <div>
                                         <Input
-                                            type={"text"}
-                                            name={"firstname"}
-                                            label={"Prénom"}
+                                            type={"date"}
+                                            name={"startDate"}
+                                            label={"Date de debut"}
                                             placeholder={"Entrez votre prénom"}
                                             formik={formik}
                                         />
                                     </div>
                                     <div>
                                         <Input
-                                            type={"text"}
-                                            name={"phone"}
-                                            label={"Téléphone"}
+                                            type={"date"}
+                                            name={"endDate"}
+                                            label={"Date de fin"}
                                             placeholder={
                                                 "Entrez votre numéro de téléphone"
                                             }
@@ -120,16 +172,13 @@ const AccompagnementModal = () => {
                                     </div>
                                     <div>
                                         <Input
-                                            type={"date"}
-                                            name={"date"}
-                                            label={
-                                                "Date de début de la diffusion"
-                                            }
+                                            type={"file"}
+                                            name={"file"}
+                                            label={"Image de la campagne"}
                                             formik={formik}
                                         />
                                     </div>
-                                    {
-                                        /**<div>
+                                    <div>
                                         <Input
                                             type={"text"}
                                             name={"budget"}
@@ -137,8 +186,7 @@ const AccompagnementModal = () => {
                                             placeholder={"Entrez votre budget"}
                                             formik={formik}
                                         />
-                                    </div> */
-                                    }
+                                    </div>
                                     <div>
                                         <Input
                                             type={"textarea"}
@@ -148,30 +196,7 @@ const AccompagnementModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    <div className="border-bottom d-inline-block mb-3 text-22">
-                                        Autres
-                                    </div>
 
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Aliquam mattis eleifend
-                                        tellus, vel viverra ante tincidunt
-                                        placerat. Nulla mi dolor, pellentesque
-                                        ut massa et, fermentum hendrerit purus.
-                                        Suspendisse lacinia neque vitae metus
-                                        viverra accumsan.
-                                    </p>
-                                    <div>
-                                        <InputField
-                                            col="col-md-12"
-                                            type={"checkbox2"}
-                                            label={
-                                                "Je certifie avoir lu et accepté les conditions"
-                                            }
-                                            value={""}
-                                            options={[]}
-                                        />
-                                    </div>
                                     <div>
                                         <button
                                             type="button"
@@ -187,14 +212,17 @@ const AccompagnementModal = () => {
                     </div>
                 </div>
             </div>
-            <input ref={comfirm} type="hidden" data-bs-toggle="modal" data-bs-target="#comfirmation" />
+            <input
+                ref={comfirm}
+                type="hidden"
+                data-bs-toggle="modal"
+                data-bs-target="#comfirmation"
+            />
             <div id="comfirmation" className="modal fade" tabIndex="-1">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header bg-primary">
-                            <h5 className="modal-title text-white">
-                                
-                            </h5>
+                            <h5 className="modal-title text-white"></h5>
                             <button
                                 type="button"
                                 className="btn-close bg-white"
@@ -238,4 +266,4 @@ const AccompagnementModal = () => {
     );
 };
 
-export default AccompagnementModal;
+export default CampagneModal;

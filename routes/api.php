@@ -15,6 +15,10 @@ use App\Http\Controllers\CampagneOptionController;
 use App\Http\Controllers\CategorieFiltreController;
 use App\Http\Controllers\FiltreController;
 use App\Http\Controllers\DevisController;
+use App\Http\Controllers\AbonnementController;
+use App\Http\Controllers\CategorieAbonnementController;
+use App\Http\Controllers\AccompagnementController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +54,24 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
     Route::get('filtres/public', [FiltreController::class,'index']);
     Route::get('filtres/public/{slug}', [FiltreController::class,'show']);
-    
+
+    Route::get('categorieAbonnements/public', [CategorieAbonnementController::class,'index']);
+    Route::get('categorieAbonnements/public/{slug}', [CategorieAbonnementController::class,'show']);
+
+    Route::get('abonnements/public', [AbonnementController::class,'index']);
+    Route::get('abonnements/public/{slug}', [AbonnementController::class,'show']);
+
+    Route::post('accompagnements/public', [AccompagnementController::class, 'store']);
+
+    Route::post('demandeDevis/public', [Controller::class, 'demandeDevis']);
+    Route::post('campagnes/public', [CampagneController::class, 'demandeDevis']);
+
+
+    Route::resources(['abonnements' => AbonnementController::class]);
+    //Route::resources(['categorieAbonnements' => CategorieAbonnementController::class]);
+    //Route::resources(['accompagnements' => AccompagnementController::class]);
+
+
     //Route::middleware([])->group(function () {
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/users', [AuthController::class,'index']);
@@ -71,6 +92,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             'categorieFiltres' => CategorieFiltreController::class,
             'filtres' => FiltreController::class,
             'devis' => DevisController::class,
+            'categorieAbonnements' => CategorieAbonnementController::class,
+            //'abonnements' => AbonnementController::class,
+            'accompagnements' => AccompagnementController::class,
         ]);
     });
 

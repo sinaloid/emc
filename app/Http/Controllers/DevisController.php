@@ -43,7 +43,7 @@ class DevisController extends Controller
        
         $validator = Validator::make($request->all(), [
             'campagne' => 'required|string|max:8',
-            'price' => 'required|string|max:255',
+            'price' => 'nullable|string|max:255',
             'description' => 'required|string|max:1000',
             'startDate' => 'required|date',
             'endDate' => 'required|date',
@@ -54,7 +54,7 @@ class DevisController extends Controller
         }
         
         $campagne = Campagne::where('slug',$request->campagne)->where("is_deleted",false)->first();
-        
+        //dd($campagne);
         if (!$campagne) {
             return response()->json(['message' => 'Campagne non trouvée'], 404);
         }
@@ -106,7 +106,7 @@ class DevisController extends Controller
         ]);
         //dd("ok");
         $pdf = Pdf::loadView('devis', compact('user','data','details'));
-        return $pdf->download();
+        //return $pdf->download();
         
         // Générez un nom de fichier unique pour le PDF
         $pdfPath = 'pdf/devis/devis-pdf-' . time() . '.pdf';
@@ -134,17 +134,17 @@ class DevisController extends Controller
      */
     public function show($slug)
     {
-        $data = Publicite::where("slug",$slug)->first();
+        $data = Devis::where("slug",$slug)->first();
 
         if (!$data) {
-            return response()->json(['message' => 'Publicité non trouvée'], 404);
+            return response()->json(['message' => 'Devis non trouvée'], 404);
         }
 
         if ($data->is_deleted) {
-            return response()->json(['message' => 'Publicité supprimée'], 404);
+            return response()->json(['message' => 'Devis supprimée'], 404);
         }
 
-        return response()->json(['message' => 'Publicité trouvée', 'data' => $data], 200);
+        return response()->json(['message' => 'Devis trouvée', 'data' => $data], 200);
     }
 
     /**
@@ -158,39 +158,26 @@ class DevisController extends Controller
     {
         // Vérifier que les champs obligatoires sont remplis
         $validator = Validator::make($request->all(), [
-            'campagne' => 'required|string|max:8',
-            'mediaProduit' => 'required|string|max:8',
+            'status' => 'required|string|max:8',
         ]);
         
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
 
-        $campagne = Campagne::where('slug',$request->campagne)->where("is_deleted",false)->first();
-        
-        if (!$campagne) {
-            return response()->json(['message' => 'Campagne non trouvée'], 404);
-        }
 
-        $mediaProduit = MediaProduit::where('slug',$request->mediaProduit)->where("is_deleted",false)->first();
-        
-        if (!$mediaProduit) {
-            return response()->json(['message' => 'Produit non trouvé'], 404);
-        }
-
-        $data = Publicite::where('slug',$slug)->where("is_deleted",false)->first();
+        $data = Devis::where('slug',$slug)->where("is_deleted",false)->first();
         
         if (!$data) {
-            return response()->json(['message' => 'Publicité non trouvée'], 404);
+            return response()->json(['message' => 'Devis non trouvée'], 404);
         }
         
         $data->update([
-            'campagne_id' => $campagne->id,
-            'media_produit_id' => $mediaProduit->id, 
+            'status' => $request->status,
         ]);
 
 
-        return response()->json(['message' => 'Publicité modifiée avec succès', 'data' => $data], 200);
+        return response()->json(['message' => 'Devis modifiée avec succès', 'data' => $data], 200);
 
     }
 
@@ -203,16 +190,16 @@ class DevisController extends Controller
     public function destroy($slug)
     {
         // Trouver la catégorie de maison à supprimer
-        $data = Publicite::where("slug",$slug)->where("is_deleted",false)->first();
+        $data = Devis::where("slug",$slug)->where("is_deleted",false)->first();
         if (!$data) {
-            return response()->json(['message' => 'Publicité non trouvée'], 404);
+            return response()->json(['message' => 'Devis non trouvé'], 404);
         }
 
 
         // Supprimer la catégorie de maison
         $data->update(["is_deleted" => true]);
 
-        return response()->json(['message' => 'Publicité supprimée avec succès']);
+        return response()->json(['message' => 'Devis supprimé avec succès']);
     }
 
     public function sendEmail($email,$file)
