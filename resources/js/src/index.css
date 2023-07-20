@@ -1,9 +1,10 @@
 @import url("https://fonts.bunny.net/css?family=rubik:300,400,500,600,700,800,900");
 @font-face {
-  font-family: 'MaPolice';
-  src: url('./assets/bariol/Bariol\ Regular.otf') format('truetype');
+  font-family: 'Bariol';
+  src:local('Bariol'),url(./assets/bariol/Bariol_Regular.otf) format('opentype');
   /* Ajoutez d'autres styles de police selon vos besoins */
 }
+
 :root{
     --primary-color:#1F2E54;
     --primary-color-light:rgba(31, 46, 84, 0.15);
@@ -29,7 +30,7 @@ body {
     padding: 0;
     width: 100%;
     font-size: 1rem;
-    font-family: 'Bariol','Rubik',"Sofia Sans Condensed",Nunito,Montserrat,"HK Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    font-family: Bariol,'Rubik',"Sofia Sans Condensed",Nunito,Montserrat,"HK Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       line-height: 160%;
       color: var(--primary-color);

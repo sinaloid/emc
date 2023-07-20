@@ -25,7 +25,7 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-58366e88.css",
+    "file": "assets/app-690af89d.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -35,6 +35,7 @@
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/filtre-842a5333.png",
+      "assets/Bariol_Regular-b09bd97d.otf",
       "assets/bootstrap-icons-966620f9.woff2",
       "assets/bootstrap-icons-c6569d46.woff",
       "assets/layers-1dbbe9d0.png",
@@ -42,11 +43,15 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-58366e88.css"
+      "assets/app-690af89d.css"
     ],
-    "file": "assets/app-7cad282d.js",
+    "file": "assets/app-b6710cdf.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/src/assets/bariol/Bariol_Regular.otf": {
+    "file": "assets/Bariol_Regular-b09bd97d.otf",
+    "src": "resources/js/src/assets/bariol/Bariol_Regular.otf"
   },
   "resources/js/src/assets/imgs/filtre.png": {
     "file": "assets/filtre-842a5333.png",
