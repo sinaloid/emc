@@ -10,15 +10,17 @@ const MediaCard = ({data, Img, title, link, linkText}) => {
             <div className="d-flex justify-content-center">
                 <img src={URL+""+data.image} alt="" />
             </div>
-            <div className="text-center py-3">
-                <h4 className="text-40 fw-bold">{data.name}</h4>
+            <div className="text-center1 p-3">
+                <h4 className="text-40 fw-bold text-center">{data.name}</h4>
                 <span className="my-2 d-inline-block">
                     {data.description}
                 </span>{" "}
                 <br />
+                <div className="d-flex justify-content-center">
                 <Link to={link} className={"btn btn-secondary text-uppercase"}>
                     {linkText}
                 </Link>
+                </div>
             </div>
         </div>
     );
