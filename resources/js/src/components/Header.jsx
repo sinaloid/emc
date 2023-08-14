@@ -6,13 +6,14 @@ import Logo from "./imgs/Logo";
 import Section from "./Section";
 import { AppContext } from "../services/context";
 import { getCampagne } from "../services/storage";
+import { URL_ } from "../services/request";
 
 const Header = () => {
     const appCtx = useContext(AppContext);
     const { user } = appCtx;
     const navigate = useNavigate();
     const isAuth = () => {
-        alert(user.isAuth)
+        alert(user.isAuth);
         if (
             user.isAuth === false ||
             user.isAuth === "" ||
@@ -28,7 +29,14 @@ const Header = () => {
                 <nav className="navbar navbar-expand-md">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
-                            <Logo />
+                            <span>
+                                <img
+                                    className="img"
+                                    width="81px"
+                                    src={URL_ + "images/logo.png"}
+                                    alt=""
+                                />
+                            </span>
                         </a>
                         <button
                             className="navbar-toggler"
@@ -122,7 +130,8 @@ const Header = () => {
                                                     Panier
                                                 </span>{" "}
                                                 <span className="d-block text-13 text-primary">
-                                                    {  getCampagne().length + " produits"}
+                                                    {getCampagne().length +
+                                                        " produits"}
                                                 </span>
                                             </span>
                                         </Link>
