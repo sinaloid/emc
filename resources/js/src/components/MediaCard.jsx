@@ -10,7 +10,7 @@ const MediaCard = ({data, Img, title, link, linkText}) => {
             <div className="d-flex justify-content-center">
                 <img src={URL+""+data.image} alt="" />
             </div>
-            <div className="text-center1 p-3">
+            <div className=" p-3">
                 <h4 className="text-40 fw-bold text-center">{data.name}</h4>
                 <span className="my-2 d-inline-block">
                     {data.description}
