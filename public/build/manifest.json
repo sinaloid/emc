@@ -30,7 +30,6 @@
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/Logo-c5c5f707.png",
       "assets/lg-fce38ed8.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
@@ -45,7 +44,7 @@
     "css": [
       "assets/app-4b1741d0.css"
     ],
-    "file": "assets/app-675efbdb.js",
+    "file": "assets/app-3ac2add1.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
