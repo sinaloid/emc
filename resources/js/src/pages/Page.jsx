@@ -20,9 +20,9 @@ const Page = ({children}) => {
                 children
             }
             <Banier
-                fitrstTitle={"Déjà plus de 200 Médias référencés sur e.m.c"}
+                fitrstTitle={"Déjà plus de 200 Médias référencés sur E.M.C"}
                 firstContent={
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+                    "Vous avez un média à référencer ?"
                 }
                 secondTitle={"Vous avez un Media à référencer ?"}
                 secondContent={
@@ -35,9 +35,9 @@ const Page = ({children}) => {
                 }}
             />
             <Banier
-                fitrstTitle={"Ils nous font confiance"}
+                fitrstTitle={"Grandes ou de taille moyenne, elles nous font confiance"}
                 firstContent={
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+                    "Quel que soit votre objectif marketing, vous trouverez sur EMC le média le plus adapté à vos besoins. Rejoignez-nous et laissez-vous guider par nos experts médias chevronnés."
                 }
                 secondTitle={"Souhaitez-vous un accompagnement sur-mesure  ?"}
                 secondContent={

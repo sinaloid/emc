@@ -17,6 +17,7 @@ const endPoint = {
     campagnes:"campagnes",
     devis:"devis",
     publicites:"publicites",
+    messages:"messages",
 }
 
 export default endPoint

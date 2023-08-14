@@ -16,13 +16,13 @@ const initData = {
 };
 const AccompagnementModal = () => {
     const close = useRef();
-    const comfirm = useRef()
+    const comfirm = useRef();
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
             console.log(values);
             post(values);
-            formik.resetForm()
+            formik.resetForm();
         },
     });
 
@@ -35,7 +35,7 @@ const AccompagnementModal = () => {
                     render({ data }) {
                         console.log(data);
                         close.current.click();
-                        comfirm.current.click()
+                        comfirm.current.click();
                         //get();
                         return "Votre demande d'accompagnement a bien été reçue !";
                     },
@@ -78,13 +78,10 @@ const AccompagnementModal = () => {
                                     </div>
 
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Aliquam mattis eleifend
-                                        tellus, vel viverra ante tincidunt
-                                        placerat. Nulla mi dolor, pellentesque
-                                        ut massa et, fermentum hendrerit purus.
-                                        Suspendisse lacinia neque vitae metus
-                                        viverra accumsan.
+                                        Demandez gratuitement <br />
+                                        un devis Un expert vous contacte dans
+                                        délai de 24h maximum Nous vous
+                                        accompagnons sur tout le processus
                                     </p>
                                     <div className="border-bottom d-inline-block mb-3 text-22">
                                         Détails de l'accompagnement
@@ -128,8 +125,7 @@ const AccompagnementModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    {
-                                        /**<div>
+                                    {/**<div>
                                         <Input
                                             type={"text"}
                                             name={"budget"}
@@ -137,8 +133,7 @@ const AccompagnementModal = () => {
                                             placeholder={"Entrez votre budget"}
                                             formik={formik}
                                         />
-                                    </div> */
-                                    }
+                                    </div> */}
                                     <div>
                                         <Input
                                             type={"textarea"}
@@ -187,14 +182,17 @@ const AccompagnementModal = () => {
                     </div>
                 </div>
             </div>
-            <input ref={comfirm} type="hidden" data-bs-toggle="modal" data-bs-target="#comfirmation" />
+            <input
+                ref={comfirm}
+                type="hidden"
+                data-bs-toggle="modal"
+                data-bs-target="#comfirmation"
+            />
             <div id="comfirmation" className="modal fade" tabIndex="-1">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header bg-primary">
-                            <h5 className="modal-title text-white">
-                                
-                            </h5>
+                            <h5 className="modal-title text-white"></h5>
                             <button
                                 type="button"
                                 className="btn-close bg-white"

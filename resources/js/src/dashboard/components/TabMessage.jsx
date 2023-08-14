@@ -1,22 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import ActionButton from "../../components/ActionButton";
 import { useFormik } from "formik";
 import Input from "../../components/Input";
+import { toast } from "react-toastify";
+import endPoint from "../../services/endPoint";
+import request from "../../services/request";
 
 const initMessage = {
-    user:"",
-    message:""
-}
+    user: "",
+    message: "",
+};
 const TabMessage = ({ setBtnName = () => {} }) => {
+    const close = useRef();
+    const viewRef = useRef();
+    const [datas, setDatas] = useState([]);
+
     useEffect(() => {
         setBtnName("Envoyer un message");
+        get();
     }, []);
     const formik = useFormik({
         initialValues: initMessage,
         onSubmit: (values) => {
             console.log(values);
+            post(values);
         },
     });
+    const get = () => {
+        request
+            .get(endPoint.messages)
+            .then((res) => {
+                console.log(res.data);
+                setDatas(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const post = async (values) => {
+        const response = await toast.promise(
+            request.post(endPoint.messages, values),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
+
     return (
         <>
             <div className="table-responsive">
@@ -31,13 +74,13 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {[...Array(10).keys()].map((data, idx) => {
+                        {datas.map((data, idx) => {
                             return (
                                 <tr key={idx}>
                                     <td>{idx + 1}</td>
-                                    <td>nom de l'auteur</td>
-                                    <td>Annonceur</td>
-                                    <td>Lorem ipsum ilaqp</td>
+                                    <td>{data.receiver.email}</td>
+                                    <td>{data.receiver.status}</td>
+                                    <td>{data.subject}</td>
                                     <td className="text-center">
                                         <ActionButton />
                                     </td>
@@ -64,21 +107,37 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                             <div className="modal-body">
                                 <Input
                                     type={"text"}
-                                    name={"user"}
+                                    name={"subject"}
+                                    label={"Sujet"}
+                                    placeholder={"Entrez le sujet"}
+                                    formik={formik}
+                                />
+
+                                <Input
+                                    type={"text"}
+                                    name={"receiver"}
                                     label={"adresse mail"}
                                     placeholder={
                                         "Entrez l'adresse mail du destinateur"
                                     }
                                     formik={formik}
                                 />
-                                
+
+                                <Input
+                                    type={"file"}
+                                    name={"fichier"}
+                                    label={"Piece jointe"}
+                                    placeholder={
+                                        "Entrez l'adresse mail du destinateur"
+                                    }
+                                    formik={formik}
+                                />
+
                                 <Input
                                     type={"textarea"}
                                     name={"message"}
                                     label={"Message"}
-                                    placeholder={
-                                        "Entrez votre message"
-                                    }
+                                    placeholder={"Entrez votre message"}
                                     formik={formik}
                                 />
                             </div>
@@ -88,6 +147,7 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                                     type="reset"
                                     className="btn btn-tertiary"
                                     data-bs-dismiss="modal"
+                                    ref={close}
                                 >
                                     Annuler
                                 </button>
@@ -95,7 +155,7 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                                     type="submit"
                                     className="btn btn-tertiary-full"
                                 >
-                                    Enregistrer
+                                    Envoyer
                                 </button>
                             </div>
                         </form>

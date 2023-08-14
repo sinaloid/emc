@@ -96,10 +96,12 @@ class DevisController extends Controller
 
         $data = Devis::create([
             'campagne_id' => $campagne->id,
-            'price' => $price,
+            //'price' => $price,
+            "price" =>"En attente",
             'description' => $request->description,
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
+            'status' => false,
             'is_deleted' => false,
             'slug' => Str::random(8),
             'reference' => 'DEV-' . date('YmdHis')

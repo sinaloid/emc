@@ -1,10 +1,10 @@
 {
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
-    "file": "assets/bootstrap-icons-c6569d46.woff",
+    "file": "assets/bootstrap-icons-999550fa.woff",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
   },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
-    "file": "assets/bootstrap-icons-966620f9.woff2",
+    "file": "assets/bootstrap-icons-cfe45b98.woff2",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
   "node_modules/leaflet/dist/images/layers-2x.png": {
@@ -25,33 +25,37 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-690af89d.css",
+    "file": "assets/app-4b1741d0.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/logo-c5c5f707.png",
+      "assets/Logo-c5c5f707.png",
       "assets/lg-fce38ed8.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/filtre-842a5333.png",
       "assets/Bariol_Regular-b09bd97d.otf",
-      "assets/bootstrap-icons-966620f9.woff2",
-      "assets/bootstrap-icons-c6569d46.woff",
+      "assets/bootstrap-icons-cfe45b98.woff2",
+      "assets/bootstrap-icons-999550fa.woff",
       "assets/layers-1dbbe9d0.png",
       "assets/layers-2x-066daca8.png",
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-690af89d.css"
+      "assets/app-4b1741d0.css"
     ],
-    "file": "assets/app-b6710cdf.js",
+    "file": "assets/app-6fbc9c32.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/src/assets/bariol/Bariol_Regular.otf": {
     "file": "assets/Bariol_Regular-b09bd97d.otf",
     "src": "resources/js/src/assets/bariol/Bariol_Regular.otf"
+  },
+  "resources/js/src/assets/imgs/Logo.png": {
+    "file": "assets/Logo-c5c5f707.png",
+    "src": "resources/js/src/assets/imgs/Logo.png"
   },
   "resources/js/src/assets/imgs/filtre.png": {
     "file": "assets/filtre-842a5333.png",
@@ -64,10 +68,6 @@
   "resources/js/src/assets/imgs/lg.png": {
     "file": "assets/lg-fce38ed8.png",
     "src": "resources/js/src/assets/imgs/lg.png"
-  },
-  "resources/js/src/assets/imgs/logo.png": {
-    "file": "assets/logo-c5c5f707.png",
-    "src": "resources/js/src/assets/imgs/logo.png"
   },
   "resources/js/src/assets/imgs/logo200.png": {
     "file": "assets/logo200-59eba22d.png",

@@ -25,6 +25,10 @@ class MediaProduit extends Model
         return $this->hasMany(Publicite::class);
     }
 
+    public function periodes(){
+        return $this->hasMany(Periode::class);
+    }
+
     public function media(){
         return $this->belongsTo(Media::class);
     }

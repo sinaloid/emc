@@ -166,7 +166,8 @@ const LoginModal = () => {
                     render({ data }) {
                         console.log(data)
 
-                        return data.response.data.errors[0];
+                        const res = data.response.data
+                        return res.errors !== undefined ? res.errors[0] : res.error;
                     },
                 },
             }
@@ -198,7 +199,7 @@ const LoginModal = () => {
                     render({ data }) {
                         console.log(data)
                         const res = data.response.data
-                        return res.errors !== undefined ? res.errors : res.error;
+                        return res.errors !== undefined ? res.errors[0] : res.error;
                     },
                 },
             }

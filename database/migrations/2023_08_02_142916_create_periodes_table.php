@@ -13,20 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('publicites', function (Blueprint $table) {
+        Schema::create('periodes', function (Blueprint $table) {
             $table->id();
             $table->string("slug");
-            //$table->date("startDate");
-            //$table->date("endDate");
-            $table->string("status")->nullable();
-            $table->boolean("is_deleted");
-            
-            $table->unsignedBigInteger('campagne_id');
-            $table->foreign('campagne_id')
-                    ->references('id')
-                    ->on('campagnes')
-                    ->onDelete('restrict')
-                    ->onUpdate('restrict');
+            $table->date("date");
+            $table->string("time");
+            $table->boolean("is_used")->default(false);
+            $table->boolean("is_deleted")->default(false);
 
             $table->unsignedBigInteger('media_produit_id');
             $table->foreign('media_produit_id')
@@ -45,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publicites');
+        Schema::dropIfExists('periodes');
     }
 };

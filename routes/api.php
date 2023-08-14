@@ -18,6 +18,7 @@ use App\Http\Controllers\DevisController;
 use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\CategorieAbonnementController;
 use App\Http\Controllers\AccompagnementController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Controller;
 
 /*
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('campagnes/public', [CampagneController::class, 'demandeDevis']);
 
 
+
     Route::resources(['abonnements' => AbonnementController::class]);
     //Route::resources(['categorieAbonnements' => CategorieAbonnementController::class]);
     //Route::resources(['accompagnements' => AccompagnementController::class]);
@@ -95,6 +97,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             'categorieAbonnements' => CategorieAbonnementController::class,
             //'abonnements' => AbonnementController::class,
             'accompagnements' => AccompagnementController::class,
+            'messages' => MessageController::class,
         ]);
     });
 

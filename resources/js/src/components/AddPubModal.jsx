@@ -1,16 +1,23 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { URL } from "../services/request";
 import InputField from "./InputField";
 import { getCampagne, setCampagne } from "../services/storage";
 import { useFormik } from "formik";
 import Input from "./Input";
+import DateTimeSelect from "./DateTimeSelect";
 
 const initData = {
     startDate: "",
     endDate: "",
     file: "",
 };
-const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
+const AddPuBModal = ({
+    data = {},
+    update = false,
+    callback = () => {},
+    idx,
+}) => {
+    const [dates, setDates] = useState([])
     useEffect(() => {
         console.log(idx);
         if (update) {
@@ -28,9 +35,10 @@ const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
+            values.dates = dates
             console.log(values);
-            if (data.startDate !== "" || data.endDate !== "") {
-                updateValue(values);
+            if (dates.startDate !== "" || data.endDate !== "") {
+                //updateValue(values);
             }
             ajoutPanier(values);
         },
@@ -38,7 +46,9 @@ const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
 
     const updateValue = (values) => {
         const campagnes = getCampagne();
-        const tab = campagnes.filter((item) => item.slug !== values.slug && item);
+        const tab = campagnes.filter(
+            (item) => item.slug !== values.slug && item
+        );
         setCampagne([...tab, values]);
     };
     return (
@@ -77,22 +87,16 @@ const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
                                     Détails de la campagne
                                 </div>
                                 <div className="col-md-6 fw-bold">
-                                    <Input
-                                        type={"date"}
-                                        name={"startDate"}
-                                        label={"Date de diffusion"}
-                                        placeholder={""}
-                                        formik={formik}
-                                    />
-                                    <Input
-                                        type={"date"}
-                                        name={"endDate"}
-                                        label={"Date de fin de la diffusion"}
-                                        placeholder={""}
-                                        formik={formik}
-                                    />
+                                    <span className="fw-bold">
+                                        Selectionnez les dates et les heures de
+                                        diffusions
+                                    </span>
+                                    <div className="py-2">
+                                        <DateTimeSelect setDates={setDates} />
+                                    </div>
                                 </div>
-                                <div className="border-bottom d-inline-block mb-3 text-22">
+                                {/**
+                                     * <div className="border-bottom d-inline-block mb-3 text-22">
                                     Fichiers
                                 </div>
                                 <div className="col-md-6">
@@ -104,6 +108,7 @@ const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
                                         formik={formik}
                                     />
                                 </div>
+                                     */}
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit. Aliquam mattis eleifend
@@ -126,7 +131,7 @@ const AddPuBModal = ({ data={}, update = false, callback = () => {}, idx }) => {
                                 <div>
                                     <button
                                         type="button"
-                                        className="btn btn-primary"
+                                        className="btn btn-primary mt-3"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
                                         onClick={

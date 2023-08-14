@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import ContentHeader from "./ContentHeader";
 import { useFormik } from "formik";
-import request, { URL } from "../services/request";
+import request, { URL, URL_ } from "../services/request";
 import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 import Input from "../components/Input";
@@ -253,7 +253,7 @@ const DevisDash = () => {
                                     <button className="btn btn-tertiary me-2" onClick={e => download(e,viewData.reference)}>Télécharger le devis</button>
                                     
                                     {
-                                        viewData.status == 2 && <button className="btn btn-primary me-2" onClick={e => download(e,viewData.reference)}>Payer le devis</button>
+                                        viewData.status == 2 && <a href={URL_+"paiement/public/"+viewData.slug} className="btn btn-primary me-2">Payer la facture</a>
                                     }
                                     </div>
                                 </div>

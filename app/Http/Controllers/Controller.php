@@ -14,6 +14,8 @@ use App\Http\Controllers\Auth\AuthController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Devis;
 
 
 class Controller extends BaseController
@@ -25,13 +27,20 @@ class Controller extends BaseController
         //dd($request->all());
 
         $userData = $request->input("user");
-        $userData['password'] = Str::random(8);
-        $authController = new AuthController();
-        $user = $authController->registerNoVerification(new Request($userData));
-        $user = $user->getData();
-        //dd($user->user->id);
-        $user_id = $user->user->id;
+
+        $user = User::where('email',$userData['email'])->first();
+        if(!$user){
+            $userData['password'] = Str::random(8);
+            $authController = new AuthController();
+            $user = $authController->registerNoVerification(new Request($userData));
+            $user = $user->getData();
+            $user = $user->user;
+        }
+
         
+        //dd($user->user->id);
+        $user_id = $user->id;
+        //dd($user_id);
 
         $campagneData = $request->input("campagne");
         $campagneController = new CampagneController();
@@ -43,6 +52,8 @@ class Controller extends BaseController
         $newRequest = Request::create('/dummy-url', 'POST', $campagneData, [], [], $headers);
         $response = $campagneController->store($newRequest);
         $response = $response->getData();
+
+        
         $list = $request->publicite;
         $publiciteController = app(PubliciteController::class);
 
@@ -54,8 +65,8 @@ class Controller extends BaseController
             $tab = [
                 "campagne" => $camp,
                 "mediaProduit" => $lst["slug"],
-                "startDate" => $lst["startDate"],
-                "endDate" => $lst["endDate"],
+                "dates" => $lst["dates"],
+                //"endDate" => $lst["time"],
             ];
             //$lst['campagne'] = $response->data->slug;
             //$lst['mediaProduit'] = $lst["slug"];
@@ -85,5 +96,35 @@ class Controller extends BaseController
         }
 
         return response()->json(['message' => 'Campagnes récupérées', 'data' => $data], 200);
+    }
+
+    public function paiement($slug = ""){
+
+        if($slug !== ""){
+
+            $devis = Devis::where("slug",$slug)->first();
+            if($devis){
+                //session(['amount' => $devis->price]);
+                $price = "250";//$devis->price;
+                return view("payin", compact('price'));
+            }
+        }
+
+    }
+
+    public function statut(){
+
+        return view("status_payin");
+
+        if($slug !== ""){
+
+            $devis = Devis::where("slug",$slug)->first();
+            if($devis){
+                //session(['amount' => $devis->price]);
+                $price = "250000";//$devis->price;
+                return view("status_payin", compact('price'));
+            }
+        }
+
     }
 }

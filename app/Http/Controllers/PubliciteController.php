@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\MediaProduit;
 use App\Models\Campagne;
 use App\Models\Publicite;
+use App\Models\Periode;
 
 class PubliciteController extends Controller
 {
@@ -63,12 +64,22 @@ class PubliciteController extends Controller
         $data = Publicite::create([
             'campagne_id' => $campagne->id,
             'media_produit_id' => $mediaProduit->id,
-            'startDate' => $request->startDate,
-            'endDate' => $request->endDate,
-            'status' => 0,
+            //'date' => $request->date,
+            //'time' => $request->time,
+            'status' => false,
             'is_deleted' => false,
             'slug' => Str::random(8),
         ]);
+        foreach($request->dates as $date){
+            $periode = Periode::create([
+                "date" => $date["date"],
+                "time" => $date["time"],
+                "media_produit_id" => $mediaProduit->id,
+                'is_used' => false,
+                'is_deleted' => false,
+                'slug' => Str::random(8),
+            ]);
+        }
 
         return response()->json(['message' => 'Publicité créée avec succès', 'data' => $data], 200);
     }

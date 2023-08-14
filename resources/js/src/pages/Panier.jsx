@@ -44,12 +44,17 @@ const Panier = () => {
                             return (
                                 <div className="d-flex mb-3" key={idx}>
                                     <div className="me-auto">
-                                        <h2 className="text-18">{data.name}</h2>
+                                        <h2 className="text-18 fw-bold">{data.name}</h2>
                                         <span>
-                                            Du {formatDate(data.startDate)} au{" "}
-                                            {formatDate(data.endDate)}
+                                            Dates et heures de diffusions
                                         </span>
                                         <br />
+                                        {
+                                            data.dates.map((date, idx) =>{
+
+                                                return <span className="d-block ps-5">{"Le "+date.date +" à "+date.time}</span>
+                                            })
+                                        }
                                         <span className="text-primary" data-bs-toggle="modal" data-bs-target="#addModal" onClick={e =>{
                                             e.preventDefault()
                                             setId(idx)
