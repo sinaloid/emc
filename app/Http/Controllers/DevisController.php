@@ -89,7 +89,7 @@ class DevisController extends Controller
                     "media" =>$element->media()->first()->name,
                     "categorie" =>$element->media()->first()->categorieMedia()->first()->name,
                 ]);
-                $price = $element->price + $price;
+                //$price = $element->price + $price;
             }
         }
         
