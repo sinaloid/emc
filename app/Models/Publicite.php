@@ -26,4 +26,9 @@ class Publicite extends Model
 
         return $this->belongsTo(MediaProduit::class);
     }
+
+    public function publiciteDocs() {
+
+        return $this->hasMany(PubliciteDoc::class);
+    }
 }

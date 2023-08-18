@@ -41,7 +41,7 @@ class AccompagnementController extends Controller
             'lastname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'phone' => 'required|integer|digits:8|starts_with:5,6,7,01,02,03,05,06,07',
-            //'budget' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'date' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
         ]);
@@ -54,7 +54,7 @@ class AccompagnementController extends Controller
             'lastname' => $request->input('lastname'),
             'firstname' => $request->input('firstname'),
             'phone' => $request->input('phone'),
-            //'budget' => $request->input('budget'),
+            'email' => $request->input('email'),
             'startDate' => $request->input('date'),
             'description' => $request->input('description'),
             'status' => false,

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("lastname");
             $table->string("firstname");
             $table->string("phone");
-            //$table->string("budget");
+            $table->string("email");
             $table->string("startDate");
             $table->string("description");
             $table->string("slug");

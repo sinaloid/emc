@@ -243,3 +243,11 @@ body {
   overflow: hidden; /* Masque le contenu débordant du conteneur */
   text-overflow: ellipsis; /* Affiche "..." à la fin du texte masqué */
 }
+
+.min-vh{
+  min-height: 700px !important;
+  
+}
+.sidebar-sticky::-webkit-scrollbar {
+  display: none;
+}

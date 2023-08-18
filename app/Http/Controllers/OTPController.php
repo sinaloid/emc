@@ -170,7 +170,7 @@ class OTPController extends Controller
         'content' => 'Voici votre code de verification: '.$otp
       ];
 
-      Mail::to($email)->send(new SendMail($data));
+      Mail::to($email)->send(new SendMail($data, null));
 
       return "E-mail envoyé avec succès.";
     }

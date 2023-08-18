@@ -27,6 +27,11 @@ class Campagne extends Model
         return $this->hasMany(Publicite::class);
     }
 
+    public function devis() {
+
+        return $this->hasMany(Devis::class);
+    }
+
     public function user() {
 
         return $this->belongsTo(User::class);

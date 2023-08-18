@@ -23,7 +23,7 @@ const Paiement = () => {
                         <tbody>
                             
                             {
-                                [...Array(10).keys()].map((data, idx) => {
+                                [].map((data, idx) => {
                                     return<tr key={idx}>
                                     <td>{idx + 1}</td>
                                     <td>N-14857965</td>

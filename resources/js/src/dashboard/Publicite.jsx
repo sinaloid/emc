@@ -13,6 +13,7 @@ const Publicite = () => {
     const [datas, setDatas] = useState([]);
     const [viewData, setViewData] = useState(initDevis);
     const viewRef = useRef();
+    const fileModal = useRef()
     const listStatut = [ "En attente", "En cours", "Terminer",
     ]
     useEffect(() => {
@@ -168,6 +169,37 @@ const Publicite = () => {
         formik.setFieldValue("description", data.description);
     };
 
+    const formikFile = useFormik({
+        initialValues: {files:""},
+        onSubmit: (values) => {
+            //values._method = "put";
+            console.log(values);
+            postFile(values)
+        },
+    });
+
+    const postFile = async (values) => {
+        const response = await toast.promise(
+            request.post(endPoint.publicites+"/docs", values),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
     return (
         <>
             <ContentHeader 
@@ -183,7 +215,7 @@ const Publicite = () => {
                                 <th>Nom de la campagne</th>
                                 <th>Type de publicité</th>
                                 <th>publicité</th>
-                                <th>Date de début - Date de fin</th>
+                                <th>Date de création</th>
                                 <th>État</th>
                                 <th className="text-center">Action</th>
                             </tr>
@@ -198,7 +230,7 @@ const Publicite = () => {
                                         <td>{data.media_produit.name}</td>
                                         
                                         <td>
-                                        {data.startDate+" - "+data.endDate }
+                                        {new Date(data.created_at).toLocaleString()}
                                         </td>
                                         <td>{data.status && listStatut[data.status]}</td>
                                         <td className="text-center">
@@ -249,8 +281,44 @@ const Publicite = () => {
                                     </div>
                                     <p>Campagne: <span className="fw-bold">{viewData?.campagne?.name}</span></p>
                                     <p>Type de publicité: <span className="fw-bold">{viewData?.media_produit?.media?.name}</span></p>
-                                    <p>Date de debut: <span className="fw-bold">{viewData?.startDate}</span></p>
-                                    <p>Date de fin: <span className="fw-bold">{viewData?.endDate}</span></p>
+                                    <p>Date de création: <span className="fw-bold">{viewData?.created_at && new Date(viewData?.created_at).toLocaleString()}</span></p>
+                                    <p className="mb-0 fw-bold">Dates de diffusion: </p>
+                                    <div className="ps-3">
+                                        {
+                                            viewData?.media_produit?.periodes?.map((item) =>{
+                                                return <span key={item.slug}>
+                                                    Diffusion le 
+                                                :  <span className="text-primary p-1 rounded-1 me-2" target="blank">{new Date(item.date).toLocaleDateString()}</span> <br />
+
+                                                </span>
+                                            })
+                                        }
+                                    </div>
+                                    <p className="mb-0 fw-bold">Fichiers de la publicité: </p>
+                                    <div className="ps-3">
+                                        {
+                                            viewData?.publicite_docs?.map((item) =>{
+                                                return <span key={item.slug}>
+                                                {new Date(item.created_at).toLocaleString()} :  <a href={URL+""+item.url} className="text-primary p-1 rounded-1 me-2" target="blank">Télécharger le fichier</a> <br />
+
+                                                </span>
+                                            })
+                                        }
+                                    </div>
+                                    <div className="mt-3">
+                                        <span
+                                            className="bg-primary text-white p-1 rounded-1"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                close.current.click();
+                                                formikFile.setFieldValue("slug",viewData.slug)
+                                                fileModal.current.click();
+                                            }}
+                                        >
+                                            Ajouter des fichiers pour la publicité
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -285,6 +353,53 @@ const Publicite = () => {
                                         {slug:1,name:"En cours"},
                                         {slug:2,name:"Terminer"},
                                     ]}
+                                />
+                            </div>
+
+                            <div className="modal-footer d-flex justify-content-start border-0">
+                                <button
+                                    type="reset"
+                                    className="btn btn-tertiary"
+                                    data-bs-dismiss="modal"
+                                    ref={close}
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-tertiary-full"
+                                >
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <input ref={fileModal} type="hidden" data-bs-toggle="modal" data-bs-target="#file" />
+            <div className="modal fade" id="file">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header border-0">
+                            <h4 className="modal-title text-meduim text-bold">
+                                Fichiers de la publicité
+                            </h4>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <form onSubmit={formikFile.handleSubmit}>
+                            <div className="modal-body">
+                                <Input
+                                    type={"files"}
+                                    name={"files"}
+                                    label={"Fichiers"}
+                                    placeholder={
+                                        "Sélectionnez le statut de la publicité"
+                                    }
+                                    formik={formikFile}
                                 />
                             </div>
 

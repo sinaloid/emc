@@ -9,6 +9,7 @@ import endPointPublic from "../services/endPointPublic";
 const initData = {
     lastname: "",
     firstname: "",
+    email: "",
     phone: "",
     date: "",
     //budget: "",
@@ -101,6 +102,17 @@ const AccompagnementModal = () => {
                                             name={"firstname"}
                                             label={"Prénom"}
                                             placeholder={"Entrez votre prénom"}
+                                            formik={formik}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Input
+                                            type={"text"}
+                                            name={"email"}
+                                            label={"Email"}
+                                            placeholder={
+                                                "Entrez votre adresse mail"
+                                            }
                                             formik={formik}
                                         />
                                     </div>

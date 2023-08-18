@@ -9,10 +9,10 @@ import { list } from "postcss";
 import { getCampagne } from "../services/storage";
 
 const initData = {
-    lastname:"",
-    firstname:"",
-    email:"",
-    number:"",
+    lastname: "",
+    firstname: "",
+    email: "",
+    number: "",
     name: "",
     file: "",
     budget: "",
@@ -30,18 +30,18 @@ const CampagneModal = () => {
         initialValues: initData,
         onSubmit: (values) => {
             //console.log(values);
-            const {lastname, firstname, email, number, ...data} = values
+            const { lastname, firstname, email, number, ...data } = values;
             const user = {
-                lastname:lastname,
-                firstname:firstname,
-                email:email,
-                number:number,
-                status:"Annonceur"
-            }
+                lastname: lastname,
+                firstname: firstname,
+                email: email,
+                number: number,
+                status: "Annonceur",
+            };
             postDemande({
-                user:user,
-                campagne:data,
-                publicite:list
+                user: user,
+                campagne: data,
+                publicite: list,
             });
             //formik.resetForm();
         },
@@ -50,7 +50,7 @@ const CampagneModal = () => {
     const postDemande = async (values) => {
         console.log(values);
         const response = await toast.promise(
-            request.post(endPointPublic.demandeDevis,values),
+            request.post(endPointPublic.demandeDevis, values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -102,36 +102,28 @@ const CampagneModal = () => {
                                             type={"text"}
                                             name={"lastname"}
                                             label={"Nom"}
-                                            placeholder={
-                                                "Entrez votre nom"
-                                            }
+                                            placeholder={"Entrez votre nom"}
                                             formik={formik}
                                         />
                                         <Input
                                             type={"text"}
                                             name={"firstname"}
                                             label={"Prénom"}
-                                            placeholder={
-                                                "Entrez votre prénom"
-                                            }
+                                            placeholder={"Entrez votre prénom"}
                                             formik={formik}
                                         />
                                         <Input
                                             type={"text"}
                                             name={"email"}
                                             label={"Email"}
-                                            placeholder={
-                                                "Entrez votre email"
-                                            }
+                                            placeholder={"Entrez votre email"}
                                             formik={formik}
                                         />
                                         <Input
                                             type={"text"}
                                             name={"number"}
                                             label={"Téléphone"}
-                                            placeholder={
-                                                "Entrez votre numéro"
-                                            }
+                                            placeholder={"Entrez votre numéro"}
                                             formik={formik}
                                         />
                                     </div>
@@ -150,7 +142,8 @@ const CampagneModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    <div>
+                                    {/**
+                                     * <div>
                                         <Input
                                             type={"date"}
                                             name={"startDate"}
@@ -187,6 +180,7 @@ const CampagneModal = () => {
                                             formik={formik}
                                         />
                                     </div>
+                                     */}
                                     <div>
                                         <Input
                                             type={"textarea"}

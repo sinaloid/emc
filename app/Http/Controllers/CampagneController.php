@@ -42,11 +42,11 @@ class CampagneController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'startDate' => 'required|date',
-            'endDate' => 'required|date',
+            //'startDate' => 'required|date',
+            //'endDate' => 'required|date',
             'status' => 'required|string|max:255',
-            'file' => 'nullable|file|max:10000',
-            'budget' => 'required|string|max:255',
+            //'file' => 'nullable|file|max:10000',
+            //'budget' => 'required|string|max:255',
         ]);
         
         if ($validator->fails()) {
@@ -58,16 +58,16 @@ class CampagneController extends Controller
         $data = Campagne::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'startDate' => $request->input('startDate'),
-            'endDate' => $request->input('endDate'),
+            //'startDate' => $request->input('startDate'),
+            //'endDate' => $request->input('endDate'),
             'status' => $request->input('status'),
-            'budget' => $request->input('budget'),
+            //'budget' => $request->input('budget'),
             'is_deleted' => false,
             'slug' => Str::random(8),
             'user_id' => isset($user) ? $user->id : $request->input("user_id"),
         ]);
 
-        if ($request->hasFile('file')) {
+        /*if ($request->hasFile('file')) {
             // Générer un nom aléatoire pour l'image
             $fileName = Str::random(10) . '.' . $request->file->getClientOriginalExtension();
 
@@ -80,7 +80,7 @@ class CampagneController extends Controller
                     'file' => 'files/' . $fileName,
                 ]);
             }
-        }
+        }*/
 
         if ($data) {
             return response()->json(['message' => 'Campagne créé avec succès', 'data' => $data], 200);
@@ -124,11 +124,11 @@ class CampagneController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'startDate' => 'required|date',
-            'endDate' => 'required|date',
+            //'startDate' => 'required|date',
+            //'endDate' => 'required|date',
             'status' => 'required|string|max:255',
-            'file' => 'nullable|file|max:10000',
-            'budget' => 'required|string|max:255',
+            //'file' => 'nullable|file|max:10000',
+            //'budget' => 'required|string|max:255',
         ]);
         
         if ($validator->fails()) {
@@ -144,13 +144,13 @@ class CampagneController extends Controller
         $data->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'startDate' => $request->input('startDate'),
-            'endDate' => $request->input('endDate'),
+            //'startDate' => $request->input('startDate'),
+            //'endDate' => $request->input('endDate'),
             'status' => $request->input('status'),
-            'budget' => $request->input('budget'),
+            //'budget' => $request->input('budget'),
         ]);
 
-        if ($request->hasFile('file')) {
+        /*if ($request->hasFile('file')) {
             // Générer un nom aléatoire pour l'image
             $fileName = Str::random(10) . '.' . $request->file->getClientOriginalExtension();
 
@@ -164,7 +164,7 @@ class CampagneController extends Controller
                     'file' => 'files/' . $fileName,
                 ]);
             }
-        }
+        }*/
 
         return response()->json(['message' => 'Campagne modifiée avec succès', 'data' => $data], 200);
 
@@ -189,5 +189,16 @@ class CampagneController extends Controller
         $data->update(["is_deleted" => true]);
 
         return response()->json(['message' => 'Campagne supprimée avec succès']);
+    }
+
+    public function getFile ()
+    {
+        $data = $user = Auth::user()->with("campagnes.publicites.publiciteDocs", "campagnes.devis.devisDocs", "messages.messageDocs")->first();
+        //dd($data);
+        if (!$data) {
+            return response()->json(['message' => 'Aucune campagne trouvé'], 404);
+        }
+
+        return response()->json(['message' => 'Campagnes récupérées', 'data' => $data], 200);
     }
 }

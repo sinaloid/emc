@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use App\Models\User;
+use App\Models\MessageDoc;
+use App\Models\Accompagnement;
 
 
 class MessageController extends Controller
@@ -22,7 +24,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $data = Message::with('receiver')->where("is_deleted", false)->get();
+        $data = Message::with('receiver','sender','accompagnement')->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucun message trouvé'], 404);
@@ -43,8 +45,9 @@ class MessageController extends Controller
 
         $validator = Validator::make($request->all(), [
             'subject' => 'required|string|max:255',
-            'receiver' => 'required|string|max:255',
+            'receiver' => 'required|string|email|max:255',
             'message' => 'required|string|max:1000',
+
             //'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -53,46 +56,54 @@ class MessageController extends Controller
         }
 
         $receiver = User::where('email',$request->receiver)->first();
-        
-        if (!$receiver) {
+        $receiver = $receiver ? $receiver->id : $receiver;
+
+        $accompagnement = Accompagnement::where('email',$request->receiver)->first();
+        $accompagnement = $accompagnement ? $accompagnement->id : $accompagnement;
+       if (!$receiver && !$accompagnement) {
             return response()->json(['message' => 'Destinateur non trouvé'], 404);
         }
 
         $data = Message::create([
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
-            'receiver_id' => $receiver->id,
-            //'is_deleted' => false,
+            'type' => $request->input('type'),
+            'receiver_id' => $receiver,
+            'accompagnement_id' => $accompagnement,
             'sender_id' => Auth::user()->id,
             'slug' => Str::random(8),
-            //'image' => 'categories/' . $imageName,
         ]);
-
         $filePath = null;
-
-        $this->sendEmail($receiver->email,$filePath,$data);
-        
-        return response()->json(['message' => 'Message envoyé avec succès', 'data' => $data], 200);
-
-        
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('file')) {
             // Générer un nom aléatoire pour l'image
-            $imageName = Str::random(10) . '.' . $request->image->getClientOriginalExtension();
+            $fileName = Str::random(10) . '.' . $request->file->getClientOriginalExtension();
 
             // Enregistrer l'image dans le dossier public/images
-            $imagePath = $request->image->move(public_path('categories'), $imageName);
+            $filePath = $request->file->move(public_path('messages'), $fileName);
 
-            if ($imagePath) {
+            if ($filePath) {
                 // Créer la nouvelle catégorie de média
-                
+                $doc = MessageDoc::create([
+                    'name' => $fileName,
+                    'url' => 'messages/' . $fileName,
+                    'slug' => Str::random(8),
+                    'message_id' => $data->id,
+                ]);
 
-                if ($data) {
-                    return response()->json(['message' => 'Catégorie créée avec succès', 'data' => $data], 200);
+                if ( !$doc) {
+                    return response()->json(['error' => 'Échec lors de la création'], 422);
                 }
+                $filePath = 'messages/' . $fileName;
             }
         }
 
-        return response()->json(['error' => 'Échec lors de la création'], 422);
+        
+
+        $this->sendEmail($request->input('receiver'),$filePath,$data);
+        
+        return response()->json(['message' => 'Message envoyé avec succès', 'data' => $data], 200);
+
+
     }
 
 
@@ -104,7 +115,7 @@ class MessageController extends Controller
      */
     public function show($slug)
     {
-        $data = Message::where("slug",$slug)->first();
+        $data = Message::with('receiver','sender','messageDocs','accompagnement')->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Message non trouvé'], 404);

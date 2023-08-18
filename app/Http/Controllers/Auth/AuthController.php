@@ -161,7 +161,7 @@ class AuthController extends Controller
             return response(['user' => $user, 'access_token' => $token]);
         }
 
-        return response(['errors' => 'Identifiants de connexion invalides'], 401);
+        return response(['error' => 'Identifiants de connexion invalides'], 401);
     }
 
     public function index()
@@ -295,7 +295,7 @@ class AuthController extends Controller
           utilisez votre email:'.$email.' et le mot de passe: '.$password
       ];
 
-      Mail::to($email)->send(new SendMail($data));
+      Mail::to($email)->send(new SendMail($data, null));
 
       return "E-mail envoyé avec succès.";
     }

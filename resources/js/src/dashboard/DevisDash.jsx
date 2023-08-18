@@ -6,6 +6,7 @@ import request, { URL, URL_ } from "../services/request";
 import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 import Input from "../components/Input";
+import { useNavigate } from "react-router-dom";
 
 const initDevis = {}
 const DevisDash = () => {
@@ -13,8 +14,10 @@ const DevisDash = () => {
     const [datas, setDatas] = useState([]);
     const [viewData, setViewData] = useState(initDevis);
     const viewRef = useRef();
+    const fileModal = useRef()
     const listStatut = [ "En attente", "Refuser", "Accepter",
     ]
+    const navigate = useNavigate()
     useEffect(() => {
         get();
     }, []);
@@ -167,7 +170,51 @@ const DevisDash = () => {
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("description", data.description);
     };
+    const formikFile = useFormik({
+        initialValues: {files:""},
+        onSubmit: (values) => {
+            //values._method = "put";
+            console.log(values);
+            postFile(values)
+        },
+    });
 
+    const postFile = async (values) => {
+        const response = await toast.promise(
+            request.post(endPoint.devis+"/docs", values),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
+
+    const paiement = (e,viewData) => {
+        e.preventDefault();
+
+        if(false){
+            close.current.click();
+            formikFile.setFieldValue("slug",viewData.slug)
+            fileModal.current.click();
+        }else{
+            //navigate("/paiement/public/"+viewData.slug)
+            window.location.href(URL+"paiement/public/"+viewData.slug)
+        }
+       
+    }
     return (
         <>
             <ContentHeader 
@@ -193,7 +240,7 @@ const DevisDash = () => {
                                     <tr key={idx}>
                                         <td>{idx + 1}</td>
                                         <td>{data.reference}</td>
-                                        <td>{data.startDate}</td>
+                                        <td>{new Date(data.created_at).toLocaleString()}</td>
                                         
                                         <td>
                                         {data.price} FCFA
@@ -249,12 +296,36 @@ const DevisDash = () => {
                                     <p>Date de debut: <span className="fw-bold">{viewData?.startDate}</span></p>
                                     <p>Date de fin: <span className="fw-bold">{viewData?.endDate}</span></p>
                                     <p>Description: <span className="fw-bold">{viewData?.description}</span></p>
+                                    <p className="mb-0 fw-bold">Historique des devis: </p>
+                                    <div className="ps-3">
+                                        {
+                                            viewData?.devis_docs?.map((item) =>{
+                                                return <span>
+                                                {new Date(item.created_at).toLocaleString()} :  <a href={URL+""+item.url} className="text-primary p-1 rounded-1 me-2" target="blank">Télécharger le devis</a> <br />
+
+                                                </span>
+                                            })
+                                        }
+                                    </div>
                                     <div className="d-flex">
-                                    <button className="btn btn-tertiary me-2" onClick={e => download(e,viewData.reference)}>Télécharger le devis</button>
                                     
                                     {
-                                        viewData.status == 2 && <a href={URL_+"paiement/public/"+viewData.slug} className="btn btn-primary me-2">Payer la facture</a>
+                                        viewData.status == 2 && <a href={URL+"paiement/public/"+viewData.slug} className="btn btn-primary me-2">Payer la facture</a>
                                     }
+                                    </div>
+                                    <div className="mt-3">
+                                        <span
+                                            className="bg-primary text-white p-1 rounded-1"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                close.current.click();
+                                                formikFile.setFieldValue("slug",viewData.slug)
+                                                fileModal.current.click();
+                                            }}
+                                        >
+                                            Envoyer un devis
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -307,6 +378,62 @@ const DevisDash = () => {
                                     className="btn btn-tertiary-full"
                                 >
                                     Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <input ref={fileModal} type="hidden" data-bs-toggle="modal" data-bs-target="#file" />
+            <div className="modal fade" id="file">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header border-0">
+                            <h4 className="modal-title text-meduim text-bold">
+                                Envoyer un devis
+                            </h4>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <form onSubmit={formikFile.handleSubmit}>
+                            <div className="modal-body">
+                                <Input
+                                    type={"text"}
+                                    name={"price"}
+                                    label={"Montant total"}
+                                    placeholder={
+                                        "Entrez le montant total du devis"
+                                    }
+                                    formik={formikFile}
+                                />
+                                <Input
+                                    type={"files"}
+                                    name={"files"}
+                                    label={"Fichiers"}
+                                    placeholder={
+                                        "Sélectionnez le statut de la publicité"
+                                    }
+                                    formik={formikFile}
+                                />
+                            </div>
+
+                            <div className="modal-footer d-flex justify-content-start border-0">
+                                <button
+                                    type="reset"
+                                    className="btn btn-tertiary"
+                                    data-bs-dismiss="modal"
+                                    ref={close}
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-tertiary-full"
+                                >
+                                    Envoyer
                                 </button>
                             </div>
                         </form>

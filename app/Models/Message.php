@@ -11,13 +11,25 @@ class Message extends Model
     protected $fillable = [
         "subject",
         "message",
+        "type",
+        "receiver_email",
         "slug",
         "is_deleted",
         "sender_id",
-        "receiver_id"
+        "receiver_id",
+        "accompagnement_id"
     ];
 
     public function receiver(){
         return $this->belongsTo(User::class);
+    }
+    public function sender(){
+        return $this->belongsTo(User::class);
+    }
+    public function messageDocs(){
+        return $this->hasMany(MessageDoc::class);
+    }
+    public function accompagnement(){
+        return $this->belongsTo(Accompagnement::class);
     }
 }

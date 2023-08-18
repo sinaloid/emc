@@ -19,6 +19,7 @@ use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\CategorieAbonnementController;
 use App\Http\Controllers\AccompagnementController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\Controller;
 
 /*
@@ -82,6 +83,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/users/changePassword', [AuthController::class,'changePassword']);
         Route::post('/users/get', [AuthController::class,'userBy']);
         Route::post('/users/disable', [AuthController::class,'disable']);
+        Route::post('/publicites/docs', [PubliciteController::class,'storeFile']);
+        Route::post('/devis/docs', [DevisController::class,'storeFile']);
+        Route::get('/campagnes/docs', [CampagneController::class,'getFile']);
         Route::resources([
             'categorieMedias' => CategorieMediaController::class,
             'medias' => MediaController::class,
@@ -98,6 +102,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             //'abonnements' => AbonnementController::class,
             'accompagnements' => AccompagnementController::class,
             'messages' => MessageController::class,
+            'entreprises' => EntrepriseController::class,
         ]);
     });
 

@@ -6,6 +6,7 @@ import request from "../services/request";
 import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 import { formatDate } from "../services/function";
+import Input from "../components/Input";
 
 const initCampagne = {};
 const Campagne = () => {
@@ -13,12 +14,13 @@ const Campagne = () => {
     const [datas, setDatas] = useState([]);
     const [viewData, setViewData] = useState(initCampagne);
     const viewRef = useRef();
-
+    const listStatut = [ "En attente", "En cours", "Terminer",
+]
     useEffect(() => {
         get();
     }, []);
     const btnEditProps = {
-        "data-bs-target": "#categorieMedia",
+        "data-bs-target": "#statut",
     };
 
     const formik = useFormik({
@@ -154,9 +156,8 @@ const Campagne = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Nom de la campagne</th>
-                                <th>Date de début - Date de fin</th>
+                                <th>Date de création</th>
                                 <th>Statut</th>
-                                <th>Coût total</th>
                                 <th>Description</th>
                                 <th className="text-center">Action</th>
                             </tr>
@@ -168,21 +169,21 @@ const Campagne = () => {
                                         <td>{idx + 1}</td>
                                         <td>{data.name}</td>
                                         <td>
-                                            {formatDate(data.startDate)} -{" "}
-                                            {formatDate(data.endDate)}
+                                            {new Date(
+                                                data.created_at
+                                            ).toLocaleString()}
                                         </td>
                                         <td>
-                                            {idx % 2 === 0 ? (
+                                            {data.status === "terminer" ? (
                                                 <span className="badge text-bg-success">
-                                                    Terminer
+                                                    {listStatut[data.status]}
                                                 </span>
                                             ) : (
                                                 <span className="badge text-bg-info">
-                                                    En cours
+                                                     {listStatut[data.status]}
                                                 </span>
                                             )}
                                         </td>
-                                        <td>{data.budget + " FCFA"}</td>
                                         <td>
                                             <p className="text-container">
                                                 {data.description}
@@ -229,19 +230,92 @@ const Campagne = () => {
                                     <img width="90%" src={"filter"} alt="" />
                                 </div>
                                 <div className="col-12 col-md-8">
-                                <div className="d-flex align-items-center">
+                                    <div className="d-flex align-items-center">
                                         <h2 className="me-auto">
                                             {viewData.name}
                                         </h2>
-                                        <span className={`px-2 fw-bold ${viewData.status == 1 ? "bg-primary-light":"bg-danger text-white"}`}>Campagne : {viewData.isActive == 1 ? "Terminer" : "En cours"}</span>
+                                        <span
+                                            className={`px-2 fw-bold ${
+                                                viewData.status == 1
+                                                    ? "bg-primary-light"
+                                                    : "bg-danger text-white"
+                                            }`}
+                                        >
+                                            Campagne :{" "}
+                                            {viewData.isActive == 1
+                                                ? "Terminer"
+                                                : "En cours"}
+                                        </span>
                                     </div>
-                                    <p>Budget: <span className="fw-bold">{viewData?.budget +" FCFA"}</span></p>
-                                    <p>Date de debut: <span className="fw-bold">{viewData?.startDate}</span></p>
-                                    <p>Date de fin: <span className="fw-bold">{viewData?.endDate}</span></p>
-                                    <p>Description: <span className="fw-bold">{viewData?.description}</span></p>
+                                    <p>
+                                        Créer le :{" "}
+                                        <span className="fw-bold">
+                                            {viewData?.created_at &&
+                                                new Date(
+                                                    viewData?.created_at
+                                                ).toLocaleString()}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        Description:{" "}
+                                        <span className="fw-bold">
+                                            {viewData?.description}
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade" id="statut">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header border-0">
+                            <h4 className="modal-title text-meduim text-bold">
+                                Statut de la publicité
+                            </h4>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <form onSubmit={formik.handleSubmit}>
+                            <div className="modal-body">
+                                <Input
+                                    type={"select"}
+                                    name={"status"}
+                                    label={"statut"}
+                                    placeholder={
+                                        "Sélectionnez le statut de la publicité"
+                                    }
+                                    formik={formik}
+                                    options={[
+                                        { slug: 0, name: "En attente" },
+                                        { slug: 1, name: "En cours" },
+                                        { slug: 2, name: "Terminer" },
+                                    ]}
+                                />
+                            </div>
+
+                            <div className="modal-footer d-flex justify-content-start border-0">
+                                <button
+                                    type="reset"
+                                    className="btn btn-tertiary"
+                                    data-bs-dismiss="modal"
+                                    ref={close}
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-tertiary-full"
+                                >
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

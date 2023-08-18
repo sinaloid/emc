@@ -19,4 +19,14 @@ class Devis extends Model
         "is_deleted",
         "campagne_id",
     ];
+
+    public function devisDocs() {
+
+        return $this->hasMany(DevisDoc::class);
+    }
+
+    public function campagne() {
+
+        return $this->belongsTo(Campagne::class);
+    }
 }

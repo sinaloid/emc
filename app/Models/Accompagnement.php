@@ -12,7 +12,7 @@ class Accompagnement extends Model
         "lastname",
         "firstname",
         "phone",
-        //"budget",
+        "email",
         "startDate",
         "description",
         "slug",

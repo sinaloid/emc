@@ -28,6 +28,7 @@ import MesDocuments from "../dashboard/MesDocuments";
 import ListeOffres from "../dashboard/medias/ListeOffres";
 import ListeMedia from "../dashboard/medias/ListeMedia";
 import DetailMedia from "../pages/MediaCategorieDetail";
+import MesMessages from "../dashboard/MesMessages";
 
 const appRoute = [
     {
@@ -348,6 +349,10 @@ const dashboardRoute = [
         Element: <MesDocuments />,
     },
     {
+        path: listLink.dashboard_msgs,
+        Element: <MesMessages />,
+    },
+    {
         path: listLink.dashboard_compte,
         Element: (
             <>
@@ -359,6 +364,7 @@ const dashboardRoute = [
         path: listLink.dashboard_admin,
         Element: <Administration />,
     },
+    
 ];
 
 const mediaRoute = [

@@ -11,6 +11,7 @@ use App\Models\MediaProduit;
 use App\Models\Campagne;
 use App\Models\Publicite;
 use App\Models\Periode;
+use App\Models\PubliciteDoc;
 
 class PubliciteController extends Controller
 {
@@ -73,7 +74,7 @@ class PubliciteController extends Controller
         foreach($request->dates as $date){
             $periode = Periode::create([
                 "date" => $date["date"],
-                "time" => $date["time"],
+                "time" => "0",
                 "media_produit_id" => $mediaProduit->id,
                 'is_used' => false,
                 'is_deleted' => false,
@@ -93,7 +94,7 @@ class PubliciteController extends Controller
      */
     public function show($slug)
     {
-        $data = Publicite::with("campagne","mediaProduit","mediaProduit.media")->where("slug",$slug)->first();
+        $data = Publicite::with("campagne","mediaProduit","mediaProduit.periodes","mediaProduit.media","publiciteDocs")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Publicité non trouvée'], 404);
@@ -173,5 +174,46 @@ class PubliciteController extends Controller
         $data->update(["is_deleted" => true]);
 
         return response()->json(['message' => 'Publicité supprimée avec succès']);
+    }
+
+    public function storeFile(Request $request){
+        //dd($request["files"]);
+        $data = Publicite::where('slug',$request->slug)->where("is_deleted",false)->first();
+        
+        if (!$data) {
+            return response()->json(['message' => 'Publicité non trouvée'], 404);
+        }
+
+        if ($request->hasFile('files')) {
+            $files = $request["files"];
+           // dd($files);
+            foreach($files as $file){
+               // dd($file);
+                // Générer un nom aléatoire pour l'image
+                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+                // Enregistrer l'image dans le dossier public/images
+                $filePath = $file->move(public_path('publicites'), $fileName);
+
+                if ($filePath) {
+                    // Créer la nouvelle catégorie de média
+                    $doc = PubliciteDoc::create([
+                        'name' => $fileName,
+                        'url' => 'publicites/' . $fileName,
+                        'slug' => Str::random(8),
+                        'publicite_id' => $data->id,
+                    ]);
+
+                    /*if ( !$doc) {
+                        return response()->json(['error' => 'Échec lors de la création'], 422);
+                    }*/
+                    //$filePath = 'messages/' . $fileName;
+                }
+            }
+            return response()->json(['message' => 'Fichiers ajoutés avec succès'], 200);
+            
+        }
+        return response()->json(['error' => 'Échec lors de la création'], 422);
+
     }
 }

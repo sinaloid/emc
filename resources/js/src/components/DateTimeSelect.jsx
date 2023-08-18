@@ -6,6 +6,7 @@ import { registerLocale, setDefaultLocale } from "react-multi-date-picker";
 import fr from "date-fns/locale/fr";
 //registerLocale("fr", fr);
 //setDefaultLocale("fr");
+import { addDays, isBefore, startOfToday } from "date-fns";
 
 const monthList = {
     January: "Janvier",
@@ -36,7 +37,7 @@ const months = [
     "Novembre",
     "Décembre",
 ];
-const DateTimeSelect = ( {setDates = () =>{}}) => {
+const DateTimeSelect = ({ setDates = () => {} }) => {
     const today = new Date();
     const tomorrow = new Date();
 
@@ -45,35 +46,54 @@ const DateTimeSelect = ( {setDates = () =>{}}) => {
     const [values, setValues] = useState([]);
 
     const onChange = (dates) => {
-        console.log(dates)
+        console.log(dates);
+        const currentDate = new Date();
+        const hier = new Date(currentDate);
+        hier.setDate(currentDate.getDate() - 1);
+        let valideDates = []
+        let valideListe = []
         const tab = dates.map((date) => {
-            //console.log(date.toDate())
-            //console.log(date.toString())
-            let str = date.toString();
-            str = str.split(" ")
-            return {
-                date:str[0],
-                time:str[1]
+            if (hier < date.toDate()) {
+                valideDates = [...valideDates, date]
+                let str = date.toString();
+                str = str.split(" ");
+                valideListe = [...valideListe,{
+                    date: str[0],
+                    //time:str[1]
+                }]
+                return {
+                    date: str[0],
+                    //time:str[1]
+                };
             }
-        })
+            //console.log(currentDate <= date.toDate());
+            //console.log(date.toString())
+        });
 
-        console.log(tab)
-        setDates(tab)
-        setValues(dates)
-    }
+        //console.log(tab);
+        setDates(valideListe);
+        setValues(valideDates);
+    };
+    const disablePastDates = (date) => {
+        console.log(date);
+        const currentDate = new Date();
+        return date > currentDate;
+    };
     return (
         <Calendar
             multiple
             value={values}
             onChange={onChange}
-            format="YYYY-MM-DD HH:mm:ss"
+            format="YYYY-MM-DD"
+            //format="YYYY-MM-DD HH:mm:ss"
             weekDays={weekDays}
             months={months}
-            
+            //disabled={disablePastDates}
+
             //locale={fr}
             plugins={[
                 <DatePanel header="Dates ajoutées" />,
-                <TimePicker position="bottom" months={months} hideSeconds />,
+                //<TimePicker position="bottom" months={months} hideSeconds />,
             ]}
         />
     );

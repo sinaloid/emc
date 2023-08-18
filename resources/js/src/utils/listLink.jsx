@@ -31,6 +31,7 @@ export  const listLink = {
     dashboard_support_:"supports-publicitaires/*",
     dashboard_support:"supports-publicitaires",
     dashboard_docs:"mes-documents",
+    dashboard_msgs:"mes-messages",
     dashboard_compte:"compte",
     dashboard_admin:"administration",
     dashboard_liste_media:"liste-medias"

@@ -100,6 +100,26 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
             </div>
         );
     }
+    if (type === "files") {
+        return (
+            <div className="mb-3">
+                <label htmlFor={name} className="form-label">
+                    {label}
+                </label>
+                <input
+                    className="form-control"
+                    type="file"
+                    id={name}
+                    name={name}
+                    placeholder={placeholder}
+                    onChange={e =>{
+                        formik.setFieldValue(name,e.target.files)
+                    }}
+                    multiple
+                />
+            </div>
+        );
+    }
 
     if (type === "date") {
         return (

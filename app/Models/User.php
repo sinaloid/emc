@@ -52,4 +52,10 @@ class User extends Authenticatable
     public function medias(){
         return $this->hasMany(Media::class);
     }
+    public function campagnes(){
+        return $this->hasMany(Campagne::class);
+    }
+    public function messages(){
+        return $this->hasMany(Message::class,"receiver_id");
+    }
 }

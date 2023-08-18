@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->text("description");
-            $table->date("startDate");
-            $table->date("endDate");
+            //$table->date("startDate");
+            //$table->date("endDate");
             $table->string("status")->nullable();
-            $table->string("file")->nullable();
+            //$table->string("file")->nullable();
             $table->string("slug");
-            $table->string("budget")->nullable();
+            //$table->string("budget")->nullable();
             $table->boolean("is_deleted");
 
             $table->unsignedBigInteger('user_id')->nullable();

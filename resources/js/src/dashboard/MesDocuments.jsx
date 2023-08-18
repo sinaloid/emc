@@ -3,7 +3,7 @@ import ActionButton from "../components/ActionButton";
 import Input from "../components/Input";
 import ContentHeader from "./ContentHeader";
 import { useEffect, useRef, useState } from "react";
-import request from "../services/request";
+import request, { URL } from "../services/request";
 import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 
@@ -37,7 +37,8 @@ const MesDocuments = () => {
     });
 
     const get = () => {
-        request.get(endPoint.categorieMedias).then((res) =>{
+        request.get(endPoint.campagnes+"/docs").then((res) =>{
+            console.log(res.data)
             setDatas(res.data.data)
         }).catch((error) =>{
             console.log(error)
@@ -145,9 +146,9 @@ const MesDocuments = () => {
         <>
             <ContentHeader
                 title={"Mes documents "}
-                firstBtn="Liste des offres"
-                secondBtn="Liste des medias"
-                addBtn="Ajouter un media"
+                firstBtn=""
+                secondBtn=""
+                addBtn=""
             />
 
             <div className="row">
@@ -157,37 +158,82 @@ const MesDocuments = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Libellé</th>
-                                <th>Catégorie</th>
-                                <th>Status</th>
-                                <th>Tarif</th>
-                                <th className="text-center">Action</th>
+                                <th>Type</th>
+                                <th>Date d'ajout</th>
+                                <th>Liens</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {[...Array(10).keys()].map((data, idx) => {
-                                return (
-                                    <tr key={idx}>
-                                        <td>{idx + 1}</td>
-                                        <td>Paneau publicitaire</td>
-                                        <td>Paneau</td>
-                                        <td>
-                                            {idx % 2 === 0 ? (
-                                                <span className="badge text-bg-success">
-                                                    En cours d'utilisation
-                                                </span>
-                                            ) : (
-                                                <span className="badge text-bg-info">
-                                                    Disponible actuelement
-                                                </span>
-                                            )}
-                                        </td>
-                                        <td>15.000 FCFA / Jour</td>
-                                        <td className="text-center">
-                                            <ActionButton />
-                                        </td>
-                                    </tr>
-                                );
+                            {datas.campagnes?.map((data, idx) => {
+                                return data.publicites.map((pub) => {
+                                    return pub.publicite_docs.map((pubDoc) => {
+                                        return (
+                                            <tr key={idx}>
+                                                <td>{idx + 1}</td>
+                                                <td>{pubDoc.name}</td>
+                                                <td>Publicité</td>
+                                                <td>{pubDoc.created_at && new Date(pubDoc.created_at).toLocaleString()}</td>
+                                                <td>
+                                                <a href={URL+""+pubDoc.url} className="badge text-bg-success">
+                                                            Télécharger
+                                                        </a>
+                                                </td>
+                                                {
+                                                    /**<td className="text-center">
+                                                    <ActionButton />
+                                                </td> */
+                                                }
+                                            </tr>
+                                        );
+                                    })
+                                })
                             })}
+                            {datas.campagnes?.map((data, idx) => {
+                                return data.devis.map((dev) => {
+                                    return dev.devis_docs.map((devDoc) => {
+                                        return (
+                                            <tr key={idx}>
+                                                <td>{idx + 1}</td>
+                                                <td>{devDoc.name}</td>
+                                                <td>Devis</td>
+                                                <td>{devDoc.created_at && new Date(devDoc.created_at).toLocaleString()}</td>
+                                                <td>
+                                                <a href={URL+""+devDoc.url} className="badge text-bg-success">
+                                                            Télécharger
+                                                        </a>
+                                                </td>
+                                                {
+                                                    /**<td className="text-center">
+                                                    <ActionButton />
+                                                </td> */
+                                                }
+                                            </tr>
+                                        );
+                                    })
+                                })
+                            })}
+                            {datas.messages?.map((data, idx) => {
+                                return data.message_docs.map((msg) => {
+                                    return <tr key={idx}>
+                                    <td>{idx + 1}</td>
+                                    <td>{msg.name}</td>
+                                    <td>Message</td>
+                                    <td>{msg.created_at && new Date(msg.created_at).toLocaleString()}</td>
+                                    <td>
+                                    <a href={URL+""+msg.url} className="badge text-bg-success">
+                                                Télécharger
+                                            </a>
+                                    </td>
+                                    {
+                                        /**<td className="text-center">
+                                        <ActionButton />
+                                    </td> */
+                                    }
+                                </tr>
+                                    
+                                })
+                            })}
+                            
                         </tbody>
                     </table>
                 </div>

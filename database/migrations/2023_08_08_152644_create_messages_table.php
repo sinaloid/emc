@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("subject");
             $table->text("message");
-            //$table->string("attachment");
+            $table->string("type")->nullable();
             $table->string("slug");
             $table->boolean("is_deleted")->default(false);
 
@@ -28,10 +28,17 @@ return new class extends Migration
                     ->onDelete('restrict')
                     ->onUpdate('restrict');
 
-            $table->unsignedBigInteger('receiver_id');
+            $table->unsignedBigInteger('receiver_id')->nullable();
             $table->foreign('receiver_id')
                     ->references('id')
                     ->on('users')
+                    ->onDelete('restrict')
+                    ->onUpdate('restrict');
+
+            $table->unsignedBigInteger('accompagnement_id')->nullable();
+            $table->foreign('accompagnement_id')
+                    ->references('id')
+                    ->on('accompagnements')
                     ->onDelete('restrict')
                     ->onUpdate('restrict');
             $table->timestamps();

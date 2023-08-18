@@ -4,7 +4,9 @@ import { useFormik } from "formik";
 import Input from "../../components/Input";
 import { toast } from "react-toastify";
 import endPoint from "../../services/endPoint";
-import request from "../../services/request";
+import request, { URL } from "../../services/request";
+import filter from "../../assets/imgs/filtre.png";
+import ActionButtonMessage from "../../components/ActionButtonMessage";
 
 const initMessage = {
     user: "",
@@ -14,6 +16,10 @@ const TabMessage = ({ setBtnName = () => {} }) => {
     const close = useRef();
     const viewRef = useRef();
     const [datas, setDatas] = useState([]);
+    const [viewData, setViewData] = useState(initMessage);
+    const btnEditProps = {
+        "data-bs-target": "#messages",
+    };
 
     useEffect(() => {
         setBtnName("Envoyer un message");
@@ -60,6 +66,77 @@ const TabMessage = ({ setBtnName = () => {} }) => {
         );
     };
 
+    const view = async (values) => {
+        const response = await toast.promise(
+            request.get(endPoint.messages + "/" + values.slug),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data.data.data);
+                        setViewData(data.data.data);
+                        viewRef.current.click();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.message;
+                    },
+                },
+            }
+        );
+    };
+
+    const update = async (values) => {
+        const response = await toast.promise(
+            request.post(endPoint.categorieMedias + "/" + values.slug, values),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
+
+    const destroy = async (values) => {
+        console.log(values)
+
+        const response = await toast.promise(
+            request.delete(endPoint.messages + "k/" + values.slug),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data);
+                        close.current.click();
+                        get();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
+
     return (
         <>
             <div className="table-responsive">
@@ -75,14 +152,23 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                     </thead>
                     <tbody>
                         {datas.map((data, idx) => {
+                            if(data.type !== null){
+                                return
+                            }
                             return (
                                 <tr key={idx}>
                                     <td>{idx + 1}</td>
-                                    <td>{data.receiver.email}</td>
-                                    <td>{data.receiver.status}</td>
+                                    <td>{data.receiver?.email ? data.receiver?.email : data.accompagnement?.email}</td>
+                                    <td>{data.receiver?.status ? data.receiver?.status : "visiteur"}</td>
                                     <td>{data.subject}</td>
                                     <td className="text-center">
-                                        <ActionButton />
+                                        <ActionButtonMessage
+                                            btnEditProps={btnEditProps}
+                                            data={data}
+                                            //editData={editData}
+                                            destroy={destroy}
+                                            view={view}
+                                        />
                                     </td>
                                 </tr>
                             );
@@ -125,7 +211,7 @@ const TabMessage = ({ setBtnName = () => {} }) => {
 
                                 <Input
                                     type={"file"}
-                                    name={"fichier"}
+                                    name={"file"}
                                     label={"Piece jointe"}
                                     placeholder={
                                         "Entrez l'adresse mail du destinateur"
@@ -159,6 +245,84 @@ const TabMessage = ({ setBtnName = () => {} }) => {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <button
+                ref={viewRef}
+                data-bs-toggle="modal"
+                data-bs-target="#view"
+                hidden
+            ></button>
+            <div className="modal fade" id="view">
+                <div className="modal-dialog modal-dialog-centered modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header border-0">
+                            <h4 className="modal-title text-meduim text-bold">
+                                Détails du message
+                            </h4>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-12 col-md-4">
+                                    <img width="90%" src={filter} alt="" />
+                                </div>
+                                <div className="col-12 col-md-8">
+                                    <h2>{viewData.subject}</h2>
+                                    <p>
+                                        <span>
+                                            Envoyeur :{" "}
+                                            <span className="fw-bold">
+                                                {viewData.sender?.email}
+                                            </span>
+                                        </span>{" "}
+                                        <br />
+                                        <span>
+                                            Receveur :{" "}
+                                            <span className="fw-bold">
+                                                {viewData.receiver?.email ? viewData.receiver?.email : viewData.accompagnement?.email}
+                                            </span>
+                                        </span>{" "}
+                                        <br />
+                                        
+                                    </p>
+                                    <p>{viewData.message}</p>
+                                    <p>
+                                    {viewData.message_docs?.map(
+                                            (item, idx) => {
+                                                return (
+                                                    <div className="" key={item.slug}>
+                                                        <span>
+                                                            Piece jointe :{" "}
+                                                            <span className="fw-bold">
+                                                                <a
+                                                                className="text-primary"
+                                                                    href={
+                                                                        URL +
+                                                                        "" +
+                                                                        item.url
+                                                                    }
+                                                                    target="blank"
+                                                                >
+                                                                    {item.name}
+                                                                </a>
+                                                            </span>
+                                                        </span>{" "}
+                                                        <br />
+                                                    </div>
+                                                );
+                                            }
+                                        )}
+                                    </p>
+                                    <p>{viewData.created_at && new Date(viewData.created_at).toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

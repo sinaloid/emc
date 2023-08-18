@@ -46,13 +46,13 @@ const Panier = () => {
                                     <div className="me-auto">
                                         <h2 className="text-18 fw-bold">{data.name}</h2>
                                         <span>
-                                            Dates et heures de diffusions
+                                            Dates de diffusions
                                         </span>
                                         <br />
                                         {
                                             data.dates.map((date, idx) =>{
 
-                                                return <span className="d-block ps-5">{"Le "+date.date +" à "+date.time}</span>
+                                                return <span className="d-block ps-5">{"Le "+date.date}</span>
                                             })
                                         }
                                         <span className="text-primary" data-bs-toggle="modal" data-bs-target="#addModal" onClick={e =>{

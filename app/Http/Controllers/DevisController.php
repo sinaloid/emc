@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Campagne;
 use App\Models\Devis;
+use App\Models\DevisDoc;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendDevis;
@@ -116,6 +117,13 @@ class DevisController extends Controller
         // Enregistrez le fichier PDF sur le disque
         $output = $pdf->output();
         file_put_contents($pdfPath, $output);
+
+        $doc = DevisDoc::create([
+            'name' => $pdfPath,
+            'url' => $pdfPath,
+            'slug' => Str::random(8),
+            'devis_id' => $data->id,
+        ]);
         //dd($pdfPath);
 
         
@@ -136,7 +144,7 @@ class DevisController extends Controller
      */
     public function show($slug)
     {
-        $data = Devis::where("slug",$slug)->first();
+        $data = Devis::with("devisDocs")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Devis non trouvée'], 404);
@@ -215,5 +223,59 @@ class DevisController extends Controller
       Mail::to($email)->send(new SendDevis($data,$file));
 
       return "E-mail envoyé avec succès.";
+    }
+
+    public function storeFile(Request $request){
+        $validator = Validator::make($request->all(), [
+            'slug' => 'required|string|max:8',
+            'price' => 'nullable|string|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+        //dd($request["files"]);
+        $data = Devis::where('slug',$request->slug)->where("is_deleted",false)->first();
+        //dd($email = $data->campagne()->first()->user()->first()->email);
+        if (!$data) {
+            return response()->json(['message' => 'Devis non trouvée'], 404);
+        }
+
+        if ($request->hasFile('files')) {
+            $files = $request["files"];
+           // dd($files);
+            foreach($files as $file){
+               // dd($file);
+                // Générer un nom aléatoire pour l'image
+                $fileName = 'devis-pdf-' . time() . '.' . $file->getClientOriginalExtension();
+
+                // Enregistrer l'image dans le dossier public/images
+                $filePath = $file->move(public_path('pdf/devis'), $fileName);
+
+                if ($filePath) {
+                    // Créer la nouvelle catégorie de média
+                    $doc = DevisDoc::create([
+                        'name' => $fileName,
+                        'url' => 'pdf/devis/' . $fileName,
+                        'slug' => Str::random(8),
+                        'devis_id' => $data->id,
+                    ]);
+                    $email = $data->campagne()->first()->user()->first()->email;
+
+                    $this->sendEmail($email,'pdf/devis/' . $fileName);
+                    $data->update([
+                        "price" => $request->price
+                    ]);
+                    /*if ( !$doc) {
+                        return response()->json(['error' => 'Échec lors de la création'], 422);
+                    }*/
+                    //$filePath = 'messages/' . $fileName;
+                }
+            }
+            return response()->json(['message' => 'Fichiers ajoutés avec succès'], 200);
+            
+        }
+        return response()->json(['error' => 'Échec lors de la création'], 422);
+
     }
 }
