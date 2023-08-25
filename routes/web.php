@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('paiement/public/entrepise', [Controller::class, 'entreprise'])->name("entreprise");
 Route::get('paiement/public/{slug}', [Controller::class, 'paiement']);
 Route::get('statut/public', [Controller::class, 'statut']);
 Route::view('{path}', 'welcome')->where('path', '([A-z\d\-\/_.]+)?');

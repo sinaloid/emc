@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\CategorieMedia;
 use App\Models\Media;
 use App\Models\Campagne;
+use App\Models\CampagneDoc;
 
 class CampagneController extends Controller
 {
@@ -66,6 +67,8 @@ class CampagneController extends Controller
             'slug' => Str::random(8),
             'user_id' => isset($user) ? $user->id : $request->input("user_id"),
         ]);
+
+        $this->storeFile($data,$request);
 
         /*if ($request->hasFile('file')) {
             // Générer un nom aléatoire pour l'image
@@ -200,5 +203,43 @@ class CampagneController extends Controller
         }
 
         return response()->json(['message' => 'Campagnes récupérées', 'data' => $data], 200);
+    }
+
+    public function storeFile($data, $request){
+        //dd($request["files"]);
+
+        if ($request->hasFile('files')) {
+            $files = $request["files"];
+           // dd($files);
+            foreach($files as $file){
+               // dd($file);
+                // Générer un nom aléatoire pour l'image
+                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+                // Enregistrer l'image dans le dossier public/images
+                $filePath = $file->move(public_path('campagnes'), $fileName);
+
+                if ($filePath) {
+                    // Créer la nouvelle catégorie de média
+                    $doc = CampagneDoc::create([
+                        'name' => $fileName,
+                        'url' => 'campagnes/' . $fileName,
+                        'slug' => Str::random(8),
+                        'campagne_id' => $data->id,
+                    ]);
+
+                    /*if ( !$doc) {
+                        return response()->json(['error' => 'Échec lors de la création'], 422);
+                    }*/
+                    //$filePath = 'messages/' . $fileName;
+                }
+            }
+            return response()->json(['message' => 'Fichiers ajoutés avec succès'], 200);
+            
+        }
+
+        return response()->json(['message' => 'Faill'], 200);
+
+
     }
 }

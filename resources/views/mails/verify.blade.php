@@ -42,7 +42,7 @@
         <div class="content">
             <h1>{{ $data['title'] }}</h1>
 
-            <p>{{ $data['content'] }}</p>
+            <p>{!! $data['content'] !!}</p>
 
             <p>Cordialement,<br>{{ "EMC" }}</p>
         </div>

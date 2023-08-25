@@ -90,15 +90,15 @@ class DevisController extends Controller
                     "media" =>$element->media()->first()->name,
                     "categorie" =>$element->media()->first()->categorieMedia()->first()->name,
                 ]);
-                //$price = $element->price + $price;
+                $price = $element->price + $price;
             }
         }
         
 
         $data = Devis::create([
             'campagne_id' => $campagne->id,
-            //'price' => $price,
-            "price" =>"En attente",
+            'price' => $price,
+            //"price" =>"En attente",
             'description' => $request->description,
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
@@ -128,7 +128,7 @@ class DevisController extends Controller
 
         
 
-        $this->sendEmail($user->email,$pdfPath);
+        $this->sendEmail($user->email,$pdfPath,$data->slug);
         
         
 
@@ -212,13 +212,18 @@ class DevisController extends Controller
         return response()->json(['message' => 'Devis supprimé avec succès']);
     }
 
-    public function sendEmail($email,$file)
+    public function sendEmail($email,$file,$slug)
     {
       $data = [
         'subject' => "Devis",
         'title' => "Merci d'avoir demande un devis sur EMC",
-        'content' => 'veuillez trouver votre devis en piece jointe '
+        'content' => 'veuillez trouver votre devis en piece jointe.</br> 
+        Cliquez sur le lien ci dessous pour accepter le devis et proceder au paiement<br />
+        <a href="https://emc-burkina.com/paiement/public/'.$slug.'">Accepter et payer</a>'
+        
       ];
+
+      //dd($data);
 
       Mail::to($email)->send(new SendDevis($data,$file));
 

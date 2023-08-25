@@ -243,7 +243,7 @@ const DevisDash = () => {
                                         <td>{new Date(data.created_at).toLocaleString()}</td>
                                         
                                         <td>
-                                        {data.price} FCFA
+                                        {parseFloat(data.price * 18/100) + parseFloat(data.price)} FCFA
                                         </td>
                                         <td>{data.status && listStatut[data.status]}</td>
                                         <td className="text-center">
@@ -292,7 +292,9 @@ const DevisDash = () => {
                                         </h2>
                                         <span className={`px-2 fw-bold ${viewData.status == 2 ? "bg-primary-light":"bg-danger text-white"}`}>Devis : {viewData.status && listStatut[viewData.status]}</span>
                                     </div>
-                                    <p>Budget: <span className="fw-bold">{viewData?.price +" FCFA"}</span></p>
+                                    <p>Prix HT: <span className="fw-bold">{viewData?.price +" FCFA"}</span></p>
+                                    <p>TVA 18%: <span className="fw-bold">{viewData?.price * 18/100 +" FCFA"}</span></p>
+                                    <p>Prix TTC: <span className="fw-bold">{(parseFloat(viewData?.price * 18/100) + parseFloat(viewData?.price))  +" FCFA"}</span></p>
                                     <p>Date de debut: <span className="fw-bold">{viewData?.startDate}</span></p>
                                     <p>Date de fin: <span className="fw-bold">{viewData?.endDate}</span></p>
                                     <p>Description: <span className="fw-bold">{viewData?.description}</span></p>

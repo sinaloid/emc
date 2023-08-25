@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Devis;
+use App\Models\Entreprise;
 
 
 class Controller extends BaseController
@@ -103,13 +104,54 @@ class Controller extends BaseController
         if($slug !== ""){
 
             $devis = Devis::where("slug",$slug)->first();
+            $user = Devis::where("slug",$slug)->first()->campagne()->first()->user()->first();
+            $entreprise = $user->entreprise()->first();
+            //dd($entreprise);
+            if(!$entreprise){
+                $paiement = [
+                    "email" => $user->email,
+                    "slug" => $slug
+                ];
+                return view("entreprise", compact('paiement'));
+            }
             if($devis){
+                $devis->update([
+                    "status" => 2
+                ]);
                 //session(['amount' => $devis->price]);
-                $price = "250";//$devis->price;
+                $price = $devis->price + ($devis->price * 18/100);
                 return view("payin", compact('price'));
             }
         }
 
+    }
+
+    public function entreprise (Request $request){
+
+        //dd($request->all());
+
+        $user = User::where("email",$request->email)->first();
+
+        if(!$user){
+
+            return back();
+        }
+
+        $data = Entreprise::create([
+            "denomination" => $request->denomination,
+            "forme_juridique" => $request->forme_juridique,
+            "ifu" => $request->ifu,
+            "rccm" => $request->rccm,
+            "regime_imposition" => $request->regime_imposition,
+            "boite_postale" => $request->boite_postale,
+            "telephone" => $request->telephone,
+            "situation_geo" => $request->situation_geo,
+            "user_id" => $user->id,
+            'is_deleted' => false,
+            'slug' => Str::random(8),
+        ]);
+
+        return $this->paiement($request->devis);
     }
 
     public function statut(){

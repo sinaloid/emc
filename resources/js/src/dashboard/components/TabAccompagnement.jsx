@@ -180,7 +180,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                             <th>Nom prénom</th>
                             <th>Contact</th>
                             <th>Email</th>
-                            <th>Date de diffusion</th>
+                            {/**<th>Date de diffusion</th> */}
                             <th>Demande</th>
                             <th>Description</th>
                             <th className="text-center">Action</th>
@@ -196,7 +196,9 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                                     </td>
                                     <td>{data.phone}</td>
                                     <td>{data.email}</td>
-                                    <td>{data.startDate}</td>
+                                    {
+                                        /**<td>{data.startDate}</td> */
+                                    }
                                     <td>
                                         <span
                                             className={`px-2 fw-bold ${
@@ -333,12 +335,16 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
                                             {viewData.phone}
                                         </span>
                                     </p>
-                                    <p>
+                                    {
+                                        /**
+                                         * <p>
                                         Date de la diffusion:{" "}
                                         <span className="fw-bold">
                                             {viewData.startDate}
                                         </span>
                                     </p>
+                                         */
+                                    }
                                     <p>
                                         Description:{" "}
                                         <span className="fw-bold">

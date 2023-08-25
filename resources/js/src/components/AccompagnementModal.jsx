@@ -22,6 +22,7 @@ const AccompagnementModal = () => {
         initialValues: initData,
         onSubmit: (values) => {
             console.log(values);
+            values.date = "2023-01-01"
             post(values);
             formik.resetForm();
         },
@@ -127,7 +128,9 @@ const AccompagnementModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    <div>
+                                    
+                                    {/**
+                                     * <div>
                                         <Input
                                             type={"date"}
                                             name={"date"}
@@ -137,7 +140,7 @@ const AccompagnementModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    {/**<div>
+                                     * <div>
                                         <Input
                                             type={"text"}
                                             name={"budget"}

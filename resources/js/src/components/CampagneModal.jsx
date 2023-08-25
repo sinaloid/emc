@@ -14,7 +14,7 @@ const initData = {
     email: "",
     number: "",
     name: "",
-    file: "",
+    files: "",
     budget: "",
     startDate: "",
     endDate: "",
@@ -29,7 +29,7 @@ const CampagneModal = () => {
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
-            //console.log(values);
+            console.log(values);
             const { lastname, firstname, email, number, ...data } = values;
             const user = {
                 lastname: lastname,
@@ -163,14 +163,7 @@ const CampagneModal = () => {
                                             formik={formik}
                                         />
                                     </div>
-                                    <div>
-                                        <Input
-                                            type={"file"}
-                                            name={"file"}
-                                            label={"Image de la campagne"}
-                                            formik={formik}
-                                        />
-                                    </div>
+                                    
                                     <div>
                                         <Input
                                             type={"text"}
@@ -181,6 +174,14 @@ const CampagneModal = () => {
                                         />
                                     </div>
                                      */}
+                                     <div>
+                                        <Input
+                                            type={"files"}
+                                            name={"files"}
+                                            label={"Joindre des fichiers à la campagne"}
+                                            formik={formik}
+                                        />
+                                    </div>
                                     <div>
                                         <Input
                                             type={"textarea"}

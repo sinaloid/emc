@@ -164,7 +164,7 @@ const MesDocuments = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {datas.campagnes?.map((data, idx) => {
+                            {/*datas.campagnes?.map((data, idx) => {
                                 return data.publicites.map((pub) => {
                                     return pub.publicite_docs.map((pubDoc) => {
                                         return (
@@ -179,15 +179,15 @@ const MesDocuments = () => {
                                                         </a>
                                                 </td>
                                                 {
-                                                    /**<td className="text-center">
+                                                    <td className="text-center">
                                                     <ActionButton />
-                                                </td> */
+                                                </td> 
                                                 }
                                             </tr>
                                         );
                                     })
                                 })
-                            })}
+                            })*/}
                             {datas.campagnes?.map((data, idx) => {
                                 return data.devis.map((dev) => {
                                     return dev.devis_docs.map((devDoc) => {

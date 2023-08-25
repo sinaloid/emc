@@ -53,7 +53,7 @@ const ContentHeader = ({ title, firstBtn = "", secondBtn ="", addBtn = "", restF
                             <i className="bi bi-filter-circle-fill"></i> Filtrer
                         </button>
                         {
-                            addBtn !=="" && <button className="btn btn-tertiary-full">
+                            addBtn !=="" && <button data-bs-toggle="modal" data-bs-target="#formModal" className="btn btn-tertiary-full">
                             {addBtn}
                         </button>
                         }
