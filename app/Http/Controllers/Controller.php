@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Devis;
 use App\Models\Entreprise;
+use App\Models\CampagneDoc;
 
 
 class Controller extends BaseController
@@ -26,7 +27,7 @@ class Controller extends BaseController
     public function demandeDevis(Request $request)
     {
         //dd($request->all());
-
+        //return $campagneData["files"] = $request->input("files");
         $userData = $request->input("user");
 
         $user = User::where('email',$userData['email'])->first();
@@ -44,6 +45,8 @@ class Controller extends BaseController
         //dd($user_id);
 
         $campagneData = $request->input("campagne");
+        //$campagneData["files"] = $request->files;
+        //return dd($campagneData);
         $campagneController = new CampagneController();
         $campagneData['user_id'] = $user_id;
         //$response = $campagneController->store(new Request($campagneData));
@@ -54,6 +57,7 @@ class Controller extends BaseController
         $response = $campagneController->store($newRequest);
         $response = $response->getData();
 
+        $this->storeFileCampagne($response->data,$request);
         
         $list = $request->publicite;
         $publiciteController = app(PubliciteController::class);
@@ -167,6 +171,44 @@ class Controller extends BaseController
                 return view("status_payin", compact('price'));
             }
         }
+
+    }
+
+    public function storeFileCampagne($data, $request){
+        //return dd($request["files"]);
+
+        if ($request->hasFile('files')) {
+            $files = $request["files"];
+           // dd($files);
+            foreach($files as $file){
+               // dd($file);
+                // Générer un nom aléatoire pour l'image
+                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+                // Enregistrer l'image dans le dossier public/images
+                $filePath = $file->move(public_path('campagnes'), $fileName);
+
+                if ($filePath) {
+                    // Créer la nouvelle catégorie de média
+                    $doc = CampagneDoc::create([
+                        'name' => $fileName,
+                        'url' => 'campagnes/' . $fileName,
+                        'slug' => Str::random(8),
+                        'campagne_id' => $data->id,
+                    ]);
+
+                    /*if ( !$doc) {
+                        return response()->json(['error' => 'Échec lors de la création'], 422);
+                    }*/
+                    //$filePath = 'messages/' . $fileName;
+                }
+            }
+            return response()->json(['message' => 'Fichiers ajoutés avec succès'], 200);
+            
+        }
+
+        return response()->json(['message' => 'Faill'], 200);
+
 
     }
 }

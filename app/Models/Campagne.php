@@ -32,6 +32,11 @@ class Campagne extends Model
         return $this->hasMany(Devis::class);
     }
 
+    public function campagneDocs() {
+
+        return $this->hasMany(CampagneDoc::class);
+    }
+
     public function user() {
 
         return $this->belongsTo(User::class);

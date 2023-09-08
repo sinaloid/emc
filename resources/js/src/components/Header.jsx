@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import Dash from "./imgs/Dash";
@@ -6,12 +6,18 @@ import Logo from "./imgs/Logo";
 import Section from "./Section";
 import { AppContext } from "../services/context";
 import { getCampagne } from "../services/storage";
-import { URL_ } from "../services/request";
+import request, { URL_ } from "../services/request";
+import endPointPublic from "../services/endPointPublic";
+import Fr from "./imgs/Fr";
 
 const Header = () => {
     const appCtx = useContext(AppContext);
     const { user } = appCtx;
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        getCategorie();
+    }, []);
     const isAuth = () => {
         alert(user.isAuth);
         if (
@@ -23,6 +29,19 @@ const Header = () => {
         }
         return false;
     };
+
+    const getCategorie = () => {
+        request
+            .get(endPointPublic.categorieMedias)
+            .then((res) => {
+                console.log(res.data);
+                setCategories(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
@@ -59,6 +78,37 @@ const Header = () => {
                                         Accueil
                                     </NavLink>
                                 </li>
+                                <li className="nav-item dropdown">
+                                    <a
+                                        className="nav-link dropdown-toggle"
+                                        data-bs-toggle="dropdown"
+                                        href="#"
+                                    >
+                                        Espaces publicitaires
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        {categories.map((data) => {
+                                            return (
+                                                <li>
+                                                    <a
+                                                        className="dropdown-item"
+                                                        href="#"
+                                                    >
+                                                        {data.name}
+                                                    </a>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link"
+                                        to={listLink.referencer}
+                                    >
+                                        Comment ça marche
+                                    </NavLink>
+                                </li>
                                 <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
@@ -67,7 +117,8 @@ const Header = () => {
                                         Tarifs
                                     </NavLink>
                                 </li>
-                                <li className="nav-item">
+                                {/**
+                                     * <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
                                         to={listLink.media}
@@ -75,6 +126,7 @@ const Header = () => {
                                         Média
                                     </NavLink>
                                 </li>
+                                     */}
                                 {user.isAuth ? (
                                     <li className="nav-item">
                                         <NavLink
@@ -112,12 +164,13 @@ const Header = () => {
                                     >
                                         <button
                                             type="button"
-                                            className="btn bg-primary btn-tertiary-full1"
+                                            className="btn bg-primary1 btn-tertiary-full1"
                                         >
                                             {" "}
                                             <Dash />
                                         </button>
-                                        <Link
+                                        {/**
+                                             * <Link
                                             to={listLink.panier}
                                             type="button"
                                             className="btn btn-tertiary p-0 pt-1"
@@ -135,6 +188,43 @@ const Header = () => {
                                                 </span>
                                             </span>
                                         </Link>
+                                             */}
+                                    </div>
+                                </li>
+                                <li className="nav-item">
+                                    <div
+                                        className="btn-group mb-3"
+                                        role="group"
+                                        aria-label="Basic example"
+                                    >
+                                        <button
+                                            type="button"
+                                            className="btn bg-primary1 btn-tertiary-full1"
+                                        >
+                                            {" "}
+                                            <Fr />
+                                        </button>
+                                        <div className="btn-group">
+                                            <button
+                                                className="btn btn-primary1 dropdown-toggle border-0"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                data-bs-auto-close="true"
+                                                aria-expanded="false"
+                                            >
+                                                FR
+                                            </button>
+                                            <ul className="dropdown-menu">
+                                                <li>
+                                                    <a
+                                                        className="dropdown-item"
+                                                        href="#"
+                                                    >
+                                                        FR 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>

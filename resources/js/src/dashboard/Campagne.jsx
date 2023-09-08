@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import ContentHeader from "./ContentHeader";
 import { useFormik } from "formik";
-import request from "../services/request";
+import request, { URL_ } from "../services/request";
 import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 import { formatDate } from "../services/function";
@@ -262,6 +262,17 @@ const Campagne = () => {
                                             {viewData?.description}
                                         </span>
                                     </p>
+                                    <p className="mb-0 fw-bold">Fichiers de la campagne: </p>
+                                    <div className="ps-3">
+                                        {
+                                            viewData?.campagne_docs?.map((item) =>{
+                                                return <span key={item.slug}>
+                                                {new Date(item.created_at).toLocaleString()} :  <a href={URL_+""+item.url} className="text-primary p-1 rounded-1 me-2" target="blank">Télécharger le fichier</a> <br />
+
+                                                </span>
+                                            })
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

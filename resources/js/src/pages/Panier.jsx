@@ -95,7 +95,7 @@ const Panier = () => {
                     </div>
                 </div>
                 <LoginModal />
-                <CampagneModal />
+                <CampagneModal refresh={getCampagneList} />
                 <AddPuBModal data={selectedData} idx = {id} update={true} callBack = {deleteProduit} />
                 <AddPubComfirmationModal data={selectedData} />
             </Section>

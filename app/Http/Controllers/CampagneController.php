@@ -61,14 +61,16 @@ class CampagneController extends Controller
             'description' => $request->input('description'),
             //'startDate' => $request->input('startDate'),
             //'endDate' => $request->input('endDate'),
-            'status' => $request->input('status'),
+            'status' => 0, //$request->input('status'),
             //'budget' => $request->input('budget'),
             'is_deleted' => false,
             'slug' => Str::random(8),
             'user_id' => isset($user) ? $user->id : $request->input("user_id"),
         ]);
 
-        $this->storeFile($data,$request);
+        //$res = $this->storeFile($data,$request);
+
+        //dd($request->all());
 
         /*if ($request->hasFile('file')) {
             // Générer un nom aléatoire pour l'image
@@ -101,7 +103,7 @@ class CampagneController extends Controller
      */
     public function show($slug)
     {
-        $data = Campagne::where("slug",$slug)->first();
+        $data = Campagne::with("campagneDocs")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Campagne non trouvée'], 404);
@@ -206,7 +208,7 @@ class CampagneController extends Controller
     }
 
     public function storeFile($data, $request){
-        //dd($request["files"]);
+        //return dd($request["files"]);
 
         if ($request->hasFile('files')) {
             $files = $request["files"];

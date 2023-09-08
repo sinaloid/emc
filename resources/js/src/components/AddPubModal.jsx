@@ -18,6 +18,7 @@ const AddPuBModal = ({
     idx,
 }) => {
     const [dates, setDates] = useState([])
+    const [values, setValues] = useState([]);
     useEffect(() => {
         console.log(idx);
         if (update) {
@@ -41,6 +42,7 @@ const AddPuBModal = ({
                 //updateValue(values);
             }
             ajoutPanier(values);
+            setValues([])
         },
     });
 
@@ -92,7 +94,7 @@ const AddPuBModal = ({
                                         diffusions
                                     </span>
                                     <div className="py-2">
-                                        <DateTimeSelect setDates={setDates} />
+                                        <DateTimeSelect values={values} setValues={setValues} setDates={setDates} />
                                     </div>
                                 </div>
                                 {/**

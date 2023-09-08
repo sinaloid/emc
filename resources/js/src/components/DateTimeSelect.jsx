@@ -37,13 +37,11 @@ const months = [
     "Novembre",
     "Décembre",
 ];
-const DateTimeSelect = ({ setDates = () => {} }) => {
+const DateTimeSelect = ({values, setValues, setDates = () => {} }) => {
     const today = new Date();
     const tomorrow = new Date();
 
     tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const [values, setValues] = useState([]);
 
     const onChange = (dates) => {
         console.log(dates);

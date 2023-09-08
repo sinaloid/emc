@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 
-const Menu = () => {
+const Menu = ({categories}) => {
+
+    
     return (
         <div className="row">
             <div className="col-12 border-bottom pt-5">
@@ -11,14 +13,29 @@ const Menu = () => {
                             to={listLink.index}
                             className="link text-uppercase fw-bold mx-4"
                         >
-                            Affichage
+                            Derniers produits commandés
                         </Link>
-                        <Link
+                        {
+                            /**
+                             * <Link
                             to={listLink.media}
                             className="link text-uppercase fw-bold mx-4"
                         >
                             Média
                         </Link>
+                             */
+                        }
+                        {
+                            categories.map((categorie) =>{
+
+                                return <Link
+                                to={listLink.media}
+                                className="link text-uppercase fw-bold mx-4"
+                            >
+                                {categorie.name}
+                            </Link>
+                            })
+                        }
                     </div>
                 </div>
             </div>

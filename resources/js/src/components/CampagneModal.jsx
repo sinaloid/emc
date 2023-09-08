@@ -6,7 +6,7 @@ import { useRef } from "react";
 import request from "../services/request";
 import endPointPublic from "../services/endPointPublic";
 import { list } from "postcss";
-import { getCampagne } from "../services/storage";
+import { getCampagne, setCampagne } from "../services/storage";
 
 const initData = {
     lastname: "",
@@ -21,7 +21,7 @@ const initData = {
     description: "",
     status: "En cours",
 };
-const CampagneModal = () => {
+const CampagneModal = ({refresh}) => {
     const close = useRef();
     const comfirm = useRef();
     const list = getCampagne();
@@ -30,7 +30,7 @@ const CampagneModal = () => {
         initialValues: initData,
         onSubmit: (values) => {
             console.log(values);
-            const { lastname, firstname, email, number, ...data } = values;
+            const { lastname, firstname, email, number,files, ...data } = values;
             const user = {
                 lastname: lastname,
                 firstname: firstname,
@@ -42,6 +42,7 @@ const CampagneModal = () => {
                 user: user,
                 campagne: data,
                 publicite: list,
+                files:files
             });
             //formik.resetForm();
         },
@@ -58,6 +59,8 @@ const CampagneModal = () => {
                         console.log(data);
                         //close.current.click();
                         comfirm.current.click();
+                        setCampagne([])
+                        refresh()
                         //get();
                         return "Votre demande de devis a bien été reçue !";
                     },
