@@ -3,13 +3,52 @@ import Map from "../components/Map";
 import Menu from "../components/Menu";
 import Section from "../components/Section"
 import { listLink } from "../utils/listLink";
+import request from "../services/request";
+import endPointPublic from "../services/endPointPublic";
+import { useEffect, useState } from "react";
 
 
 const Carte = () => {
+    const [categories, setCategories] = useState([]);
 
+    useEffect(() => {
+        //get();
+        getCategorie();
+    }, []);
+
+    
+    const getCategorie = () => {
+        request
+            .get(endPointPublic.categorieMedias)
+            .then((res) => {
+                console.log(res.data);
+                setCategories(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    
+    const getProduitByMedia = (e, mediaSlug) => {
+        e.preventDefault();
+        console.log(mediaSlug);
+        request
+            .get(endPointPublic.offresByMedia + "/" + mediaSlug)
+            .then((res) => {
+                console.log(res.data);
+                setDatas(res.data.data);
+                setList(res.data.data);
+                getCategorieMedia();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <Section>
-            <Menu />
+            <Menu categories={categories}
+                    medias={[]}
+                    getProduitByMedia={getProduitByMedia}/>
             <div className="d-flex justify-content-center">
                 <div className="btn-group border rounded-5 p-1">
                     <NavLink

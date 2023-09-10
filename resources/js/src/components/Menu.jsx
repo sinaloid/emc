@@ -1,7 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import { listLink } from "../utils/listLink";
+import { URL_ } from "../services/request";
 
-const Menu = ({categories}) => {
+const Menu = ({categories,medias,getProduitByMedia}) => {
 
     
     return (
@@ -29,13 +30,27 @@ const Menu = ({categories}) => {
                             categories.map((categorie) =>{
 
                                 return <Link
-                                to={listLink.media}
+                                to={"/media-categorie/"+categorie.slug}
                                 className="link text-uppercase fw-bold mx-4"
                             >
                                 {categorie.name}
                             </Link>
                             })
                         }
+                    </div>
+                </div>
+            </div>
+            <div className="col-12 pt-3">
+                <div className="d-flex justify-content-center p-2">
+                    <div className="d-flex bg-gray p-2">
+                    {
+                        medias.map((data, idx) => {
+
+                            return <div className="mx-2" onClick={e => getProduitByMedia(e,data.slug)}>
+                                <img width={"64px"} src={data.image ? URL_+""+data.image: ""} alt="" />
+                            </div>
+                        })
+                    }
                     </div>
                 </div>
             </div>

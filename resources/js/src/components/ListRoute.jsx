@@ -40,6 +40,10 @@ const appRoute = [
         Element: <Accueil />,
     },
     {
+        path: listLink.mediaByCategorie,
+        Element: <Accueil />,
+    },
+    {
         path: listLink.detail_media,
         Element: <DetailMedia />,
     },

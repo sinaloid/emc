@@ -10,7 +10,7 @@
     --primary-color-light:rgba(31, 46, 84, 0.15);
     --secondary-color:#E5282A;
     --gray-color:#707070;
-    --gray-color-light:#F9F9F9;
+    --gray-color-light:#F5F5F5;
     --gray-layout:#F9F9F9;
     --gray-for-element:#F1F1F1;
     --link-color:rgba(227, 229, 234,0.4);
@@ -94,6 +94,8 @@ body {
   .bg-primary-light {
     background-color: var(--primary-color-light) !important;
   }
+
+  .bg-gray
 
   .btn-primary {
     background-color: var(--secondary-color) !important;

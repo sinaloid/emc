@@ -52,6 +52,7 @@ const Hero = ({ categories, setList, datas }) => {
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="true"
                                     aria-expanded="false"
+                                    style={{height:"60px"}}
                                 >
                                     Filtrer par
                                 </button> 
@@ -98,27 +99,18 @@ const Hero = ({ categories, setList, datas }) => {
                             </div>
                             <input
                                 type="text"
-                                className="form-control"
+                                className="form-control text-center"
                                 value={search}
                                 onChange={onSearch}
+                                placeholder="Chercher le produit d’un média ou un espace publicitaire"
+                                style={{height:"60px"}}
                             />
-                            <div className="pt-2 btn btn-secondary">
+                            <div className="pt-3 btn btn-secondary" style={{height:"60px"}}>
                                 <Search />
                             </div>
                         </div>
                     </div>
-                    <div className="col-8 mx-auto">
-                        <div className="d-flex text-white">
-                            <div className="me-auto">
-                                <i className="bi bi-check-circle-fill"></i>
-                                <span> 0% de commission</span>
-                            </div>
-                            <div>
-                                <i className="bi bi-check-circle-fill"></i>
-                                <span> 0% de commission</span>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </Section>

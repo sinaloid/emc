@@ -43,14 +43,16 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::get('categorieMedias/public/{slug}', [CategorieMediaController::class,'show']);
 
     Route::get('medias/public', [MediaController::class,'index']);
+    Route::get('public/medias/categorie/{slug?}', [MediaController::class,'mediasByCategorie']);
     Route::get('medias/public/{slug}', [MediaController::class,'show']);
 
     Route::get('mediaTarifs/public', [MediaTarifController::class,'index']);
     Route::get('mediaTarifs/public/{slug}', [MediaTarifController::class,'show']);
     
-    Route::get('mediaProduits/public', [MediaProduitController::class,'index']);
+    Route::get('public/mediaProduits/categorie/{slug?}', [MediaProduitController::class,'index']);
+    Route::get('public/mediaProduits/media/{slug?}', [MediaProduitController::class,'produitByMedia']);
     Route::get('mediaProduits/public/{slug}', [MediaProduitController::class,'show']);
-
+    
     Route::get('categorieFiltres/public', [CategorieFiltreController::class,'index']);
     Route::get('categorieFiltres/public/{slug}', [CategorieFiltreController::class,'show']);
 

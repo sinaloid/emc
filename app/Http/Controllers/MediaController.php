@@ -105,6 +105,28 @@ class MediaController extends Controller
         return response()->json(['message' => 'Media trouvé', 'data' => $data], 200);
     }
 
+    public function mediasByCategorie($slug = "")
+    {
+        ///$data = Media::with("categorieMedia","mediaTarifs","mediaProduits")->where("slug",$slug)->first();
+        $data = [];
+        if($slug != ""){
+            $data = Media::whereHas('categorieMedia', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->get();
+        }
+
+        /*if (!$data) {
+            return response()->json(['message' => 'Media non trouvé'], 404);
+        }*/
+
+        /*if ($data->is_deleted) {
+            return response()->json(['message' => 'Media supprimé'], 404);
+        }*/
+
+        return response()->json(['message' => 'Media trouvé', 'data' => $data], 200);
+    }
+
+
     /**
      * Update the specified resource in storage.
      *

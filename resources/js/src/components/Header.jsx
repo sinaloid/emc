@@ -90,12 +90,12 @@ const Header = () => {
                                         {categories.map((data) => {
                                             return (
                                                 <li>
-                                                    <a
-                                                        className="dropdown-item"
-                                                        href="#"
+                                                    <NavLink
+                                                        className="dropdown-item nav-link"
+                                                        to={"/media-categorie/"+data.slug}
                                                     >
                                                         {data.name}
-                                                    </a>
+                                                    </NavLink>
                                                 </li>
                                             );
                                         })}

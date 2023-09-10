@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import AddPubComfirmationModal from "./AddPubComfirmationModal";
 import AddPuBModal from "./addPubModal";
@@ -11,25 +11,33 @@ import request from "../services/request";
 import endPoint from "../services/endPoint";
 import Hero from "./Hero";
 import endPointPublic from "../services/endPointPublic";
+import Map from "./Map";
 
 const PubContainer = () => {
     const [datas, setDatas] = useState([]);
     const [list, setList] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [medias, setMedias] = useState([]);
     const [selectedData, setSelectedData] = useState("");
+    const [view, setView] = useState(false);
+    const { slug } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         get();
         getCategorie();
-    }, []);
+        console.log(slug);
+    }, [slug]);
 
     const get = () => {
+        const url = slug ? slug : "";
         request
-            .get(endPointPublic.offres)
+            .get(endPointPublic.offres + "/" + url)
             .then((res) => {
                 console.log(res.data);
                 setDatas(res.data.data);
                 setList(res.data.data);
+                getCategorieMedia();
             })
             .catch((error) => {
                 console.log(error);
@@ -46,6 +54,38 @@ const PubContainer = () => {
                 console.log(error);
             });
     };
+    const getCategorieMedia = () => {
+        const url = slug ? slug : "";
+        request
+            .get(endPointPublic.mediaByCategorie + "/" + url)
+            .then((res) => {
+                console.log(res.data);
+                setMedias(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const getProduitByMedia = (e, mediaSlug) => {
+        e.preventDefault();
+        console.log(mediaSlug);
+        request
+            .get(endPointPublic.offresByMedia + "/" + mediaSlug)
+            .then((res) => {
+                console.log(res.data);
+                setDatas(res.data.data);
+                setList(res.data.data);
+                getCategorieMedia();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const changeView = (e) => {
+       // e.preventDefault();
+        setView(!view);
+    };
     return (
         <>
             <Hero
@@ -55,49 +95,56 @@ const PubContainer = () => {
                 datas={datas}
             />
             <Section>
-                <Menu categories={categories} />
+                <Menu
+                    categories={categories}
+                    medias={medias}
+                    getProduitByMedia={getProduitByMedia}
+                />
 
                 <div className="col-12 col-md-10 col-lg-9 mx-auto pt-5 pb-3">
                     <div className="row">
                         <div className="col-md-9 order-2 order-md-1 mb-3">
-                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                                {list.map((data) => {
-                                    return (
-                                        <div className="col" key={data.slug}>
-                                            <PubCard
-                                                data={data}
-                                                setSelectedData={
-                                                    setSelectedData
-                                                }
-                                            />
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                            {!view && (
+                                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                                    {list.map((data) => {
+                                        return (
+                                            <div
+                                                className="col"
+                                                key={data.slug}
+                                            >
+                                                <PubCard
+                                                    data={data}
+                                                    setSelectedData={
+                                                        setSelectedData
+                                                    }
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                            {view && (
+                                <Map />
+                            )}
                         </div>
                         <div className="col-md-3 order-1 order-md-2 mb-3">
-                            <div className="justify-content-center mb-3 w-100">
-                                <div className="btn-group border rounded-51 px-1 w-100">
-                                    <NavLink
-                                        to={listLink.carte}
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-uppercase fw-bold btn btn-tertiary-full text-white rounded-5 px-5"
-                                                : " text-uppercase fw-bold btn px-2"
-                                        }
+                            <div className="d-flex border bg-gray py-2 justify-content-center mb-3 w-100">
+                                <span className="me-2">Vue grille</span>
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        role="switch"
+                                        id="flexSwitchCheckChecked"
+                                        onChange={changeView}
+                                        //checked={view}
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="flexSwitchCheckChecked"
                                     >
-                                        Carte
-                                    </NavLink>
-                                    <NavLink
-                                        to={listLink.index}
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-uppercase fw-bold btn btn-tertiary-full text-white rounded-5 px-5"
-                                                : " text-uppercase fw-bold btn px-2"
-                                        }
-                                    >
-                                        Grid
-                                    </NavLink>
+                                        Voir sur une carte
+                                    </label>
                                 </div>
                             </div>
                             <PubFilter />

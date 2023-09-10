@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\MediaProduit;
+use App\Models\CategorieMedia;
 use App\Models\Media;
 
 class MediaProduitController extends Controller
@@ -17,12 +18,43 @@ class MediaProduitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug = "")
     {
-        $data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+        if($slug != ""){
+            //$data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+            /*$data = MediaProduit::with([
+                'media.categorieMedia' => function ($query) use ($slug) {
+                    //dd($slug);
+                // Utilisez la clause where pour filtrer les articles par titre.
+                //$query->where('slug', $slug)->get();
+            }])->get();*/
+            $data = MediaProduit::whereHas('media.categorieMedia', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->get();
+        }else{
+            $data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+        }
 
         if ($data->isEmpty()) {
-            return response()->json(['message' => 'Aucune produit trouvé'], 404);
+           // return response()->json(['message' => 'Aucune produit trouvé','data' => []], 404);
+        }
+
+        return response()->json(['message' => 'Prouits récupérés', 'data' => $data], 200);
+    }
+
+    public function produitByMedia($slug = "")
+    {
+        if($slug != ""){
+            
+            $data = MediaProduit::whereHas('media', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->get();
+        }else{
+            $data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+        }
+
+        if ($data->isEmpty()) {
+           // return response()->json(['message' => 'Aucune produit trouvé','data' => []], 404);
         }
 
         return response()->json(['message' => 'Prouits récupérés', 'data' => $data], 200);

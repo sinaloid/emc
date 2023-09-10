@@ -3,6 +3,7 @@
 export  const listLink = {
     index:"/",
     home:"/*",
+    mediaByCategorie:"/media-categorie/:slug?",
     affichage:"/publicites",
     carte:"/publicites-sur-carte",
     media:"/media",
