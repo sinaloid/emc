@@ -143,7 +143,7 @@ const PubContainer = () => {
                                         class="form-check-label"
                                         for="flexSwitchCheckChecked"
                                     >
-                                        Voir sur une carte
+                                        Vue carte
                                     </label>
                                 </div>
                             </div>

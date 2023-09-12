@@ -38,16 +38,16 @@ const Hero = ({ categories, setList, datas }) => {
                 </h1>
                 <p className="text-white text-22 text-center">
                     EMC est votre compagnon idéal pour l’achat facile, rapide et
-                    sécurisé des services des médias (spots et panneaux
+                    sécurisé des services des médias <br />(spots et panneaux
                     publicitaires, communiqués, couvertures médiatiques,
                     reportages, etc).
                 </p>
                 <div className="row mt-5">
                     <div className="col-10 mx-auto">
                         <div className="input-group mb-3">
-                            <div class="btn-group">
+                            <div class="btn-group bg-gray">
                                 <button
-                                    class="btn btn-secondary rounded-0 dropdown-toggle"
+                                    class="btn rounded-0 dropdown-toggle"
                                     type="button"
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="true"
@@ -99,13 +99,13 @@ const Hero = ({ categories, setList, datas }) => {
                             </div>
                             <input
                                 type="text"
-                                className="form-control text-center"
+                                className="form-control"
                                 value={search}
                                 onChange={onSearch}
                                 placeholder="Chercher le produit d’un média ou un espace publicitaire"
                                 style={{height:"60px"}}
                             />
-                            <div className="pt-3 btn btn-secondary" style={{height:"60px"}}>
+                            <div className="pt-3 btn btn-primary" style={{height:"60px"}}>
                                 <Search />
                             </div>
                         </div>

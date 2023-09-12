@@ -42,6 +42,10 @@ const Header = () => {
             });
     };
 
+    const goToDashboard = (e) => {
+        e.preventDefault()
+        navigate(listLink.dashboard)
+    }
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
@@ -66,7 +70,7 @@ const Header = () => {
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div
-                            className="collapse navbar-collapse"
+                            className="collapse navbar-collapse bg-dark1 mt-3"
                             id="collapsibleNavbar"
                         >
                             <ul className="navbar-nav ms-auto">
@@ -129,17 +133,18 @@ const Header = () => {
                                      */}
                                 {user.isAuth ? (
                                     <li className="nav-item">
-                                        <NavLink
-                                            className="btn btn-secondary text-uppercase mx-1 mb-3"
-                                            to={listLink.dashboard}
+                                        <button
+                                            className="btn btn-tertiary mx-1"
+                                            //to={listLink.dashboard}
+                                            onClick={goToDashboard}
                                         >
                                             Mon compte
-                                        </NavLink>
+                                        </button>
                                     </li>
                                 ) : (
                                     <li className="nav-item">
                                         <button
-                                            className="btn btn-secondary text-uppercase mx-1 mb-3"
+                                            className="btn btn-tertiary mx-1"
                                             data-bs-toggle="modal"
                                             data-bs-target="#loginModal"
                                         >
@@ -149,7 +154,7 @@ const Header = () => {
                                 )}
                                 <li className="nav-item">
                                     <button
-                                        className="btn btn-primary text-uppercase mx-1 mb-3"
+                                        className="btn btn-primary-no-hover mx-1"
                                         data-bs-toggle="modal"
                                         data-bs-target="#accompagnement"
                                     >
@@ -158,7 +163,7 @@ const Header = () => {
                                 </li>
                                 <li className="nav-item">
                                     <div
-                                        className="btn-group mb-3"
+                                        className="btn-group"
                                         role="group"
                                         aria-label="Basic example"
                                     >
@@ -192,8 +197,9 @@ const Header = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item">
+                                <span className="text-18"><Fr /> Fr</span>
                                     <div
-                                        className="btn-group mb-3"
+                                        className="btn-group"
                                         role="group"
                                         aria-label="Basic example"
                                     >
@@ -202,9 +208,11 @@ const Header = () => {
                                             className="btn bg-primary1 btn-tertiary-full1"
                                         >
                                             {" "}
-                                            <Fr />
+                                            
                                         </button>
-                                        <div className="btn-group">
+                                        {
+                                            /**
+                                             * <div className="btn-group">
                                             <button
                                                 className="btn btn-primary1 dropdown-toggle border-0"
                                                 type="button"
@@ -225,6 +233,8 @@ const Header = () => {
                                                 </li>
                                             </ul>
                                         </div>
+                                             */
+                                        }
                                     </div>
                                 </li>
                             </ul>

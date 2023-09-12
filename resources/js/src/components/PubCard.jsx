@@ -15,7 +15,9 @@ const PubCard = ({data, setSelectedData}) => {
             <PubCardImg image={data.image}/>
             <div className="text-center py-3">
                 <h4>{data.name}</h4>
-                <span className="text-primary my-2 d-inline-block">Stade du 4 Août</span> <br />
+                <span className="text-primary my-2 d-inline-block">
+                    Produit à grande audience
+                    </span> <br />
                 <Button classe={"btn-pub"} isModal={true} idModal={"#addModal"} callback={setModalData}>
                     <PubDash /> Ajouter au panier 
                 </Button>

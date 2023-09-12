@@ -95,7 +95,6 @@ body {
     background-color: var(--primary-color-light) !important;
   }
 
-  .bg-gray
 
   .btn-primary {
     background-color: var(--secondary-color) !important;
@@ -106,6 +105,12 @@ body {
     background-color: #FFF !important;
     border-color: var(--secondary-color);
     color: var(--secondary-color) !important;
+  }
+
+  .btn-primary-no-hover {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color);
+    color:#FFF !important;
   }
 
   .btn-secondary {
@@ -229,9 +234,13 @@ body {
 .nav-link{
   color: var(--primary-color) !important;
 }
-.nav-link.active{
-   background-color: var(--primary-color) !important;
-   color: #fff !important;
+.nav-link:hover, .nav-link.active{
+    color: var(--secondary-color) !important;
+   /*color: #fff !important;*/
+}
+
+.dropdown-item.active, .dropdown-item:focus {
+  background-color: #fff;
 }
 
 .text-white{
