@@ -95,6 +95,10 @@ body {
     background-color: var(--primary-color-light) !important;
   }
 
+  .bg-secondary {
+    background-color: var(--secondary-color) !important;
+  }
+
 
   .btn-primary {
     background-color: var(--secondary-color) !important;

@@ -34,11 +34,11 @@ const Hero = ({ categories, setList, datas }) => {
         <Section bg="bg-primary">
             <div className="col-12 col-md-10 col-lg-9 mx-auto py-5">
                 <h1 className="text-white text-40 text-center fw-bold">
-                    Tous les services des médias en un seul endroit.
+                    Achetez vos espaces publicitaires en un seul endroit !
                 </h1>
                 <p className="text-white text-22 text-center">
                     EMC est votre compagnon idéal pour l’achat facile, rapide et
-                    sécurisé des services des médias <br />(spots et panneaux
+                    sécurisé de vos espaces publicitaires <br />(spots et panneaux
                     publicitaires, communiqués, couvertures médiatiques,
                     reportages, etc).
                 </p>
