@@ -20,6 +20,7 @@ const PubContainer = () => {
     const [medias, setMedias] = useState([]);
     const [selectedData, setSelectedData] = useState("");
     const [view, setView] = useState(false);
+    const [affichageSlug, setAffichageSlug] = useState('nean');
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -49,6 +50,11 @@ const PubContainer = () => {
             .then((res) => {
                 console.log(res.data);
                 setCategories(res.data.data);
+                res.data.data.map((data) =>{
+                    if(data.name === "Affichage" || data.name === "affichage"){
+                        setAffichageSlug(data.slug)
+                    }
+                })
             })
             .catch((error) => {
                 console.log(error);
@@ -127,8 +133,10 @@ const PubContainer = () => {
                                 <Map />
                             )}
                         </div>
-                        <div className="col-md-3 order-1 order-md-2 mb-3">
-                            <div className="d-flex border bg-gray py-2 justify-content-center mb-3 w-100">
+                        {
+                            slug  && <div className="col-md-3 order-1 order-md-2 mb-3">
+                            {
+                                affichageSlug === slug && <div className="d-flex border bg-gray py-2 justify-content-center mb-3 w-100">
                                 <span className="me-2">Vue grille</span>
                                 <div class="form-check form-switch">
                                     <input
@@ -147,8 +155,11 @@ const PubContainer = () => {
                                     </label>
                                 </div>
                             </div>
+                            }
                             <PubFilter />
                         </div>
+                        }
+                        
                     </div>
                 </div>
                 <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
