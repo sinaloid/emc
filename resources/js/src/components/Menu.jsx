@@ -43,7 +43,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                 <Link
                                     to={listLink.index}
                                     className={`link fw-bold mx-4 ${
-                                        slug === undefined && "border-link"
+                                        slug === undefined && "link-border-bottom"
                                     }`}
                                     onClick={(e) => {
                                         setItem({
@@ -71,7 +71,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                             }
                                             className={`link fw-bold mx-4 ${
                                                 slug === categorie.slug &&
-                                                "border-link"
+                                                "link-border-bottom"
                                             }`}
                                             onClick={(e) => {
                                                 setItem({
