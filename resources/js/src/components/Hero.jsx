@@ -32,11 +32,11 @@ const Hero = ({ categories, setList, datas }) => {
     };
     return (
         <Section bg="bg-primary">
-            <div className="col-12 col-md-10 col-lg-9 mx-auto py-5">
-                <h1 className="text-white text-40 text-center fw-bold">
+            <div className="col-12 col-md-10 col-lg- mx-auto py-5">
+                <h1 className="text-white text-40 text-center fw-bold" style={{fontSize:"56px"}}>
                     Achetez vos espaces publicitaires en un seul endroit !
                 </h1>
-                <p className="text-white text-22 text-center">
+                <p className="text-white text-22 text-center" style={{fontSize:"28px"}}>
                     EMC est votre compagnon idéal pour l’achat facile, rapide et
                     sécurisé de vos espaces publicitaires <br />(spots et panneaux
                     publicitaires, communiqués, couvertures médiatiques,
@@ -52,14 +52,14 @@ const Hero = ({ categories, setList, datas }) => {
                                     data-bs-toggle="dropdown"
                                     data-bs-auto-close="true"
                                     aria-expanded="false"
-                                    style={{height:"60px"}}
+                                    style={{height:"60px", width:"150px"}}
                                 >
                                     Filtrer par
                                 </button> 
                                 <ul class="dropdown-menu">
                                     <div className="d-flex">
                                         <div>
-                                            <li className="border-bottom text-center border-secondary mx-2">Ville</li>
+                                            <li className="border-bottom text-center  mx-2 li-border-bottom" style={{cursor:"pointer"}}>Ville</li>
                                             {["Ouagadougou","Bobo-Dioulasso", "Koudougou","Fada N'Gourma","Dori"].map((data, idx) => {
                                                 return (
                                                     <li
@@ -77,7 +77,7 @@ const Hero = ({ categories, setList, datas }) => {
                                             })}
                                         </div>
                                         <div>
-                                            <li className="border-bottom text-center border-secondary mx-2">Supports</li>
+                                            <li className="border-bottom text-center mx-2 li-border-bottom" style={{cursor:"pointer"}}>Supports</li>
                                             {categories.map((data, idx) => {
                                                 return (
                                                     <li
@@ -105,8 +105,10 @@ const Hero = ({ categories, setList, datas }) => {
                                 placeholder="Chercher le produit d’un média ou un espace publicitaire"
                                 style={{height:"60px"}}
                             />
-                            <div className="pt-3 btn btn-primary" style={{height:"60px"}}>
+                            <div className="pt-3 btn btn-primary-no-hover text-center" style={{height:"60px", width:"100px"}}>
+                                <span className="d-inline-block mx-auto pt-1">
                                 <Search />
+                                </span>
                             </div>
                         </div>
                     </div>

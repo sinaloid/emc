@@ -43,9 +43,9 @@ const Header = () => {
     };
 
     const goToDashboard = (e) => {
-        e.preventDefault()
-        navigate(listLink.dashboard)
-    }
+        e.preventDefault();
+        navigate(listLink.dashboard);
+    };
     return (
         <Section bg="bg-white">
             <div className="col-12 col-md-11 mx-auto">
@@ -96,7 +96,10 @@ const Header = () => {
                                                 <li>
                                                     <NavLink
                                                         className="dropdown-item nav-link"
-                                                        to={"/media-categorie/"+data.slug}
+                                                        to={
+                                                            "/media-categorie/" +
+                                                            data.slug
+                                                        }
                                                     >
                                                         {data.name}
                                                     </NavLink>
@@ -113,7 +116,9 @@ const Header = () => {
                                         Comment ça marche
                                     </NavLink>
                                 </li>
-                                <li className="nav-item">
+
+                                {/**
+                                     * <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
                                         to={listLink.referencer}
@@ -121,8 +126,7 @@ const Header = () => {
                                         Tarifs
                                     </NavLink>
                                 </li>
-                                {/**
-                                     * <li className="nav-item">
+                                     *<li className="nav-item">
                                     <NavLink
                                         className="nav-link"
                                         to={listLink.media}
@@ -134,7 +138,7 @@ const Header = () => {
                                 {user.isAuth ? (
                                     <li className="nav-item">
                                         <button
-                                            className="btn btn-tertiary mx-1"
+                                            className="btn btn-secondary-border mx-1"
                                             //to={listLink.dashboard}
                                             onClick={goToDashboard}
                                         >
@@ -144,7 +148,7 @@ const Header = () => {
                                 ) : (
                                     <li className="nav-item">
                                         <button
-                                            className="btn btn-tertiary mx-1"
+                                            className="btn btn-secondary-border mx-1"
                                             data-bs-toggle="modal"
                                             data-bs-target="#loginModal"
                                         >
@@ -158,7 +162,7 @@ const Header = () => {
                                         data-bs-toggle="modal"
                                         data-bs-target="#accompagnement"
                                     >
-                                        accompagnement sur-mesure
+                                        Accompagnement sur-mesure
                                     </button>
                                 </li>
                                 <li className="nav-item">
@@ -170,6 +174,10 @@ const Header = () => {
                                         <button
                                             type="button"
                                             className="btn bg-primary1 btn-tertiary-full1"
+                                            onClick={e =>{
+                                                e.preventDefault()
+                                                navigate(listLink.panier)
+                                            }}
                                         >
                                             {" "}
                                             <Dash />
@@ -197,7 +205,35 @@ const Header = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item">
-                                <span className="text-18"><Fr /> Fr</span>
+                                    <div className="text-18">
+                                        <Fr />
+                                        <div className="btn-group">
+                                            <button
+                                                className="btn btn-primary1 dropdown-toggle border-0 px-0"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                data-bs-auto-close="true"
+                                                aria-expanded="false"
+                                            >
+                                                FR
+                                            </button>
+                                            {
+                                                /**
+                                                 * <ul className="dropdown-menu">
+                                                <li>
+                                                    <a
+                                                        className="dropdown-item"
+                                                        href="#"
+                                                    >
+                                                        FR 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                                 */
+                                            }
+                                        </div>
+                                    </div>
+
                                     <div
                                         className="btn-group"
                                         role="group"
@@ -208,10 +244,8 @@ const Header = () => {
                                             className="btn bg-primary1 btn-tertiary-full1"
                                         >
                                             {" "}
-                                            
                                         </button>
-                                        {
-                                            /**
+                                        {/**
                                              * <div className="btn-group">
                                             <button
                                                 className="btn btn-primary1 dropdown-toggle border-0"
@@ -233,8 +267,7 @@ const Header = () => {
                                                 </li>
                                             </ul>
                                         </div>
-                                             */
-                                        }
+                                             */}
                                     </div>
                                 </li>
                             </ul>

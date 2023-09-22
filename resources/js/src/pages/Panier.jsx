@@ -38,7 +38,9 @@ const Panier = () => {
         <>
             <Header />
             <Section>
-                <div className="col-12 col-md-11 mx-auto my-4 px-4">
+                <div className="col-12 h-90">
+                    <duv className="row">
+                    <div className="col-12 col-md-11 mx-auto my-4 px-4">
                     <div className="col-md-6 bg-gray p-3">
                         {list.map((data, idx) => {
                             return (
@@ -98,6 +100,8 @@ const Panier = () => {
                 <CampagneModal refresh={getCampagneList} />
                 <AddPuBModal data={selectedData} idx = {id} update={true} callBack = {deleteProduit} />
                 <AddPubComfirmationModal data={selectedData} />
+                    </duv>
+                </div>
             </Section>
             <Footer />
         </>

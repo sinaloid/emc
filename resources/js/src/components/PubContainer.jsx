@@ -102,12 +102,13 @@ const PubContainer = () => {
             />
             <Section>
                 <Menu
+                    slug={slug}
                     categories={categories}
                     medias={medias}
                     getProduitByMedia={getProduitByMedia}
                 />
 
-                <div className="col-12 col-md-10 col-lg-9 mx-auto pt-5 pb-3">
+                <div className="col-12 col-md-10 mx-auto pb-3">
                     <div className="row">
                         <div className="col-md-9 order-2 order-md-1 mb-3">
                             {!view && (
@@ -163,9 +164,13 @@ const PubContainer = () => {
                     </div>
                 </div>
                 <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
-                    <Link className="text-primary" to={"#"}>
+                    {
+                        /**
+                         * <Link className="text-primary" to={"#"}>
                         Voir plus
                     </Link>
+                         */
+                    }
                 </div>
                 <AddPuBModal data={selectedData} />
                 <AddPubComfirmationModal data={selectedData} />

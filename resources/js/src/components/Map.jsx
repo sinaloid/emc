@@ -23,7 +23,7 @@ const Map = () => {
   });
 
   return (
-    <MapContainer center={markers[0].position} zoom={zoomLevel} style={{ height: '100vh' }}>
+    <MapContainer center={markers[0].position} zoom={zoomLevel} style={{ height: '70vh' }}>
     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
     {markers.map((marker, idx) => (
       <Marker key={idx} position={marker.position} icon={myIcon}>
