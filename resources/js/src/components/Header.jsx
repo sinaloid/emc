@@ -70,7 +70,7 @@ const Header = () => {
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div
-                            className="collapse navbar-collapse bg-dark1 mt-3"
+                            className="collapse navbar-collapse bg-dark1 mt-31"
                             id="collapsibleNavbar"
                         >
                             <ul className="navbar-nav ms-auto">
@@ -232,42 +232,6 @@ const Header = () => {
                                                  */
                                             }
                                         </div>
-                                    </div>
-
-                                    <div
-                                        className="btn-group"
-                                        role="group"
-                                        aria-label="Basic example"
-                                    >
-                                        <button
-                                            type="button"
-                                            className="btn bg-primary1 btn-tertiary-full1"
-                                        >
-                                            {" "}
-                                        </button>
-                                        {/**
-                                             * <div className="btn-group">
-                                            <button
-                                                className="btn btn-primary1 dropdown-toggle border-0"
-                                                type="button"
-                                                data-bs-toggle="dropdown"
-                                                data-bs-auto-close="true"
-                                                aria-expanded="false"
-                                            >
-                                                FR
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                                <li>
-                                                    <a
-                                                        className="dropdown-item"
-                                                        href="#"
-                                                    >
-                                                        FR 
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                             */}
                                     </div>
                                 </li>
                             </ul>

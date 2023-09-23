@@ -33,10 +33,10 @@ const Hero = ({ categories, setList, datas }) => {
     return (
         <Section bg="bg-primary">
             <div className="col-12 col-md-10 col-lg- mx-auto py-5">
-                <h1 className="text-white text-40 text-center fw-bold" style={{fontSize:"56px"}}>
+                <h1 className="text-white text-40 text-center fw-bold" style={{fontSize:"46px"}}>
                     Achetez vos espaces publicitaires en un seul endroit !
                 </h1>
-                <p className="text-white text-22 text-center" style={{fontSize:"28px"}}>
+                <p className="text-white text-22 text-center" style={{fontSize:"20px"}}>
                     EMC est votre compagnon idéal pour l’achat facile, rapide et
                     sécurisé de vos espaces publicitaires <br />(spots et panneaux
                     publicitaires, communiqués, couvertures médiatiques,

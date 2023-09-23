@@ -179,12 +179,11 @@ body {
   .btn-secondary-border{
     background-color: #fff !important;
     border-color: var(--secondary-color);
-    color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
   }
 
   .btn-secondary-border:hover{
     border-color: var(--secondary-color);
-    color: var(--secondary-color) !important;
     font-weight:bold;
   }
   
@@ -223,6 +222,7 @@ body {
     min-height: 35vh !important;
   }
   .link-border-bottom{
+    font-weight: bold;
     border-bottom: 2.7px solid var(--secondary-color);
     padding-bottom: 2px;
   }

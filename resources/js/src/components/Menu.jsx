@@ -42,7 +42,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                             <div className="d-inline-block pb-0">
                                 <Link
                                     to={listLink.index}
-                                    className={`link fw-bold mx-4 ${
+                                    className={`link mx-4 ${
                                         slug === undefined && "link-border-bottom"
                                     }`}
                                     onClick={(e) => {
@@ -69,7 +69,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                                 "/media-categorie/" +
                                                 categorie.slug
                                             }
-                                            className={`link fw-bold mx-4 ${
+                                            className={`link mx-4 ${
                                                 slug === categorie.slug &&
                                                 "link-border-bottom"
                                             }`}
