@@ -9,6 +9,18 @@ import { useContext, useEffect } from "react";
 import { AppContext, initialUser } from "../services/context";
 import { URL } from "../services/request";
 
+import { UserIcon } from "../components/icons/UserIcon";
+import { CampagneIcon } from "../components/icons/CampagneIcon";
+import { DevisIcon } from "../components/icons/DevisIcon";
+import { DocIcon } from "../components/icons/DocIcon";
+import { PaiementIcon } from "../components/icons/PaiementIcon";
+import { ProduitIcon } from "../components/icons/ProduitIcon";
+import { MessageIcon } from "../components/icons/MessageIcon";
+import { DeconnectionIcon } from "../components/icons/DeconnectionIcon";
+import { MenuIcon } from "../components/icons/MenuIcon";
+import { DashIcon } from "../components/icons/DashIcon";
+import { LogoForFooter } from "../components/imgs/LogoForFooter";
+
 const Dashboard = () => {
     const appCtx = useContext(AppContext);
     const { user, onUserChange } = appCtx;
@@ -35,202 +47,230 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="container-fluid px-0">
-            <div className="row">
-                <nav
-                    id="sidebarMenu"
-                    className="pt-2 col-md-3 col-lg-2 d-md-block sidebar collapse"
+        <>
+            <header
+                className="navbar sticky-top bg-dark1 w-100 d-md-none flex-md-nowrap p-0 shadow1"
+                data-bs-theme="dark"
+                //style=""
+            >
+                <a
+                    className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white1"
+                    href="#"
                 >
-                    <div className="position-sticky pt-1 sidebar-sticky h-100 overflow-auto">
-                        <div className="d-flex pb-2 px-2 align-items-center ">
-                            <div className="me-2 mt-2">
-                                <img
-                                    className="rounded-circle"
-                                    width="64px"
-                                    src={URL + "" + user.profile}
-                                    alt=""
-                                />
+                    EMC
+                </a>
+
+                <ul className="navbar-nav flex-row d-md-none">
+                    <li className="nav-item text-nowrap">
+                        <button
+                            className="nav-link px-3 text-black"
+                            type="button"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebarMenu"
+                            aria-controls="sidebarMenu"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <MenuIcon />
+                        </button>
+                    </li>
+                </ul>
+
+                <div id="navbarSearch" className="navbar-search w-100 collapse">
+                    <input
+                        className="form-control w-100 rounded-0 border-0"
+                        type="text"
+                        placeholder="Search"
+                        aria-label="Search"
+                    />
+                </div>
+            </header>
+
+            <div className="container-fluid px-0">
+                <div className="row">
+                    <div className="sidebar mx-0 border1 border-right col-md-3 col-lg-2 p-0">
+                        <div
+                            className="offcanvas-md offcanvas-end bg-body-tertiary1 bg-primary h-100"
+                            tabindex="-1"
+                            id="sidebarMenu"
+                            aria-labelledby="sidebarMenuLabel"
+                        >
+                            <div className="offcanvas-header">
+                                <h5
+                                    className="offcanvas-title"
+                                    id="sidebarMenuLabel"
+                                ></h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="offcanvas"
+                                    data-bs-target="#sidebarMenu"
+                                    aria-label="Close"
+                                ></button>
                             </div>
-                            <div className="">
-                                <span className="fw-bold text-18">
-                                    {user.name}
-                                </span>
-                                <br />
-                                <span className="">{user.status}</span>
+                            <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto bg-primary1">
+                                <div className="d-flex align-items-center px-3 mb-5">
+                                    <div className="me-auto">
+                                        <LogoForFooter />
+                                    </div>
+                                </div>
+                                <ul className="nav flex-column mb-auto rounded-3 pt-2">
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <DashIcon />
+                                            Tableau de bord
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_compte}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <UserIcon />
+                                            Mon Compte
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_campagne}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <CampagneIcon />
+                                            Campagnes
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_devis}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <DevisIcon />
+                                            Demandes de devis
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_docs}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <DocIcon />
+                                            Documents
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_paiement}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <PaiementIcon />
+                                            Mes paiements
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_support}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <ProduitIcon />
+                                            Mes produits
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_msgs}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <MessageIcon />
+                                            Messages
+                                        </NavLink>
+                                    </li>
+                                </ul>
+
+                                <ul className="nav flex-column mb-auto rounded-3 pt-2">
+                                <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_demande}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <UserIcon />
+                                            Mes publicités
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            to={listLink.dashboard_admin}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link d-flex align-items-center gap-2 active"
+                                                    : "nav-link d-flex align-items-center gap-2 text-white"
+                                            }
+                                        >
+                                            <UserIcon />
+                                            Administration
+                                        </NavLink>
+                                    </li>
+                                    <li className="nav-item rounded-3">
+                                        <span
+                                            onClick={deconnection}
+                                            className="nav-link d-flex align-items-center gap-2 text-white"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <DeconnectionIcon />
+                                            Je me déconnecte
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <ul className="nav flex-column px-2 mt-3">
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    to={listLink.dashboard}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                >
-                                    <span className="mt-1 d-block">
-                                        Tableau de bord
-                                    </span>
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_demande}
-                                >
-                                    Mes publicités
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_campagne}
-                                >
-                                    Mes campagnes
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_devis}
-                                >
-                                    Mes devis
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_paiement}
-                                >
-                                    Mes paiements
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_support}
-                                >
-                                    Mes médias{" "}
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_docs}
-                                >
-                                    Mes documents{" "}
-                                </NavLink>
-                            </li>
-                            <li className="nav-item mb-2">
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                    to={listLink.dashboard_msgs}
-                                >
-                                    Mes Messages{" "}
-                                </NavLink>
-                            </li>
-                        </ul>
-
-                        <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                            <NavLink
-                                className="text-primary text-muted text-decoration-none"
-                                to={listLink.index}
-                            >
-                                Retour{" "}
-                            </NavLink>
-                            <NavLink
-                                className="link-secondary text-primary"
-                                to={listLink.index}
-                                
-                            >
-                                <i className="bi bi-arrow-left-circle-fill"></i>
-                            </NavLink>
-                        </h6>
-                        <ul className="nav flex-column w-100 position-absolute1 bottom-0 mb-2 px-2 mt-5">
-                            <li className="nav-item my-1">
-                                <NavLink
-                                    to={listLink.dashboard_admin}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                >
-                                    Administration
-                                </NavLink>
-                            </li>
-                            <li className="nav-item my-1">
-                                <NavLink
-                                    to={listLink.dashboard_compte}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "nav-link active btn btn-dash border rounded-2 mx-auto py-0 text-start pt-1"
-                                            : "btn nav-link border py-0 btn-dash text-start pt-1"
-                                    }
-                                >
-                                    Mon compte
-                                </NavLink>
-                            </li>
-                            <li className="nav-item my-1">
-                                <span
-                                    className="btn nav-link border-0 py-0 btn-warning text-start pt-1"
-                                    onClick={deconnection}
-                                >
-                                    Me déconnecter
-                                </span>
-                            </li>
-                        </ul>
                     </div>
-                </nav>
 
-                <main className="col-md-9 ms-sm-auto col-lg-10 px-0">
-                    <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom px-1 px-md-2 shadow">
-                        <div className="ms-auto d-flex">
-                            <div className="d-flex align-items-center me-2">
-                                <Message />
-                                <Notification />
-                            </div>
-                            <div className="d-flex px-2 align-items-center border-start">
-                                <ProfileOption />
-                            </div>
+                    <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                        <div className="container-fluid px-4">
+                            <GetRoute list={dashboardRoute} />
                         </div>
-                    </div>
-
-                    <div className="container-fluid px-4">
-                        <GetRoute list={dashboardRoute} />
-                    </div>
-                </main>
+                    </main>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

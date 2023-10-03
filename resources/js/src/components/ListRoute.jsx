@@ -16,7 +16,7 @@ import FormDevis from "./FormDevis";
 import ProduitHeader from "./ProduitHeader";
 import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
-import Dashboard from "../pages/DashBoard";
+import Dashboard from "../pages/Dashboard";
 import Compte from "../pages/Compte";
 import Demande from "../dashboard/Publicite";
 import Paiement from "../dashboard/Paiement";
@@ -29,6 +29,7 @@ import ListeOffres from "../dashboard/medias/ListeOffres";
 import ListeMedia from "../dashboard/medias/ListeMedia";
 import DetailMedia from "../pages/MediaCategorieDetail";
 import MesMessages from "../dashboard/MesMessages";
+import TableauDeBord from "../dashboard/TableauDeBord";
 
 const appRoute = [
     {
@@ -326,7 +327,7 @@ const journauxRoute = [
 const dashboardRoute = [
     {
         path: listLink.index,
-        Element: <>Tableau de bord</>,
+        Element: <TableauDeBord />,
     },
     {
         path: listLink.dashboard_demande,

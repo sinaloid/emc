@@ -301,3 +301,7 @@ body {
 .sidebar-sticky::-webkit-scrollbar {
   display: none;
 }
+
+.h-60{
+  height: 60px;
+}
