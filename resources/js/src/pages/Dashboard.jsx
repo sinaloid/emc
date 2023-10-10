@@ -29,7 +29,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         isAuth();
-        getAuthUser();
+        //getAuthUser();
     },[]);
 
     const isAuth = () => {
