@@ -7,6 +7,7 @@ use App\Models\OTP;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\SendMail;
+use App\Models\User;
 
 class OTPController extends Controller
 {
@@ -19,6 +20,22 @@ class OTPController extends Controller
             return $this->generateNumberOTP($request);
         }else{
             return response(['errors' => "Un email ou un numéro de téléphone est obligatire"], 422);
+        }
+    }
+
+    public function generateOTPForPasswordEdit(Request $request){
+        
+        $key = array_key_first($request->all());
+        $user = User::where($key,$request[$key])->first();
+        
+        if($key === "email" && $user){
+            return $this->generateEmailOTP($request);
+        }elseif($key === "number" && $user){
+            return $this->generateNumberOTP($request);
+        }else{
+            $message = ( $key === "number") ? "Votre numéro de téléphone est incorrect" : "Votre email est incorrect";
+
+            return response(['errors' => $message], 422);
         }
     }
 

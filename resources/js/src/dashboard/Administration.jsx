@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ActionButton from "../components/ActionButton";
 import ContentHeader from "./ContentHeader";
 import ContentHeaderIniline from "./ContentHeaderIniline";
@@ -11,8 +11,13 @@ import TabAbonnement from "./components/TabAbonnement";
 import TabAccompagnement from "./components/TabAccompagnement";
 import TabAttestation from "./components/TabAttestation";
 import TabCategorieAbonnement from "./components/TabCategorieAbonnement";
+import { AppContext } from "../services/context";
+import { useNavigate } from "react-router-dom";
 
 const Administration = () => {
+    const appCtx = useContext(AppContext);
+    const { user, onUserChange } = appCtx;
+    const navigate = useNavigate();
     const [tabView, setTabView] = useState("categorieMedia");
     const [btnName, setBtnName] = useState("")
     const [restForm, setRestForm] = useState(() =>{})
@@ -57,6 +62,12 @@ const Administration = () => {
         "attestation",
         "abonnement",
     ];
+
+    useEffect(() => {
+        if(user.status !== "administrateur"){
+            navigate("/")
+        }
+    },[])
     const changeTab = (e, name) => {
         e.preventDefault();
         setTabView(name);

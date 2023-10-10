@@ -1,4 +1,9 @@
+import { useState } from "react";
+import { EyeFill } from "./imgs/EyeFill";
+import { EyeSlash } from "./imgs/EyeSlash";
+
 const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
+    const [viewPassord, setViewPassword] = useState(false);
     if (type === "text") {
         return (
             <div className="mb-3">
@@ -12,7 +17,7 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     name={name}
                     placeholder={placeholder}
                     onChange={formik.handleChange}
-                    value={formik.values[name]} 
+                    value={formik.values[name]}
                 />
             </div>
         );
@@ -30,7 +35,7 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     name={name}
                     placeholder={placeholder}
                     onChange={formik.handleChange}
-                    value={formik.values[name]} 
+                    value={formik.values[name]}
                     rows={3}
                 ></textarea>
             </div>
@@ -51,11 +56,13 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     value={formik.values[name]}
                 >
                     <option value={""}>{placeholder}</option>
-                    {
-                        options.map((data, idx) =>{
-                            return <option value={data.slug} key={data+idx}>{data.name}</option>
-                        })
-                    }
+                    {options.map((data, idx) => {
+                        return (
+                            <option value={data.slug} key={data + idx}>
+                                {data.name}
+                            </option>
+                        );
+                    })}
                 </select>
             </div>
         );
@@ -63,19 +70,26 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
 
     if (type === "password") {
         return (
-            <div className="mb-3">
+            <div className="mb-3 position-relative">
                 <label htmlFor={name} className="form-label fw-bold ">
                     {label}
                 </label>
                 <input
                     className="form-control form-control-sm form-floating-height"
-                    type="password"
+                    type={viewPassord ? "text" : "password"}
                     id={name}
                     name={name}
                     placeholder={placeholder}
                     onChange={formik.handleChange}
                     value={formik.values[name]}
                 />
+                <span
+                    className="position-absolute"
+                    style={{ bottom: "10px", right: "10px" }}
+                    onClick={(e) => setViewPassword((e) => !e)}
+                >
+                    {viewPassord ? <EyeFill /> : <EyeSlash />}
+                </span>
             </div>
         );
     }
@@ -92,10 +106,9 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     id={name}
                     name={name}
                     placeholder={placeholder}
-                    onChange={e =>{
-                        formik.setFieldValue(name,e.target.files[0])
+                    onChange={(e) => {
+                        formik.setFieldValue(name, e.target.files[0]);
                     }}
-                    
                 />
             </div>
         );
@@ -112,8 +125,8 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     id={name}
                     name={name}
                     placeholder={placeholder}
-                    onChange={e =>{
-                        formik.setFieldValue(name,e.target.files)
+                    onChange={(e) => {
+                        formik.setFieldValue(name, e.target.files);
                     }}
                     multiple
                 />
@@ -133,7 +146,7 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
                     id={name}
                     name={name}
                     onChange={formik.handleChange}
-                    value={formik.values[name]} 
+                    value={formik.values[name]}
                 />
             </div>
         );

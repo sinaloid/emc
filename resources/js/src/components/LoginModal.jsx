@@ -24,6 +24,7 @@ const LoginModal = () => {
     const { onUserChange } = appCtx;
     const navigate = useNavigate();
     const [isregisterForm, setIsRegisterForm] = useState(false);
+    const [editePassword, setEditePassword] = useState(false);
     const [formStep, setFormStep] = useState("email");
     const [userForm, setUserForm] = useState(initUser);
     const stepMessage = {
@@ -39,13 +40,17 @@ const LoginModal = () => {
             title: "Création de votre compte",
             button: "Créer mon compte",
         },
+        editePassword: {
+            title: "Modification du mot de passe",
+            button: "Modifier le mot de passe",
+        },
     };
     const statuts = [
-        {name:"Média",slug:"Média"},
-        {name:"Annonceur",slug:"Annonceur"},
-        {name:"Régie publicitaire",slug:"Régie publicitaire"},
-    ]
-    const modalBtn = useRef()
+        { name: "Média", slug: "Média" },
+        { name: "Annonceur", slug: "Annonceur" },
+        { name: "Régie publicitaire", slug: "Régie publicitaire" },
+    ];
+    const modalBtn = useRef();
     const onConnect = () => {
         navigate(listLink.dashboard);
     };
@@ -53,6 +58,11 @@ const LoginModal = () => {
         e.preventDefault();
         setIsRegisterForm(!isregisterForm);
         setFormStep("email");
+    };
+
+    const editMyPassword = (e) => {
+        changeForm(e);
+        setEditePassword(true);
     };
 
     const formik = useFormik({
@@ -65,7 +75,11 @@ const LoginModal = () => {
                     ...userForm,
                     email: values.email,
                 });
-                generateOTP({ email: values.email });
+                if (editePassword) {
+                    editPasswordOTP({ email: values.email });
+                } else {
+                    generateOTP({ email: values.email });
+                }
             }
 
             if (formStep === "otp") {
@@ -86,6 +100,15 @@ const LoginModal = () => {
                     ...user,
                 });
             }
+
+            if (formStep === "editePassword") {
+                const { email, otp,password, ...user } = values;
+                changePassword({
+                    email:userForm.email,
+                    otp:userForm.otp,
+                    password:values.password,
+                });
+            }
         },
     });
 
@@ -93,7 +116,7 @@ const LoginModal = () => {
         initialValues: initUser,
         onSubmit: (values) => {
             console.log(values);
-            login(values)
+            login(values);
         },
     });
 
@@ -125,7 +148,12 @@ const LoginModal = () => {
                 pending: "Veuillez patienté...",
                 success: {
                     render({ data }) {
-                        setFormStep("creation");
+                        
+                        if(editePassword){
+                            setFormStep("editePassword")
+                        }else{
+                            setFormStep("creation");
+                        }
                         return data.data.message;
                     },
                 },
@@ -138,7 +166,26 @@ const LoginModal = () => {
         );
         console.log(response);
     };
-
+    const editPasswordOTP = async (email) => {
+        const response = await toast.promise(
+            request.post(endPoint.editPasswordOTP, email),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        setFormStep("otp");
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        return data.response.data.errors[0];
+                    },
+                },
+            }
+        );
+        console.log(response);
+    };
     const register = async (data) => {
         const response = await toast.promise(
             request.post(endPoint.register, data, {
@@ -149,25 +196,30 @@ const LoginModal = () => {
                 success: {
                     render({ data }) {
                         setFormStep("creation");
-                        console.log(data)
+                        console.log(data);
                         onUserChange({
                             isAuth: true,
                             status: data.data.user.status,
                             profile: data.data.user.image,
-                            name: data.data.user.lastname + " "+data.data.user.firstname,
+                            name:
+                                data.data.user.lastname +
+                                " " +
+                                data.data.user.firstname,
                             token: data.data.access_token,
                         });
-                        modalBtn.current.click()
+                        modalBtn.current.click();
                         onConnect();
                         return "Félicitations, votre compte a été créé avec succès";
                     },
                 },
                 error: {
                     render({ data }) {
-                        console.log(data)
+                        console.log(data);
 
-                        const res = data.response.data
-                        return res.errors !== undefined ? res.errors[0] : res.error;
+                        const res = data.response.data;
+                        return res.errors !== undefined
+                            ? res.errors[0]
+                            : res.error;
                     },
                 },
             }
@@ -186,20 +238,57 @@ const LoginModal = () => {
                             isAuth: true,
                             status: data.data.user.status,
                             profile: data.data.user.image,
-                            name: data.data.user.lastname + " "+data.data.user.firstname,
+                            name:
+                                data.data.user.lastname +
+                                " " +
+                                data.data.user.firstname,
                             token: data.data.access_token,
                         });
-                        modalBtn.current.click()
+                        modalBtn.current.click();
                         onConnect();
-                        console.log(data.data)
+                        console.log(data.data);
                         return "Connexion réussi !";
                     },
                 },
                 error: {
                     render({ data }) {
-                        console.log(data)
-                        const res = data.response.data
-                        return res.errors !== undefined ? res.errors[0] : res.error;
+                        console.log(data);
+                        const res = data.response.data;
+                        return res.errors !== undefined
+                            ? res.errors[0]
+                            : res.error;
+                    },
+                },
+            }
+        );
+        console.log(response);
+    };
+    const changePassword = async (data) => {
+        console.log(data)
+        const response = await toast.promise(
+            request.post(endPoint.changePassword, data),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        //setFormStep("creation");
+                        setFormStep("email");
+                        setIsRegisterForm(false)
+                        console.log(data);
+                        
+                        //modalBtn.current.click();
+                        
+                        return "Félicitations, votre mot de passe a été modifié avec succès";
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+
+                        const res = data.response.data;
+                        return res.errors !== undefined
+                            ? res.errors[0]
+                            : res.error;
                     },
                 },
             }
@@ -267,7 +356,9 @@ const LoginModal = () => {
                                             type={"password"}
                                             name={"password"}
                                             label={"Mot de passe"}
-                                            placeholder={"Entrez votre mot de passe"}
+                                            placeholder={
+                                                "Entrez votre mot de passe"
+                                            }
                                             formik={formikLogin}
                                         />
                                     </div>
@@ -283,9 +374,12 @@ const LoginModal = () => {
                                         </button>
                                     </div>
                                     <div className="d-flex justify-content-end">
-                                        <Link className="text-primary" to="#">
+                                        <span
+                                            className="text-primary cursor"
+                                            onClick={editMyPassword}
+                                        >
                                             Mot de passe oublié ?
-                                        </Link>
+                                        </span>
                                     </div>
                                     <p className="text-center">ou</p>
                                     <div className="d-flex justify-content-end">
@@ -322,9 +416,9 @@ const LoginModal = () => {
                                     {formStep === "email" && (
                                         <div>
                                             <p>
-                                                Afin de vous inscrire sur EMC,
-                                                nous devons d'abord vérifier
-                                                votre adresse e-mail.
+                                                Pour continuer, nous devons
+                                                d'abord vérifier votre adresse
+                                                e-mail
                                             </p>
                                             <Input
                                                 type={"text"}
@@ -357,70 +451,109 @@ const LoginModal = () => {
                                             />
                                         </div>
                                     )}
-                                    {formStep === "creation" && (
-                                        <div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet
-                                                consectetur adipisicing elit.
-                                                Corporis dolor sunt cumque quis
-                                                quos quas error sequi incidunt
-                                                pariatur, illo odio possimus, at
-                                                perferendis, ipsa autem itaque
-                                                sit et. Saepe.
-                                            </p>
-                                            <Input
-                                                type={"text"}
-                                                label={"Nom"}
-                                                placeholder={"Entrez votre nom"}
-                                                name={"lastname"}
-                                                formik={formik}
-                                            />
-                                            <Input
-                                                type={"text"}
-                                                label={"Prénom"}
-                                                placeholder={
-                                                    "Entrez votre prénom"
-                                                }
-                                                name={"firstname"}
-                                                formik={formik}
-                                            />
-                                            <Input
-                                                type={"text"}
-                                                label={"Numéro"}
-                                                placeholder={
-                                                    "Entrez votre numéro"
-                                                }
-                                                name={"number"}
-                                                formik={formik}
-                                            />
-                                            <Input
-                                                type={"select"}
-                                                label={"Statut"}
-                                                placeholder={
-                                                    "Sélectionnez votre statut"
-                                                }
-                                                name={"status"}
-                                                formik={formik}
-                                                options={statuts}
-                                            />
-                                            <Input
-                                                type={"password"}
-                                                label={"Mot de passe"}
-                                                placeholder={
-                                                    "Entrez votre mot de passe"
-                                                }
-                                                name={"password"}
-                                                formik={formik}
-                                            />
-                                            <Input
-                                                type={"file"}
-                                                label={"Photo de profile"}
-                                                placeholder={""}
-                                                name={"image"}
-                                                formik={formik}
-                                            />
-                                        </div>
-                                    )}
+                                    {formStep === "creation" &&
+                                        editePassword === false && (
+                                            <div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet
+                                                    consectetur adipisicing
+                                                    elit. Corporis dolor sunt
+                                                    cumque quis quos quas error
+                                                    sequi incidunt pariatur,
+                                                    illo odio possimus, at
+                                                    perferendis, ipsa autem
+                                                    itaque sit et. Saepe.
+                                                </p>
+                                                <Input
+                                                    type={"text"}
+                                                    label={"Nom"}
+                                                    placeholder={
+                                                        "Entrez votre nom"
+                                                    }
+                                                    name={"lastname"}
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"text"}
+                                                    label={"Prénom"}
+                                                    placeholder={
+                                                        "Entrez votre prénom"
+                                                    }
+                                                    name={"firstname"}
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"text"}
+                                                    label={"Numéro"}
+                                                    placeholder={
+                                                        "Entrez votre numéro"
+                                                    }
+                                                    name={"number"}
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"select"}
+                                                    label={"Statut"}
+                                                    placeholder={
+                                                        "Sélectionnez votre statut"
+                                                    }
+                                                    name={"status"}
+                                                    formik={formik}
+                                                    options={statuts}
+                                                />
+                                                <Input
+                                                    type={"password"}
+                                                    label={"Mot de passe"}
+                                                    placeholder={
+                                                        "Entrez votre mot de passe"
+                                                    }
+                                                    name={"password"}
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"file"}
+                                                    label={"Photo de profile"}
+                                                    placeholder={""}
+                                                    name={"image"}
+                                                    formik={formik}
+                                                />
+                                            </div>
+                                        )}
+                                    {formStep === "editePassword" &&
+                                        editePassword === true && (
+                                            <div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet
+                                                    consectetur adipisicing
+                                                    elit. Corporis dolor sunt
+                                                    cumque quis quos quas error
+                                                    sequi incidunt pariatur,
+                                                    illo odio possimus, at
+                                                    perferendis, ipsa autem
+                                                    itaque sit et. Saepe.
+                                                </p>
+                                                <Input
+                                                    type={"password"}
+                                                    label={"Mot de passe"}
+                                                    placeholder={
+                                                        "Entrez votre mot de passe"
+                                                    }
+                                                    name={"password"}
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"password"}
+                                                    label={
+                                                        "Comfirmer le mot de passe"
+                                                    }
+                                                    placeholder={
+                                                        "Entrez de nouveau votre mot de passe"
+                                                    }
+                                                    name={"com_password"}
+                                                    formik={formik}
+                                                />
+                                            </div>
+                                        )}
 
                                     <div className="d-flex justify-content-end">
                                         <button
@@ -458,7 +591,6 @@ const LoginModal = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
     );
 };

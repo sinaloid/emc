@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/dashboard.css";
 import { dashboardRoute, GetRoute } from "../components/ListRoute";
 import Message from "../components/Message";
@@ -7,7 +7,7 @@ import ProfileOption from "../components/ProfileOption";
 import { listLink } from "../utils/listLink";
 import { useContext, useEffect } from "react";
 import { AppContext, initialUser } from "../services/context";
-import { URL } from "../services/request";
+import request, { URL } from "../services/request";
 
 import { UserIcon } from "../components/icons/UserIcon";
 import { CampagneIcon } from "../components/icons/CampagneIcon";
@@ -20,6 +20,7 @@ import { DeconnectionIcon } from "../components/icons/DeconnectionIcon";
 import { MenuIcon } from "../components/icons/MenuIcon";
 import { DashIcon } from "../components/icons/DashIcon";
 import { LogoForFooter } from "../components/imgs/LogoForFooter";
+import endPoint from "../services/endPoint";
 
 const Dashboard = () => {
     const appCtx = useContext(AppContext);
@@ -28,7 +29,8 @@ const Dashboard = () => {
 
     useEffect(() => {
         isAuth();
-    });
+        getAuthUser();
+    },[]);
 
     const isAuth = () => {
         if (
@@ -44,6 +46,23 @@ const Dashboard = () => {
         e.preventDefault();
         onUserChange(initialUser);
         isAuth();
+    };
+
+    const getAuthUser = () => {
+        request
+            .get(endPoint.user)
+            .then((res) => {
+                console.log(res.data);
+                onUserChange({
+                    ...user,
+                    status: res.data.users.status
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+                onUserChange(initialUser);
+                isAuth();
+            });
     };
 
     return (
@@ -110,9 +129,9 @@ const Dashboard = () => {
                             </div>
                             <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto bg-primary1">
                                 <div className="d-flex align-items-center px-3 mb-5">
-                                    <div className="me-auto">
+                                    <Link to={"/"} className="me-auto">
                                         <LogoForFooter />
-                                    </div>
+                                    </Link>
                                 </div>
                                 <ul className="nav flex-column mb-auto rounded-3 pt-2">
                                     <li className="nav-item">
@@ -222,7 +241,7 @@ const Dashboard = () => {
                                 </ul>
 
                                 <ul className="nav flex-column mb-auto rounded-3 pt-2">
-                                <li className="nav-item">
+                                    <li className="nav-item">
                                         <NavLink
                                             to={listLink.dashboard_demande}
                                             className={({ isActive }) =>
@@ -235,19 +254,21 @@ const Dashboard = () => {
                                             Mes publicités
                                         </NavLink>
                                     </li>
-                                    <li className="nav-item">
-                                        <NavLink
-                                            to={listLink.dashboard_admin}
-                                            className={({ isActive }) =>
-                                                isActive
-                                                    ? "nav-link d-flex align-items-center gap-2 active"
-                                                    : "nav-link d-flex align-items-center gap-2 text-white"
-                                            }
-                                        >
-                                            <UserIcon />
-                                            Administration
-                                        </NavLink>
-                                    </li>
+                                    {user.status === "administrateur" && (
+                                        <li className="nav-item">
+                                            <NavLink
+                                                to={listLink.dashboard_admin}
+                                                className={({ isActive }) =>
+                                                    isActive
+                                                        ? "nav-link d-flex align-items-center gap-2 active"
+                                                        : "nav-link d-flex align-items-center gap-2 text-white"
+                                                }
+                                            >
+                                                <UserIcon />
+                                                Administration
+                                            </NavLink>
+                                        </li>
+                                    )}
                                     <li className="nav-item rounded-3">
                                         <span
                                             onClick={deconnection}

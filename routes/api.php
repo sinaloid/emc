@@ -36,8 +36,11 @@ use App\Http\Controllers\Controller;
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/register', [AuthController::class,'register']);
     Route::post('/login', [AuthController::class,'login']);
+    Route::post('/editPassword', [AuthController::class,'editPassword']);
     Route::post('/generateOTP', [OTPController::class,'generateOTP']);
     Route::post('/verifyOTP', [OTPController::class,'verifyOTP']);
+    Route::post('/statusChanger', [AuthController::class,'statusChanger']);
+    Route::post('/editPasswordOTP', [OTPController::class,'generateOTPForPasswordEdit']);
 
     Route::get('categorieMedias/public', [CategorieMediaController::class,'index']);
     Route::get('categorieMedias/public/{slug}', [CategorieMediaController::class,'show']);

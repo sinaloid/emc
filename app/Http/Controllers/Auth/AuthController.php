@@ -164,6 +164,75 @@ class AuthController extends Controller
         return response(['error' => 'Identifiants de connexion invalides'], 401);
     }
 
+    public function editPassword(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'otp' => 'required|string|min:4|max:4',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $otpEmail = OTP::where('email', $request->email)
+            ->where('is_verified', true)
+            ->first();
+
+        $otpNumber = OTP::where('number', $request->number)
+            ->where('is_verified', true)
+            ->first();
+
+        $user = User::where('email', $request->email)->first();
+
+        if((!$otpEmail && !$otpNumber) || !$user) {
+            return response()->json(['error' => "Votre adresse e-mail ou votre numéro de téléphone n'a pas été vérifié"], 422); 
+        }
+       // return "ok";
+        if (($otpEmail->code === $request->otp ) || ($otpNumber->code === $request->otp) ) {
+
+            $user->update([
+                'password' => bcrypt($request->password),
+            ]);
+    
+            return response()->json(['message' => 'Votre mot de passe à bien été modifier, vous pouvez vous connecter maintenant'], 200);
+        } else {
+            // Réponse d'erreur
+            return response()->json(['error' => "Votre adresse e-mail ou votre numéro de téléphone n'a pas été vérifié"], 422);
+        }
+        
+    }
+
+    public function statusChanger(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'status' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+
+            $user->update([
+                'status' => $request->status,
+            ]);
+    
+            return response()->json(['message' => 'Le statut a bien été modifié'], 200);
+        } else {
+            // Réponse d'erreur
+            return response()->json(['error' => "L'adresse e-mail est incorrect"], 422);
+        }
+        
+    }
+
     public function index()
     {
         $users = User::all();
