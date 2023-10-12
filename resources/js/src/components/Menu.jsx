@@ -42,8 +42,9 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                             <div className="d-inline-block pb-0">
                                 <Link
                                     to={listLink.index}
-                                    className={`link mx-4 ${
-                                        slug === undefined && "link-border-bottom"
+                                    className={`link ms-3 me-4 ${
+                                        slug === undefined &&
+                                        "link-border-bottom"
                                     }`}
                                     onClick={(e) => {
                                         setItem({
@@ -54,14 +55,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                 >
                                     Derniers produits commandés
                                 </Link>
-                                {/**
-                             * <Link
-                            to={listLink.media}
-                            className="link text-uppercase fw-bold mx-4"
-                        >
-                            Média
-                        </Link>
-                             */}
+
                                 {categories.map((categorie) => {
                                     return (
                                         <Link
@@ -110,33 +104,42 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
             <div className="col-12 pt-3">
                 <div className="d-flex justify-content-center p-2">
                     {!item.selected ? (
-                        <div className="d-flex bg-gray p-2">
-                            {medias.map((data, idx) => {
-                                return (
-                                    <div
-                                        className="mx-2"
-                                        onClick={(e) => {
-                                            getProduitByMedia(e, data.slug);
-                                            setItem({
-                                                ...item,
-                                                selected: true,
-                                                media: data,
-                                            });
-                                        }}
-                                    >
-                                        <img
-                                            width={"64px"}
-                                            src={
-                                                data.image
-                                                    ? URL_ + "" + data.image
-                                                    : ""
-                                            }
-                                            alt=""
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <>
+                            {slug && (
+                                <div className="d-flex bg-gray p-2">
+                                    {medias.map((data, idx) => {
+                                        return (
+                                            <div
+                                                className="mx-2"
+                                                onClick={(e) => {
+                                                    getProduitByMedia(
+                                                        e,
+                                                        data.slug
+                                                    );
+                                                    setItem({
+                                                        ...item,
+                                                        selected: true,
+                                                        media: data,
+                                                    });
+                                                }}
+                                            >
+                                                <img
+                                                    width={"64px"}
+                                                    src={
+                                                        data.image
+                                                            ? URL_ +
+                                                              "" +
+                                                              data.image
+                                                            : ""
+                                                    }
+                                                    alt=""
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </>
                     ) : (
                         <>
                             <div className="d-flex bg-gray1 p-2 py-4">
@@ -150,22 +153,26 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                         }
                                         alt=""
                                     />
+                                    ok
                                 </div>
                             </div>
                         </>
                     )}
                 </div>
             </div>
-            <div className="col-12 col-md-10 col-lg-9 mx-auto py-2">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur.
-                </p>
-            </div>
+            {slug !== undefined && (
+                <div className="col-12 col-md-10 mx-auto py-2">
+                    <p className="px-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

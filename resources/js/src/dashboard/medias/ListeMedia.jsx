@@ -23,6 +23,7 @@ const initTarif = {
 };
 const ListeMedia = () => {
     const close = useRef();
+    const closeMediaModal = useRef();
     const [datas, setDatas] = useState([]);
     const [categories, setCategories] = useState([]);
     const [viewData, setViewData] = useState(initMedia);
@@ -102,7 +103,7 @@ const ListeMedia = () => {
                 success: {
                     render({ data }) {
                         console.log("okok");
-                        close.current.click();
+                        closeMediaModal.current.click();
                         get();
                         return data.data.message;
                     },
@@ -147,7 +148,7 @@ const ListeMedia = () => {
                 success: {
                     render({ data }) {
                         console.log(data);
-                        close.current.click();
+                        closeMediaModal.current.click();
                         get();
                         return data.data.message;
                     },
@@ -389,9 +390,10 @@ const ListeMedia = () => {
 
                                 <div className="modal-footer d-flex justify-content-start border-0">
                                     <button
+                                        type="button"
                                         className="btn btn-tertiary"
                                         data-bs-dismiss="modal"
-                                        ref={close}
+                                        ref={closeMediaModal}
                                     >
                                         Annuler
                                     </button>

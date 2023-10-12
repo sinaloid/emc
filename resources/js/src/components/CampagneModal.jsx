@@ -2,11 +2,12 @@ import { useFormik } from "formik";
 import Input from "./Input";
 import InputField from "./InputField";
 import { toast } from "react-toastify";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import request from "../services/request";
 import endPointPublic from "../services/endPointPublic";
 import { list } from "postcss";
 import { getCampagne, setCampagne } from "../services/storage";
+import { AppContext } from "../services/context";
 
 const initData = {
     lastname: "",
@@ -21,7 +22,9 @@ const initData = {
     description: "",
     status: "En cours",
 };
-const CampagneModal = ({refresh}) => {
+const CampagneModal = ({ refresh }) => {
+    const appCtx = useContext(AppContext);
+    const { user } = appCtx;
     const close = useRef();
     const comfirm = useRef();
     const list = getCampagne();
@@ -30,8 +33,9 @@ const CampagneModal = ({refresh}) => {
         initialValues: initData,
         onSubmit: (values) => {
             console.log(values);
-            const { lastname, firstname, email, number,files, ...data } = values;
-            const user = {
+            const { lastname, firstname, email, number, files, ...data } =
+                values;
+            const userData = {
                 lastname: lastname,
                 firstname: firstname,
                 email: email,
@@ -39,10 +43,11 @@ const CampagneModal = ({refresh}) => {
                 status: "Annonceur",
             };
             postDemande({
-                user: user,
+                slug: user.campagne ? user.campagne : "null",
+                user: userData,
                 campagne: data,
                 publicite: list,
-                files:files
+                files: files,
             });
             //formik.resetForm();
         },
@@ -59,8 +64,8 @@ const CampagneModal = ({refresh}) => {
                         console.log(data);
                         //close.current.click();
                         comfirm.current.click();
-                        setCampagne([])
-                        refresh()
+                        setCampagne([]);
+                        refresh();
                         //get();
                         return "Votre demande de devis a bien été reçue !";
                     },
@@ -97,39 +102,51 @@ const CampagneModal = ({refresh}) => {
                         <div className="modal-body">
                             <div className="row">
                                 <div className="col-md-8 mx-auto">
-                                    <div className="border-bottom d-inline-block mb-3 text-22">
-                                        Informations personnel
-                                    </div>
-                                    <div>
-                                        <Input
-                                            type={"text"}
-                                            name={"lastname"}
-                                            label={"Nom"}
-                                            placeholder={"Entrez votre nom"}
-                                            formik={formik}
-                                        />
-                                        <Input
-                                            type={"text"}
-                                            name={"firstname"}
-                                            label={"Prénom"}
-                                            placeholder={"Entrez votre prénom"}
-                                            formik={formik}
-                                        />
-                                        <Input
-                                            type={"text"}
-                                            name={"email"}
-                                            label={"Email"}
-                                            placeholder={"Entrez votre email"}
-                                            formik={formik}
-                                        />
-                                        <Input
-                                            type={"text"}
-                                            name={"number"}
-                                            label={"Téléphone"}
-                                            placeholder={"Entrez votre numéro"}
-                                            formik={formik}
-                                        />
-                                    </div>
+                                    {! user.campagne && (
+                                        <>
+                                            <div className="border-bottom d-inline-block mb-3 text-22">
+                                                Informations personnel
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    type={"text"}
+                                                    name={"lastname"}
+                                                    label={"Nom"}
+                                                    placeholder={
+                                                        "Entrez votre nom"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"text"}
+                                                    name={"firstname"}
+                                                    label={"Prénom"}
+                                                    placeholder={
+                                                        "Entrez votre prénom"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"text"}
+                                                    name={"email"}
+                                                    label={"Email"}
+                                                    placeholder={
+                                                        "Entrez votre email"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"text"}
+                                                    name={"number"}
+                                                    label={"Téléphone"}
+                                                    placeholder={
+                                                        "Entrez votre numéro"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                            </div>
+                                        </>
+                                    )}
 
                                     <div className="border-bottom d-inline-block mb-3 text-22">
                                         Détails de le campagne publicitaire
@@ -177,11 +194,13 @@ const CampagneModal = ({refresh}) => {
                                         />
                                     </div>
                                      */}
-                                     <div>
+                                    <div>
                                         <Input
                                             type={"files"}
                                             name={"files"}
-                                            label={"Joindre des fichiers à la campagne"}
+                                            label={
+                                                "Joindre des fichiers à la campagne"
+                                            }
                                             formik={formik}
                                         />
                                     </div>

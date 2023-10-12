@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\Campagne;
 use App\Models\Devis;
 use App\Models\DevisDoc;
+use App\Models\MediaProduit;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendDevis;
@@ -49,7 +50,7 @@ class DevisController extends Controller
             'startDate' => 'required|date',
             'endDate' => 'required|date',
         ]);
-        
+        //dd($request->all());
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
@@ -81,16 +82,32 @@ class DevisController extends Controller
 
         
 
-        foreach($mediaProduits as $mediaProduit){
+        /*foreach($mediaProduits as $mediaProduit){
             $element = $mediaProduit->mediaProduit()->first();
             if($element){
                 array_push($details,[
                     "name" =>$element->name,
-                    "price" =>$element->price,
+                    "price" =>$request->quantiteList[$element->slug] * $element->price,
                     "media" =>$element->media()->first()->name,
                     "categorie" =>$element->media()->first()->categorieMedia()->first()->name,
                 ]);
-                $price = $element->price + $price;
+                $price = $request->quantiteList[$element->slug] * $element->price + $price;
+            }
+        }*/
+
+        foreach($request->quantiteList as $item){
+            //dd($item["slug"]);
+            $element = MediaProduit::where("slug",$item["slug"])->first();// $mediaProduit->mediaProduit()->first();
+            if($element){
+                array_push($details,[
+                    "name" =>$element->name,
+                    "price" =>$element->price,
+                    "total" =>$item["quantite"] * $element->price,
+                    "quantite" => $item["quantite"],
+                    "media" =>$element->media()->first()->name,
+                    "categorie" =>$element->media()->first()->categorieMedia()->first()->name,
+                ]);
+                $price = $item["quantite"] * $element->price + $price;
             }
         }
         

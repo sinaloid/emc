@@ -206,6 +206,7 @@ const LoginModal = () => {
                                 " " +
                                 data.data.user.firstname,
                             token: data.data.access_token,
+                            campagne: data.data.user.slug,
                         });
                         modalBtn.current.click();
                         onConnect();
@@ -243,6 +244,7 @@ const LoginModal = () => {
                                 " " +
                                 data.data.user.firstname,
                             token: data.data.access_token,
+                            campagne: data.data.user.slug,
                         });
                         modalBtn.current.click();
                         onConnect();

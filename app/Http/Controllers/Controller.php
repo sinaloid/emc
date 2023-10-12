@@ -29,14 +29,18 @@ class Controller extends BaseController
         //dd($request->all());
         //return $campagneData["files"] = $request->input("files");
         $userData = $request->input("user");
-
-        $user = User::where('email',$userData['email'])->first();
+       
+        $user = User::where('slug',$request->input("slug"))->first();
         if(!$user){
-            $userData['password'] = Str::random(8);
-            $authController = new AuthController();
-            $user = $authController->registerNoVerification(new Request($userData));
-            $user = $user->getData();
-            $user = $user->user;
+            //on verifie si l'utilisateur exist
+            $user = User::where('email',$userData['email'])->first();
+            if(!$user){
+                $userData['password'] = Str::random(8);
+                $authController = new AuthController();
+                $user = $authController->registerNoVerification(new Request($userData));
+                $user = $user->getData();
+                $user = $user->user;
+            }
         }
 
         
@@ -65,6 +69,7 @@ class Controller extends BaseController
         //dd($response->data->slug);
         $camp = $response->data->slug;
         $campDesc = $response->data->description;
+        $quantiteList = [];
         foreach($list as $lst){
            // dd($lst);
             $tab = [
@@ -73,8 +78,13 @@ class Controller extends BaseController
                 "dates" => $lst["dates"],
                 //"endDate" => $lst["time"],
             ];
+            array_push($quantiteList,[
+                "slug" => $lst["slug"],
+                "quantite" => count($lst["dates"]),
+            ]);
             //$lst['campagne'] = $response->data->slug;
             //$lst['mediaProduit'] = $lst["slug"];
+            //$price = (int) $lst["price"] * count($lst["dates"]);
             $newRequest = Request::create('/dummy-url', 'POST', $tab, [], [], $headers);
             $response = $publiciteController->store($newRequest);
         }
@@ -84,6 +94,7 @@ class Controller extends BaseController
         $devisData = [
             "campagne" =>  $camp,
             "description" => $campDesc,
+            "quantiteList" => $quantiteList,
             "startDate" =>  Carbon::now(),
             "endDate" =>  Carbon::now()->addDay(),
         ];

@@ -171,7 +171,13 @@
                         <p class="text-right">Média</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Prix HT</p>
+                        <p class="text-right">Quantité</p>
+                    </div>
+                    <div class="column">
+                        <p class="text-right">Prix unitaire HT</p>
+                    </div>
+                    <div class="column">
+                        <p class="text-right">Total HT</p>
                     </div>
                 </div>
                 @foreach ($details as $detail)
@@ -186,7 +192,13 @@
                             <p class="text-right">{{ $detail['media'] }}</p>
                         </div>
                         <div class="column">
+                            <p class="text-right">{{ $detail['quantite'] }}</p>
+                        </div>
+                        <div class="column">
                             <p class="text-right">{{ $detail['price'] }}</p>
+                        </div>
+                        <div class="column">
+                            <p class="text-right">{{ $detail['total'] }}</p>
                         </div>
                     </div>
                 @endforeach
