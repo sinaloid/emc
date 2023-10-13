@@ -136,7 +136,7 @@ const Dashboard = () => {
                                 <ul className="nav flex-column mb-auto rounded-3 pt-2">
                                     <li className="nav-item">
                                         <NavLink
-                                            to={listLink.dashboard}
+                                            to={"/tableau-de-bord/tdb"}
                                             className={({ isActive }) =>
                                                 isActive
                                                     ? "nav-link d-flex align-items-center gap-2 active"

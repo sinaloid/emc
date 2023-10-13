@@ -39,7 +39,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                 <div className="row px-0">
                     <div className="col-12 col-md-10 mx-auto px-0">
                         <div className="d-flex px-0">
-                            <div className="d-inline-block pb-0">
+                            <div className="d-inline-block pb-0 text-20">
                                 <Link
                                     to={listLink.index}
                                     className={`link ms-3 me-4 ${

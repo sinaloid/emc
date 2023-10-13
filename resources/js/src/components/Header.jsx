@@ -44,7 +44,7 @@ const Header = () => {
 
     const goToDashboard = (e) => {
         e.preventDefault();
-        navigate(listLink.dashboard);
+        navigate(listLink.dashboard+"tdb");
     };
     return (
         <Section bg="bg-white">

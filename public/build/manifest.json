@@ -25,7 +25,7 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-c86f44d7.css",
+    "file": "assets/app-84b02308.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -42,9 +42,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-c86f44d7.css"
+      "assets/app-84b02308.css"
     ],
-    "file": "assets/app-82c7d7bd.js",
+    "file": "assets/app-008744de.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -75,5 +75,9 @@
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",
     "src": "resources/js/src/assets/imgs/pub_card.png"
+  },
+  "resources/js/src/assets/svg/tv.svg": {
+    "file": "assets/tv-1a06eac3.svg",
+    "src": "resources/js/src/assets/svg/tv.svg"
   }
 }

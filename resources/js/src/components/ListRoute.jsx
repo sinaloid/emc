@@ -326,7 +326,7 @@ const journauxRoute = [
 
 const dashboardRoute = [
     {
-        path: listLink.index,
+        path: listLink.dashboard_tdb,
         Element: <TableauDeBord />,
     },
     {

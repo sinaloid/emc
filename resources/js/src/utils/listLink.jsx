@@ -25,6 +25,7 @@ export  const listLink = {
     dashboard_:"/tableau-de-bord/*",
     dashboard:"/tableau-de-bord/",
     dashboard_home:"tableau-de-bord/",
+    dashboard_tdb:"tdb",
     dashboard_demande:"demandes",
     dashboard_campagne:"campagne",
     dashboard_devis:"devis",

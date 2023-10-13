@@ -40,9 +40,8 @@
             <img class="logo" src="{{ asset('images/lg.png') }}" alt="Logo">
         </div>
         <div class="content">
-            <h1>{{ $data['title'] }}</h1>
-
             <p>Bonjour {!! $data['name'] !!},</p>
+            <p>{{ $data['title'] }}</p>
             <p>{!! $data['content'] !!}</p>
 
             <p>Cordialement,<br>{{ "L'Équipe EMC !" }}</p>
