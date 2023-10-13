@@ -144,8 +144,7 @@ class DevisController extends Controller
         //dd($pdfPath);
 
         
-
-        $this->sendEmail($user->email,$pdfPath,$data->slug);
+        $this->sendEmail($user->lastname,$user->email,$pdfPath,$data->slug);
         
         
 
@@ -229,14 +228,17 @@ class DevisController extends Controller
         return response()->json(['message' => 'Devis supprimé avec succès']);
     }
 
-    public function sendEmail($email,$file,$slug)
+    public function sendEmail($name,$email,$file,$slug)
     {
       $data = [
-        'subject' => "Devis",
-        'title' => "Merci d'avoir demande un devis sur EMC",
-        'content' => 'veuillez trouver votre devis en piece jointe.</br> 
-        Cliquez sur le lien ci dessous pour accepter le devis et proceder au paiement<br />
-        <a href="https://emc-burkina.com/paiement/public/'.$slug.'">Accepter et payer</a>'
+        'subject' => "Votre demande de devis sur EMC",
+        'title' => "Nous vous remercions d’avoir choisi EMC pour l’achat de vos espaces publicitaires.",
+        'name' => $name,
+        'content' => `<p>Veuillez trouver en pièce jointe, votre devis !</p>
+        <p>
+            Si le devis vous convient, vous pouvez <a href="https://emc-burkina.com/paiement/public/'.$slug.'"> l'accepter et payer</a>
+        </p> 
+        A très bientôt sur EMC !`
         
       ];
 

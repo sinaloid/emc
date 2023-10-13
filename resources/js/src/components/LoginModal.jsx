@@ -33,12 +33,12 @@ const LoginModal = () => {
             button: "Envoyez le code",
         },
         otp: {
-            title: "Vérification du code envoyé",
+            title: "Vérifiez votre adresse mail",
             button: "Vérifié le code",
         },
         creation: {
-            title: "Création de votre compte",
-            button: "Créer mon compte",
+            title: "Créer votre compte sur EMC",
+            button: "Je crée un compte",
         },
         editePassword: {
             title: "Modification du mot de passe",
@@ -102,11 +102,11 @@ const LoginModal = () => {
             }
 
             if (formStep === "editePassword") {
-                const { email, otp,password, ...user } = values;
+                const { email, otp, password, ...user } = values;
                 changePassword({
-                    email:userForm.email,
-                    otp:userForm.otp,
-                    password:values.password,
+                    email: userForm.email,
+                    otp: userForm.otp,
+                    password: values.password,
                 });
             }
         },
@@ -148,10 +148,9 @@ const LoginModal = () => {
                 pending: "Veuillez patienté...",
                 success: {
                     render({ data }) {
-                        
-                        if(editePassword){
-                            setFormStep("editePassword")
-                        }else{
+                        if (editePassword) {
+                            setFormStep("editePassword");
+                        } else {
                             setFormStep("creation");
                         }
                         return data.data.message;
@@ -266,7 +265,7 @@ const LoginModal = () => {
         console.log(response);
     };
     const changePassword = async (data) => {
-        console.log(data)
+        console.log(data);
         const response = await toast.promise(
             request.post(endPoint.changePassword, data),
             {
@@ -275,11 +274,11 @@ const LoginModal = () => {
                     render({ data }) {
                         //setFormStep("creation");
                         setFormStep("email");
-                        setIsRegisterForm(false)
+                        setIsRegisterForm(false);
                         console.log(data);
-                        
+
                         //modalBtn.current.click();
-                        
+
                         return "Félicitations, votre mot de passe a été modifié avec succès";
                     },
                 },
@@ -315,20 +314,16 @@ const LoginModal = () => {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className=" d-inline-block mb-3 text-22">
-                                        c'est ma première visite
+                                        C’est ma première visite ?
                                     </div>
-                                    <ul>
-                                        {[...Array(4).keys()].map(
-                                            (data, idx) => {
-                                                return (
-                                                    <li key={idx}>
-                                                        Diversifiez votre
-                                                        portefeuille annonceurs
-                                                    </li>
-                                                );
-                                            }
-                                        )}
-                                    </ul>
+                                    <p>
+                                        Créer votre compte sur EMC et, comme de
+                                        nombreux annonceurs, diffuser de manière
+                                        sécurisée,
+                                        <br /> simple et fiable, vos publicités
+                                        sur tous les supports publicitaires sans
+                                        vous déplacer.
+                                    </p>
                                     <div className="d-flex justify-content-end">
                                         <button
                                             type="button"
@@ -348,8 +343,10 @@ const LoginModal = () => {
                                         <Input
                                             type={"text"}
                                             name={"email"}
-                                            label={"Mon E-mail"}
-                                            placeholder={"Mon E-mail"}
+                                            label={"Email"}
+                                            placeholder={
+                                                "Veuillez saisir votre adresse e-mail"
+                                            }
                                             formik={formikLogin}
                                         />
                                     </div>
@@ -359,7 +356,7 @@ const LoginModal = () => {
                                             name={"password"}
                                             label={"Mot de passe"}
                                             placeholder={
-                                                "Entrez votre mot de passe"
+                                                "Veuillez entrer votre mot de passe"
                                             }
                                             formik={formikLogin}
                                         />
@@ -412,15 +409,17 @@ const LoginModal = () => {
                             <div className="row py-4">
                                 <div className="col-md-10 mx-auto">
                                     <div className="d-inline-block mb-3 text-22 text-center">
-                                        {stepMessage[formStep].title}
+                                        {editePassword ? "Mot de passe oublié ?" : stepMessage[formStep].title}
                                     </div>
 
                                     {formStep === "email" && (
                                         <div>
                                             <p>
-                                                Pour continuer, nous devons
-                                                d'abord vérifier votre adresse
-                                                e-mail
+                                                {editePassword
+                                                    ? "Pour réinitialiser votre mot de passe, veuillez saisir votre adresse mail"
+                                                    : `Pour continuer, nous devons
+                                                    d'abord vérifier votre adresse
+                                                    e-mail`}
                                             </p>
                                             <Input
                                                 type={"text"}
@@ -436,7 +435,9 @@ const LoginModal = () => {
                                     {formStep === "otp" && (
                                         <div>
                                             <p>
-                                                Votre code a été envoyé à :
+                                                Nous venons juste de vous
+                                                envoyer un code à 4 chiffres à
+                                                l’adresse :
                                                 <span className="text-primary">
                                                     {" "}
                                                     {userForm.email}
@@ -445,32 +446,31 @@ const LoginModal = () => {
                                             <Input
                                                 type={"text"}
                                                 label={
-                                                    "Veuillez copier et coller votre code ici"
+                                                    "Saisissez-les dans le champ ci-dessous :"
                                                 }
                                                 placeholder={"Entrez le code"}
                                                 name={"otp"}
                                                 formik={formik}
                                             />
+                                            <p>
+                                                Rassurez-vous que cette fenêtre
+                                                reste ouverte pendant que vous
+                                                consultez votre boite mail.
+                                            </p>
                                         </div>
                                     )}
                                     {formStep === "creation" &&
                                         editePassword === false && (
                                             <div>
                                                 <p>
-                                                    Lorem ipsum dolor sit amet
-                                                    consectetur adipisicing
-                                                    elit. Corporis dolor sunt
-                                                    cumque quis quos quas error
-                                                    sequi incidunt pariatur,
-                                                    illo odio possimus, at
-                                                    perferendis, ipsa autem
-                                                    itaque sit et. Saepe.
+                                                    Et faites de la publicité
+                                                    autrement !
                                                 </p>
                                                 <Input
                                                     type={"text"}
                                                     label={"Nom"}
                                                     placeholder={
-                                                        "Entrez votre nom"
+                                                        "Veuillez saisir votre nom"
                                                     }
                                                     name={"lastname"}
                                                     formik={formik}
@@ -479,7 +479,7 @@ const LoginModal = () => {
                                                     type={"text"}
                                                     label={"Prénom"}
                                                     placeholder={
-                                                        "Entrez votre prénom"
+                                                        "Veuillez entrer votre prénom"
                                                     }
                                                     name={"firstname"}
                                                     formik={formik}
@@ -488,7 +488,7 @@ const LoginModal = () => {
                                                     type={"text"}
                                                     label={"Numéro"}
                                                     placeholder={
-                                                        "Entrez votre numéro"
+                                                        "Veuillez entrer votre numéro de téléphone"
                                                     }
                                                     name={"number"}
                                                     formik={formik}
@@ -497,7 +497,7 @@ const LoginModal = () => {
                                                     type={"select"}
                                                     label={"Statut"}
                                                     placeholder={
-                                                        "Sélectionnez votre statut"
+                                                        "Veuillez sélectionner un statut"
                                                     }
                                                     name={"status"}
                                                     formik={formik}
@@ -507,14 +507,14 @@ const LoginModal = () => {
                                                     type={"password"}
                                                     label={"Mot de passe"}
                                                     placeholder={
-                                                        "Entrez votre mot de passe"
+                                                        "Veuillez entrer un mot de passe"
                                                     }
                                                     name={"password"}
                                                     formik={formik}
                                                 />
                                                 <Input
                                                     type={"file"}
-                                                    label={"Photo de profile"}
+                                                    label={"Photo"}
                                                     placeholder={""}
                                                     name={"image"}
                                                     formik={formik}

@@ -184,6 +184,7 @@ class MediaProduitController extends Controller
                 Storage::delete($data->image);
                 $data->update([
                     'name' => $request->input('name'),
+                    'price' => $request->input('price'),
                     'description' => $request->input('description'),
                     'image' => 'produits/' . $imageName,
                     'media_id' => $media->id,
@@ -192,6 +193,7 @@ class MediaProduitController extends Controller
         }else {
             $data->update([
                 'name' => $request->input('name'),
+                'price' => $request->input('price'),
                 'description' => $request->input('description'),
                 'media_id' => $media->id,
             ]);

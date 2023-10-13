@@ -29,7 +29,7 @@ class SendDevis extends Mailable
     public function build()
     {
         return $this->subject($this->data['subject'])
-        ->view('mails.verify')
+        ->view('mails.devis')
         ->with($this->data)
         ->attach($this->file);
     }

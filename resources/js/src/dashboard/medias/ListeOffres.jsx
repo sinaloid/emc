@@ -163,6 +163,7 @@ const ListeOffres = () => {
         console.log(data);
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
+        formik.setFieldValue("price", data.price);
         formik.setFieldValue("media", data.media?.slug);
         formik.setFieldValue("description", data.description);
     };

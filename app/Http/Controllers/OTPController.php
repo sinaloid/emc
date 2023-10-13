@@ -182,9 +182,10 @@ class OTPController extends Controller
     public function sendEmail($email,$otp)
     {
       $data = [
-        'subject' => "Vérifiez votre e-mail",
-        'title' => 'Bienvenue sur EMC',
-        'content' => 'Voici votre code de verification: '.$otp
+        'subject' => "Mail de vérification de l’adresse mail",
+        'title' => 'Bienvenue sur EMC !',
+        'content' => 'Pour poursuivre la création de votre compte, veuillez vérifier votre adresse e-mail à l’aide du code
+        suivant: '.$otp
       ];
 
       Mail::to($email)->send(new SendMail($data, null));
