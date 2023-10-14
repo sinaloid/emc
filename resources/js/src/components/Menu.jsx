@@ -7,6 +7,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
     const [item, setItem] = useState({
         selected: false,
         media: "",
+        categorie: "",
         categorie_media_slug: "",
         categorie_media_name: "",
     });
@@ -18,6 +19,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                     ...item,
                     categorie_media_slug: data.slug,
                     categorie_media_name: data.name,
+                    categorie: data,
                 });
             }
         });
@@ -73,6 +75,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                                     selected: false,
                                                 });
                                             }}
+                                            key={categorie.slug}
                                         >
                                             {categorie.name}
                                         </Link>
@@ -110,6 +113,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                     {medias.map((data, idx) => {
                                         return (
                                             <div
+                                                key={data.slug}
                                                 className="mx-2"
                                                 onClick={(e) => {
                                                     getProduitByMedia(
@@ -153,7 +157,6 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                         }
                                         alt=""
                                     />
-                                    ok
                                 </div>
                             </div>
                         </>
@@ -163,13 +166,11 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
             {slug !== undefined && (
                 <div className="col-12 col-md-10 mx-auto py-2">
                     <p className="px-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.
+                        {item.selected ? (
+                            <>{item.media?.description}</>
+                        ) : (
+                            <>{item.categorie?.description}</>
+                        )}
                     </p>
                 </div>
             )}

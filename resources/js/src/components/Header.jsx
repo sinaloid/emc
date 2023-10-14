@@ -93,7 +93,7 @@ const Header = () => {
                                     <ul className="dropdown-menu">
                                         {categories.map((data) => {
                                             return (
-                                                <li>
+                                                <li key={"link"+data.slug}>
                                                     <NavLink
                                                         className="dropdown-item nav-link"
                                                         to={

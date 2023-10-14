@@ -12,7 +12,7 @@ import endPoint from "../services/endPoint";
 import Hero from "./Hero";
 import endPointPublic from "../services/endPointPublic";
 import Map from "./Map";
-import FlechePrec from "./imgs/FlecheSuiv";
+import FlechePrec from "./imgs/FlechePrec";
 import FlecheSuiv from "./imgs/FlecheSuiv";
 import { pagination } from "../services/function";
 
@@ -80,9 +80,9 @@ const PubContainer = () => {
             });
     };
     const getCategorieMedia = () => {
-        const url = slug ? slug : "";
+        const url = slug ? "/"+ slug : "";
         request
-            .get(endPointPublic.mediaByCategorie + "/" + url)
+            .get(endPointPublic.mediaByCategorie + url)
             .then((res) => {
                 console.log(res.data);
                 setMedias(res.data.data);
@@ -97,10 +97,17 @@ const PubContainer = () => {
         request
             .get(endPointPublic.offresByMedia + "/" + mediaSlug)
             .then((res) => {
-                const lst = pagination(res.data.data, 6);
+                const lst = slug
+                    ? pagination(res.data.data, 6)
+                    : pagination(res.data.data, 8);
                 setPages(lst);
-                setDatas(lst.list[0]);
-                setList(lst.list[0]);
+                if (lst.list.length !== 0) {
+                    setDatas(lst.list[0]);
+                    setList(lst.list[0]);
+                }else{
+                    setDatas([]);
+                    setList([]);
+                }
                 getCategorieMedia();
             })
             .catch((error) => {
@@ -111,6 +118,11 @@ const PubContainer = () => {
     const changeView = (e) => {
         // e.preventDefault();
         setView(!view);
+    };
+    const changePages = (e,idx) => {
+        e.preventDefault();
+        setDatas(pages.list[idx]);
+        setList(pages.list[idx]);
     };
     return (
         <>
@@ -218,20 +230,21 @@ const PubContainer = () => {
                             <span>
                                 <FlechePrec />
                             </span>
-                            <span>Page précédente</span>
+                            <span className="ms-1">Page précédente</span>
                         </button>
-                        {[1, 1, 1].map((data, idx) => {
-                            return (
-                                <button
-                                    className="btn btn-pub mx-2"
-                                    key={"btn" + idx}
-                                >
-                                    <span>{idx + 1}</span>
-                                </button>
-                            );
-                        })}
+                        {
+                            pages.list.map((data,idx) => {
+                                return <button
+                                className="btn btn-pub mx-2 px-3"
+                                key={"btn" + idx}
+                                onClick={e =>changePages(e,idx)}
+                            >
+                                <span>{idx + 1}</span>
+                            </button>
+                            })
+                        }
                         <button className="btn btn-pub mx-2">
-                            <span>Page suivante</span>
+                            <span className=" me-1">Page suivante</span>
                             <span>
                                 <FlecheSuiv />
                             </span>

@@ -13,7 +13,7 @@ const PubCard = ({ data, setSelectedData }) => {
     return (
         <div className="card p-0 shadow position-relative">
             <div className="px-2 mt-2 d-inline-block bg-primary position-absolute">
-                <span className="text-white text-12 text-uppercase"> Télévision</span>
+                <span className="text-white text-12 text-uppercase"> {data.media?.categorie_media?.name}</span>
             </div>
             <PubCardImg image={data.image} />
             <div className="text-center py-3">

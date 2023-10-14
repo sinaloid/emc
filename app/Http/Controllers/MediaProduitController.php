@@ -30,7 +30,7 @@ class MediaProduitController extends Controller
             }])->get();*/
             $data = MediaProduit::whereHas('media.categorieMedia', function ($query) use ($slug) {
                 $query->where('slug', $slug);
-            })->get();
+            })->with("media","media.categorieMedia")->get();
         }else{
             $data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
         }
