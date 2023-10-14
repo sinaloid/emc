@@ -209,7 +209,7 @@ const Header = () => {
                                         <Fr />
                                         <div className="btn-group">
                                             <button
-                                                className="btn btn-primary1 dropdown-toggle border-0 px-0"
+                                                className="btn btn-primary1 dropdown-toggle border-0 px-0 ps-1"
                                                 type="button"
                                                 data-bs-toggle="dropdown"
                                                 data-bs-auto-close="true"

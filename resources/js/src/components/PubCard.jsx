@@ -12,12 +12,12 @@ const PubCard = ({ data, setSelectedData }) => {
     };
     return (
         <div className="card p-0 shadow position-relative">
-            <div className="px-2 mt-2 d-inline-block bg-primary position-absolute">
+            <div className="px-2 mt-2 d-inline-block bg-secondary position-absolute ">
                 <span className="text-white text-12 text-uppercase"> {data.media?.categorie_media?.name}</span>
             </div>
             <PubCardImg image={data.image} />
             <div className="text-center py-3">
-                <h4 className="text-20">{data.name}</h4>
+                <h4 className="text-20" style={{padding:"0 30px"}}>{data.name}</h4>
                 <span className="text-primary my-2 d-inline-block">
                     {data.price + " FCFA"}
                 </span>{" "}

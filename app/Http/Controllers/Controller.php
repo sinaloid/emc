@@ -101,7 +101,8 @@ class Controller extends BaseController
         $newRequest = Request::create('/dummy-url', 'POST', $devisData, [], [], $headers);
         $response = $devisController->store($newRequest);
 
-        return $response;
+        return response()->json(['message' => 'Le devis a bien été envoyé', 'data' =>  $user->email], 200);
+        //return $response;
 
 
 

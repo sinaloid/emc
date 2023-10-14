@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import Input from "./Input";
 import InputField from "./InputField";
 import { toast } from "react-toastify";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import request from "../services/request";
 import endPointPublic from "../services/endPointPublic";
 import { list } from "postcss";
@@ -28,6 +28,7 @@ const CampagneModal = ({ refresh }) => {
     const close = useRef();
     const comfirm = useRef();
     const list = getCampagne();
+    const [email, setEmail] = useState("")
 
     const formik = useFormik({
         initialValues: initData,
@@ -66,6 +67,7 @@ const CampagneModal = ({ refresh }) => {
                         comfirm.current.click();
                         setCampagne([]);
                         refresh();
+                        setEmail(res.data.data)
                         //get();
                         return "Votre demande de devis a bien été reçue !";
                     },
@@ -102,7 +104,7 @@ const CampagneModal = ({ refresh }) => {
                         <div className="modal-body">
                             <div className="row">
                                 <div className="col-md-8 mx-auto">
-                                    {! user.campagne && (
+                                    {!user.campagne && (
                                         <>
                                             <div className="border-bottom d-inline-block mb-3 text-22">
                                                 Informations personnel
@@ -256,13 +258,13 @@ const CampagneModal = ({ refresh }) => {
                                     </div>
 
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Aliquam mattis eleifend
-                                        tellus, vel viverra ante tincidunt
-                                        placerat. Nulla mi dolor, pellentesque
-                                        ut massa et, fermentum hendrerit purus.
-                                        Suspendisse lacinia neque vitae metus
-                                        viverra accumsan.
+                                        Votre demande a été envoyée avec succès.
+                                        Nous vous remercions d’avoir choisi EMC
+                                        pour acheter vos espaces publicitaires.
+                                        Nous vous avons envoyé votre devis par
+                                        mail à l’adresse suivante :<br />
+                                        <span className="text-primary">{email}</span>. <br />
+                                        A très vite sur EMC !1
                                     </p>
                                     <div className="d-flex justify-content-center">
                                         <button

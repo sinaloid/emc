@@ -87,7 +87,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                 </div>
             </div>
             {item.selected && (
-                <div className="col-12 col-md-10 mx-auto pt-3 px-3 text-primary">
+                <div className="col-12 col-md-10 mx-auto pt-3 px-3 text-primary text-14">
                     <span
                         style={{ cursor: "pointer" }}
                         onClick={(e) => disableItem(e, "accueil")}
@@ -109,7 +109,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                     {!item.selected ? (
                         <>
                             {slug && (
-                                <div className="d-flex bg-gray p-2">
+                                <div className="d-flex bg-gray p-20">
                                     {medias.map((data, idx) => {
                                         return (
                                             <div
@@ -146,10 +146,10 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                         </>
                     ) : (
                         <>
-                            <div className="d-flex bg-gray1 p-2 py-4">
+                            <div className="d-flex bg-gray1">
                                 <div className="mx-2" onClick={(e) => {}}>
                                     <img
-                                        width={"200px"}
+                                        width={"100px"}
                                         src={
                                             item.media?.image
                                                 ? URL_ + "" + item.media?.image

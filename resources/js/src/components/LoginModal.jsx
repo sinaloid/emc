@@ -52,7 +52,7 @@ const LoginModal = () => {
     ];
     const modalBtn = useRef();
     const onConnect = () => {
-        navigate(listLink.dashboard);
+        navigate(listLink.dashboard+"tdb");
     };
     const changeForm = (e) => {
         e.preventDefault();
