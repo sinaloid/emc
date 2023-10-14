@@ -12,7 +12,7 @@ const PubCard = ({ data, setSelectedData }) => {
     };
     return (
         <div className="card p-0 shadow position-relative">
-            <div className="px-2 mt-2 d-inline-block bg-secondary position-absolute ">
+            <div className="px-2 mt-2 d-flex align-items-center bg-secondary position-absolute" style={{height:"20px"}}>
                 <span className="text-white text-12 text-uppercase"> {data.media?.categorie_media?.name}</span>
             </div>
             <PubCardImg image={data.image} />

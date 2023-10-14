@@ -67,7 +67,7 @@ const CampagneModal = ({ refresh }) => {
                         comfirm.current.click();
                         setCampagne([]);
                         refresh();
-                        setEmail(res.data.data)
+                        setEmail(data.data.data)
                         //get();
                         return "Votre demande de devis a bien été reçue !";
                     },
@@ -254,17 +254,16 @@ const CampagneModal = ({ refresh }) => {
                             <div className="row">
                                 <div className="col-md-8 mx-auto">
                                     <div className="border-bottom d-inline-block mb-3 text-22">
-                                        Votre demande a été envoyée avec succès.
+                                    Votre demande a été envoyée avec succès
                                     </div>
 
                                     <p>
-                                        Votre demande a été envoyée avec succès.
                                         Nous vous remercions d’avoir choisi EMC
                                         pour acheter vos espaces publicitaires.
                                         Nous vous avons envoyé votre devis par
                                         mail à l’adresse suivante :<br />
                                         <span className="text-primary">{email}</span>. <br />
-                                        A très vite sur EMC !1
+                                        A très vite sur EMC !
                                     </p>
                                     <div className="d-flex justify-content-center">
                                         <button

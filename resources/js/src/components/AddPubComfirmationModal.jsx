@@ -13,7 +13,7 @@ const AddPubComfirmationModal = ({ data }) => {
                 <div className="modal-content">
                     <div className="modal-header bg-primary">
                         <h5 className="modal-title text-white">
-                            campagne ajoutée au panier avec succès
+                            Campagne ajoutée au panier avec succès
                         </h5>
                         <button
                             type="button"
