@@ -10,6 +10,8 @@ const PubCard = ({ data, setSelectedData }) => {
         setSelectedData(data);
         console.log(data);
     };
+
+    console.log(data)
     return (
         <div className="card p-0 shadow position-relative">
             <div className="px-2 mt-2 d-flex align-items-center bg-secondary position-absolute" style={{height:"20px"}}>

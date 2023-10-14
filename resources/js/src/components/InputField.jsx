@@ -147,7 +147,7 @@ const InputField = ({
 
     if (type === "checkbox") {
         return (
-            <div className={"mb-3 "+col}>
+            <div className={"mb-0 "+col}>
                 <div className="form-check">
                     <input
                         className="form-check-input"

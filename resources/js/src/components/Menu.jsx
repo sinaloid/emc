@@ -109,7 +109,7 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                     {!item.selected ? (
                         <>
                             {slug && (
-                                <div className="d-flex bg-gray p-20">
+                                <div className="d-flex bg-gray p-2">
                                     {medias.map((data, idx) => {
                                         return (
                                             <div
