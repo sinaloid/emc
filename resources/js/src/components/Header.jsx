@@ -53,12 +53,7 @@ const Header = () => {
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
                             <span>
-                                <img
-                                    className="img"
-                                    width="81px"
-                                    src={URL_ + "images/logo.png"}
-                                    alt=""
-                                />
+                                <Logo />
                             </span>
                         </a>
                         <button

@@ -30,7 +30,7 @@
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/lg-fce38ed8.png",
+      "assets/logo_new-069b968b.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/filtre-842a5333.png",
@@ -44,7 +44,7 @@
     "css": [
       "assets/app-84b02308.css"
     ],
-    "file": "assets/app-2da85d8a.js",
+    "file": "assets/app-6e9caf0f.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -71,6 +71,10 @@
   "resources/js/src/assets/imgs/logo200.png": {
     "file": "assets/logo200-59eba22d.png",
     "src": "resources/js/src/assets/imgs/logo200.png"
+  },
+  "resources/js/src/assets/imgs/logo_new.png": {
+    "file": "assets/logo_new-069b968b.png",
+    "src": "resources/js/src/assets/imgs/logo_new.png"
   },
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",
