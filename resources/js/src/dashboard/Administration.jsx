@@ -113,7 +113,7 @@ const Administration = () => {
                             >
                                 
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-messages-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-messages"
@@ -126,7 +126,7 @@ const Administration = () => {
                                     Messages
                                 </button>
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-utilisateurs-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-utilisateurs"
@@ -138,8 +138,10 @@ const Administration = () => {
                                 >
                                     Utilisateurs
                                 </button>
-                                <button
-                                    className="nav-link text-start"
+                                {
+                                    /**
+                                     * <button
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-demande-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-demande"
@@ -152,7 +154,7 @@ const Administration = () => {
                                     Catégories Abonnements
                                 </button>
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-attestation-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-attestation"
@@ -164,8 +166,10 @@ const Administration = () => {
                                 >
                                     Abonnements
                                 </button>
+                                     */
+                                }
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-profile-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile"
@@ -178,7 +182,7 @@ const Administration = () => {
                                     Catégories Filtres
                                 </button>
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-disabled-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-disabled"
@@ -191,7 +195,7 @@ const Administration = () => {
                                     Filtres
                                 </button>
                                 <button
-                                    className="nav-link active text-start"
+                                    className="nav-link dash-link active text-start"
                                     id="v-pills-home-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-home"
@@ -205,7 +209,7 @@ const Administration = () => {
                                 </button>
 
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-demande-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-demande"
@@ -218,7 +222,7 @@ const Administration = () => {
                                     Accompagnement SM
                                 </button>
                                 <button
-                                    className="nav-link text-start"
+                                    className="nav-link dash-link text-start"
                                     id="v-pills-attestation-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-attestation"
@@ -233,7 +237,7 @@ const Administration = () => {
                                 
                                 {/**
                                      * <button
-                                    className="nav-link"
+                                    className="nav-link dash-link"
                                     id="v-pills-settings-tab"
                                     data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings"

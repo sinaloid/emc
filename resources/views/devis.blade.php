@@ -8,8 +8,8 @@
     <title>pdf</title>
     <style>
         :root {
-            --primary-color: #07298f;
-            --secondary-color: #2465dd;
+            --primary-color: #1f2e54;
+            --secondary-color: #e5282a;
         }
 
         *,
@@ -24,7 +24,13 @@
             width: 100%;
             font-size: 16px;
             line-height: 170%;
-            font-family: Poppins, Arial, Helvetica, sans-serif;
+            font-size: 1rem;
+            font-family: "Bariol", "Rubik", "Sofia Sans Condensed", Nunito,
+                Montserrat, "HK Grotesk", -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+                "Helvetica Neue", sans-serif;
+            line-height: 160%;
+            color: #1f2e54;
         }
 
         .container {
@@ -75,7 +81,11 @@
         }
 
         .bg-primary {
-            background-color: blue;
+            background-color: #1f2e54;
+        }
+
+        .text-secondary {
+            color: #e5282a;
         }
 
         .table-container {
@@ -90,7 +100,7 @@
         }
 
         .border>.column {
-            border: 1px solid black;
+            border: 1px solid #1f2e54;
             padding: 0 8px;
         }
 
@@ -107,7 +117,32 @@
         }
 
         .border-right {
-            border-right: 1px solid black !important;
+            border-right: 1px solid #1f2e54 !important;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .text-underline {
+            text-decoration: underline;
+        }
+
+        .m-100{
+            margin-top: 100px;
+        }
+
+        .border-top{
+            border-top: 1px solid #1f2e54
+        }
+        .position-relative{
+            position: relative;
+        }
+        .position-absolute{
+            position: absolute;
+            bottom: 50%;
+            right: 0;
+            opacity: 0.08;
         }
     </style>
 </head>
@@ -115,34 +150,39 @@
 <body>
     <div class="container p-2">
         <div class="header fw-bold">
-            <div class="ps-3">
-                @php
-                    $path = file_get_contents('images/logo.png');
-                    $img = base64_encode($path);
-                @endphp
-                <img class="me-auto" src="{{ "data:image/jpeg;base64,' . $img . '" }}" alt="Logo de l'entreprise">
-            </div>
+            
+            <!--div class="ps-3">
+                @php $path = file_get_contents('images/emc_logo_color.png');
+                $img = base64_encode($path); @endphp <img width="230px" class="me-auto" src="{{ "data:image/jpeg;base64,' . $img . '" }}"
+                    alt="Logo de l'entreprise">
+            </div-->
             <div class="table-container py-21">
                 <div class="column">
-                    <span class="text-uppercase">élite média connect </span><br />
-                    <span class="text-uppercase">+226 xx xx xx xx </span><br />
-                    <span class="text-uppercase">info@emc-burkina.com </span><br />
-                    <span class="text-uppercase">Ouagadougou, Burkina Faso </span><br />
+                    @php $path = file_get_contents('images/emc_logo_color.png');
+                    $img = base64_encode($path); @endphp <img width="230px" class="me-auto"
+                        src="{{ "data:image/jpeg;base64,' . $img . '" }}"
+                        alt="Logo de l'entreprise">
                 </div>
                 <div class="column">
-                    <p class="text-right text-uppercase">
-                        <span class="text-uppercase">annonceur</span><br />
-                        <span class="text-uppercase">{{ $user->lastname . ' ' . $user->firstname }}</span><br />
-                        <span class="text-uppercase">{{ $user->number }}</span><br />
-                        <span class="text-uppercase">{{ $user->email }}</span><br />
+                    <p class="text-right1">
+                        <span class="fw-bold text-24">Devis</span><br />
+                        <span class="">
+                            N° du devis : {{ $data->reference }} </span><br />
+                        <span class="">
+                            Date d’émission : {{ date('d/m/Y', strtotime($data->startDate))}} </span><br /><br />
+                        <span>À</span><br /><br />
+                        <span class="">{{ $user->lastname . ' ' . $user->firstname }}</span><br />
+                        <span class="">Tél.: {{ $user->number }}</span><br />
+                        <span class="text-uppercase1">E-mail: {{ $user->email }}</span><br />
                     </p>
                 </div>
             </div>
         </div>
-        <div class="content">
-            <p class="text-center text-uppercase fw-bold my-3 text-24">
-                Devis
-            </p>
+        <div class="content m-100 position-relative">
+            @php $path = file_get_contents('images/start.png');
+                    $img = base64_encode($path); @endphp <img width="400px" class="position-absolute"
+                        src="{{ "data:image/jpeg;base64,' . $img . '" }}"
+                        alt="Logo de l'entreprise">
             <div class="table-container">
                 <div class="column">
                     <!--p>Nom prénom : Traore Moussa</p>
@@ -150,34 +190,36 @@
                         <p>Email : moussa@gmail.com</p-->
                 </div>
                 <div class="column">
-                    <p class="text-right">
-                        Réference du devis : {{ $data->reference }}
-                    </p>
-                    <p class="text-right">
-                        Date de la demande : {{ $data->startDate }}
-                    </p>
+                    <!--p class="text-right">
+                            Réference du devis : {{ $data->reference }}
+                        </p>
+                        <p class="text-right">
+                            Date de la demande : {{ $data->startDate }}
+                        </p-->
                 </div>
             </div>
-
+            <p class="fw-bold my-3 text-24 text-underline">
+                Objet : Demande de devis
+            </p>
             <div class="table">
                 <div class="table-container border fw-bold">
                     <div class="column">
-                        <p>Service publicitaire</p>
+                        <p>Espaces publicitaires</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Catégorie</p>
+                        <p class="">Catégories</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Média</p>
+                        <p class="">Média/Régie</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Quantité</p>
+                        <p class="">Quantité</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Prix unitaire HT</p>
+                        <p class="">Prix unitaires HT</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">Total HT</p>
+                        <p class="">Total HT</p>
                     </div>
                 </div>
                 @foreach ($details as $detail)
@@ -186,19 +228,19 @@
                             <p>{{ $detail['name'] }}</p>
                         </div>
                         <div class="column">
-                            <p class="text-right">{{ $detail['categorie'] }}</p>
+                            <p class="">{{ $detail['categorie'] }}</p>
                         </div>
                         <div class="column">
-                            <p class="text-right">{{ $detail['media'] }}</p>
+                            <p class="">{{ $detail['media'] }}</p>
                         </div>
                         <div class="column">
-                            <p class="text-right">{{ $detail['quantite'] }}</p>
+                            <p class="text-right">{{ $detail['quantite']}}</p>
                         </div>
                         <div class="column">
-                            <p class="text-right">{{ $detail['price'] }}</p>
+                            <p class="text-right">{{ $detail['price']." FCFA"}}</p>
                         </div>
                         <div class="column">
-                            <p class="text-right">{{ $detail['total'] }}</p>
+                            <p class="text-right">{{ $detail['total']." FCFA"}}</p>
                         </div>
                     </div>
                 @endforeach
@@ -212,7 +254,7 @@
                     <div class="column no-border">
                         <p class="text-right fw-bold"></p>
                     </div>
-                    <div class="column no-border border-right">
+                    <div class="column no-border">
                         <p class="text-right"><br /></p>
                     </div>
                 </div>
@@ -224,7 +266,7 @@
                         <p class="text-right"></p>
                     </div>
                     <div class="column">
-                        <p class="text-right fw-bold">Total HT</p>
+                        <p class="fw-bold">Total (HT)</p>
                     </div>
                     <div class="column">
                         <p class="text-right">{{ $data->price }} FCFA</p>
@@ -238,10 +280,12 @@
                         <p class="text-right"></p>
                     </div>
                     <div class="column">
-                        <p class="text-right fw-bold">TVA 18%</p>
+                        <p class="fw-bold">TVA (18%)</p>
                     </div>
                     <div class="column">
-                        <p class="text-right">{{($data->price * 18)/100}} FCFA</p>
+                        <p class="text-right">
+                            {{ ($data->price * 18) / 100 }} FCFA
+                        </p>
                     </div>
                 </div>
                 <div class="table-container border">
@@ -251,34 +295,51 @@
                     <div class="column no-border border-right">
                         <p class="text-right"></p>
                     </div>
-                    <div class="column">
-                        <p class="text-right fw-bold">Total TTC</p>
+                    <div class="column bg-primary text-white">
+                        <p class="fw-bold">Total (TTC)</p>
                     </div>
-                    <div class="column">
-                        <p class="text-right">{{(($data->price * 18)/100) + $data->price }} FCFA</p>
+                    <div class="column bg-primary text-white">
+                        <p class="text-right fw-bold">
+                            {{ ($data->price * 18) / 100 + $data->price }}
+                            FCFA
+                        </p>
                     </div>
                 </div>
-
+            </div>
+            <div class="table-container">
+                <div class="column"></div>
+                <div class="column bg-primary1 text-right1">
+                    <p class="text-right1">
+                        Si vous souhaiter régler ce devis,
+                        <a class="text-secondary"
+                            href="https://emc-burkina.com/paiement/public/{{ $data->slug }}">cliquez ici !</a>
+                    </p>
+                    <p class="text-right1">
+                        <span>Vous souhaitez notre assistance ?</span><br />
+                        <span>Contacter notre service client aux numéros :</span><br />
+                        <span>(+226) 50 00 00 00 / 25 00 00 00</span><br />
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="table-container">
-            <div class="column">
-                
-            </div>
-            <div class="column">
-                <p class="text-right">
-                    <a href="https://emc-burkina.com/paiement/public/{{$data->slug}}">Cliquez pour accepter le devis et payer</a>
-                </p>
-            </div>
-        </div>
-        <div class="footer text-14">
-            <p class="text-center mt-5">
-                <span>Email : info@emc-burkina.com</span>
-                <span>Téléphone: +226 xx xx xx xx / +226 xx xx xx xx</span>
-            </p>
-            <p class="text-center text-14">
-                &copy; 2023 EMC. Tous droits
-                réservés.
+        
+        <div class="footer text-14 m-100 border-top">
+            <p class="text-center text-14 mt-5">
+                <span class="fw-bold">Elie Régie</span> - Société à
+                Responsabilité Limitée (SARL) au capital de 1.000.000 de
+                Francs CFA | <span class="fw-bold">Siège social</span>:
+                Secteur 49, Section 815 Lot 26 Parcelle 20 |
+                <span class="fw-bold">Adresse postale</span>: 01 BP 6943
+                Ouagadougou - Burkina Faso |
+                <span class="fw-bold">RCCM</span>: BFOUA2019B9982 |
+                <span class="fw-bold">IFU</span>: 00129466Z |
+                <span class="fw-bold">CNSS</span>: 1329764P |
+                <span class="fw-bold">Compte BOA</span> N° 008812220023 |
+                <span class="fw-bold">Régime d’imposition</span>: RSI |
+                <span class="fw-bold">CME Service des impôts de rattachement</span>
+                : division fiscale du Centre Ouaga 1 |
+                <span class="fw-bold">Tél</span>: (+226) 53579595 |
+                <span class="fw-bold">Email</span> : ergie@elite.com
             </p>
         </div>
     </div>

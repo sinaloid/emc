@@ -123,7 +123,7 @@ const AddPuBModal = ({
                                 <div>
                                     <button
                                         type="button"
-                                        className="btn btn-primary mt-3"
+                                        className="btn btn-secondary mt-3"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
                                         onClick={

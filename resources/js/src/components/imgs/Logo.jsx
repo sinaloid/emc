@@ -1,7 +1,7 @@
 
 
 import { URL_ } from "../../services/request"
-import logo from "../../assets/imgs/logo_new.png"
+import logo from "../../assets/imgs/emc_logo_color.png"
 //URL_+"images/logo.png"
 export const Logo = () => {
 

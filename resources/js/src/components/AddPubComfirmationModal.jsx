@@ -55,7 +55,7 @@ const AddPubComfirmationModal = ({ data }) => {
                             <div className="col-md-10 mx-auto">
                                 <button
                                     type="button"
-                                    className="btn btn-primary mb-3 me-1"
+                                    className="btn btn-secondary mb-3 me-1"
                                     data-bs-dismiss="modal"
                                     onClick={(e) => {
                                         e.preventDefault();

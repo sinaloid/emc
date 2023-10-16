@@ -1,6 +1,6 @@
 
 import logo from "../../assets/imgs/lg.png"
-import logo_new from "../../assets/imgs/logo_new.png"
+import logo_new from "../../assets/imgs/emc_logo_no_color.png"
 
 export const LogoForFooter = () => {
 

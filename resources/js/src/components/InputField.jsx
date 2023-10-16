@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const InputField = ({
     type,
     label,
@@ -8,14 +10,23 @@ const InputField = ({
     onChange,
     col = "col-md-12",
 }) => {
+    const [check, setCheck] = useState(false)
     const handleChange = (event) => {
         console.log(event.target.name, event.target.value);
-        onChange(event.target.name, event.target.value);
+        //onChange(event.target.name, event.target.value);
+
+        if(event.target.name === "checkbox" || event.target.name === "checkbox2"){
+            setCheck((val) => !val)
+            alert("ok")
+        }
     };
 
     const handleChangeImage = (event) => {
         onChange(event.target.name, event.target.files[0]);
     };
+    const checkChange = (e) =>{
+        setCheck((val) => !val)
+    }
     if (type === "text2") {
         return (
             <div className={col}>
@@ -148,9 +159,9 @@ const InputField = ({
     if (type === "checkbox") {
         return (
             <div className={"mb-0 "+col}>
-                <div className="form-check">
+                <div className="form-check custom-checkbox">
                     <input
-                        className="form-check-input"
+                        className={` form-check-input  ${check && " bg-primary"}`}
                         type="checkbox"
                         id={name}
                         name={name}
@@ -158,7 +169,7 @@ const InputField = ({
                         onChange={handleChange}
                     />
                     <label
-                        className="form-check-label"
+                        className="form-check-label "
                         htmlFor="flexCheckIndeterminate"
                     >
                         {label}
@@ -173,7 +184,7 @@ const InputField = ({
             <div className={"mb-3 "+col}>
                 <div className="form-check">
                     <input
-                        className="form-check-input"
+                        className={`custom-checkbox form-check-input  ${check && " bg-primary"}`}
                         type="checkbox"
                         id={name}
                         name={name}

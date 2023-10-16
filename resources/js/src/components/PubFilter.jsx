@@ -30,21 +30,21 @@ const PubFilter = () => {
                     <div className="me-auto">
                         <Filter /> <span className="fw-bold">Filtres</span>
                     </div>
-                    <div>Effacer</div>
+                    <div className="cursor">Effacer</div>
                 </div>
             </div>
             <div className="card-body">
                 {datas.map((data, idx) => {
                     return (
                         <FilterCollapse
-                            key={idx}
-                            id={data.name}
+                            key={"cate"+idx}
+                            id={"cate"+idx}
                             name={data.name}
                         >
                             {data.filtres?.map((dataFiltre, idx) => {
                                 return (
                                     <InputField
-                                        key={idx}
+                                        key={"fil"+idx}
                                         type={"checkbox"}
                                         label={dataFiltre.name}
                                     />

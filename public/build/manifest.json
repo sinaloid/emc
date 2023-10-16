@@ -25,12 +25,13 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-84b02308.css",
+    "file": "assets/app-bc71274c.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/logo_new-069b968b.png",
+      "assets/emc_logo_color-6ffcfc62.png",
+      "assets/emc_logo_no_color-931e1315.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/filtre-842a5333.png",
@@ -42,9 +43,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-84b02308.css"
+      "assets/app-bc71274c.css"
     ],
-    "file": "assets/app-6e9caf0f.js",
+    "file": "assets/app-d270ca57.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -55,6 +56,14 @@
   "resources/js/src/assets/imgs/Logo.png": {
     "file": "assets/Logo-c5c5f707.png",
     "src": "resources/js/src/assets/imgs/Logo.png"
+  },
+  "resources/js/src/assets/imgs/emc_logo_color.png": {
+    "file": "assets/emc_logo_color-6ffcfc62.png",
+    "src": "resources/js/src/assets/imgs/emc_logo_color.png"
+  },
+  "resources/js/src/assets/imgs/emc_logo_no_color.png": {
+    "file": "assets/emc_logo_no_color-931e1315.png",
+    "src": "resources/js/src/assets/imgs/emc_logo_no_color.png"
   },
   "resources/js/src/assets/imgs/filtre.png": {
     "file": "assets/filtre-842a5333.png",
@@ -71,10 +80,6 @@
   "resources/js/src/assets/imgs/logo200.png": {
     "file": "assets/logo200-59eba22d.png",
     "src": "resources/js/src/assets/imgs/logo200.png"
-  },
-  "resources/js/src/assets/imgs/logo_new.png": {
-    "file": "assets/logo_new-069b968b.png",
-    "src": "resources/js/src/assets/imgs/logo_new.png"
   },
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",

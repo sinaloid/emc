@@ -111,6 +111,8 @@ class DevisController extends Controller
             }
         }
         
+        $last_id = Devis::orderBy('id', 'desc')->first();
+        $last_id = $last_id ? ((int) $last_id->id + 1) : "01";
 
         $data = Devis::create([
             'campagne_id' => $campagne->id,
@@ -122,7 +124,7 @@ class DevisController extends Controller
             'status' => false,
             'is_deleted' => false,
             'slug' => Str::random(8),
-            'reference' => 'DEV-' . date('YmdHis')
+            'reference' => 'EMC-'.date('Ym').'-Dev' . $last_id
         ]);
         //dd("ok");
         $pdf = Pdf::loadView('devis', compact('user','data','details'));

@@ -19,7 +19,7 @@ const PubCard = ({ data, setSelectedData }) => {
             </div>
             <PubCardImg image={data.image} />
             <div className="text-center py-3">
-                <h4 className="text-20" style={{padding:"0 30px"}}>{data.name}</h4>
+                <h4 className="text-26" style={{padding:"0 30px"}}>{data.name}</h4>
                 <span className="text-primary my-2 d-inline-block">
                     {data.price + " FCFA"}
                 </span>{" "}

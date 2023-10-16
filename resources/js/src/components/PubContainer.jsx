@@ -28,6 +28,7 @@ const PubContainer = () => {
     const [selectedData, setSelectedData] = useState("");
     const [view, setView] = useState(false);
     const [affichageSlug, setAffichageSlug] = useState("nean");
+    const [currentIndex, setCurrentIndex] = useState(0)
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -121,6 +122,16 @@ const PubContainer = () => {
     };
     const changePages = (e,idx) => {
         e.preventDefault();
+        console.log(idx)
+        if(idx >= 0 && idx <= pages.counter - 1){
+            setDatas(pages.list[idx]);
+            setList(pages.list[idx]);
+            setCurrentIndex(idx)
+        }
+    };
+    const changePagesByIndex = (e,idx) => {
+        e.preventDefault();
+        setCurrentIndex(idx)
         setDatas(pages.list[idx]);
         setList(pages.list[idx]);
     };
@@ -226,7 +237,7 @@ const PubContainer = () => {
                 </div>
                 {(slug && list.length !== 0) && (
                     <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
-                        <button className="btn btn-pub mx-2">
+                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex - 1)}>
                             <span>
                                 <FlechePrec />
                             </span>
@@ -237,13 +248,13 @@ const PubContainer = () => {
                                 return <button
                                 className="btn btn-pub mx-2 px-3"
                                 key={"btn" + idx}
-                                onClick={e =>changePages(e,idx)}
+                                onClick={e =>changePagesByIndex(e,idx)}
                             >
                                 <span>{idx + 1}</span>
                             </button>
                             })
                         }
-                        <button className="btn btn-pub mx-2">
+                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex + 1)}>
                             <span className=" me-1">Page suivante</span>
                             <span>
                                 <FlecheSuiv />

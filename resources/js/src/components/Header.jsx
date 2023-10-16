@@ -51,7 +51,7 @@ const Header = () => {
             <div className="col-12 col-md-11 mx-auto">
                 <nav className="navbar navbar-expand-md">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="#">
+                        <a className="navbar-brand" href="/">
                             <span>
                                 <Logo />
                             </span>
@@ -175,7 +175,7 @@ const Header = () => {
                                             }}
                                         >
                                             {" "}
-                                            <Dash />
+                                            <Dash produit={getCampagne().length} />
                                         </button>
                                         {/**
                                              * <Link
@@ -200,17 +200,17 @@ const Header = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item">
-                                    <div className="text-18">
+                                    <div className="text-18 ms-2">
                                         <Fr />
                                         <div className="btn-group">
                                             <button
-                                                className="btn btn-primary1 dropdown-toggle border-0 px-0 ps-1"
+                                                className="btn btn-primary1 dropdown-toggle border-0 px-0 px-2"
                                                 type="button"
                                                 data-bs-toggle="dropdown"
                                                 data-bs-auto-close="true"
                                                 aria-expanded="false"
                                             >
-                                                FR
+                                                <span className="d-inline-block px-1">FR</span>
                                             </button>
                                             {
                                                 /**

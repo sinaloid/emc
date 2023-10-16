@@ -7,6 +7,7 @@ import fr from "date-fns/locale/fr";
 //registerLocale("fr", fr);
 //setDefaultLocale("fr");
 import { addDays, isBefore, startOfToday } from "date-fns";
+import '../assets/css/datepicker.css'
 
 const monthList = {
     January: "Janvier",
@@ -79,6 +80,7 @@ const DateTimeSelect = ({values, setValues, setDates = () => {} }) => {
     };
     return (
         <Calendar
+            className="green"
             multiple
             value={values}
             onChange={onChange}
