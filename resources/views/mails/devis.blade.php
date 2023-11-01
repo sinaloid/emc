@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ "Verification de mail" }}</title>
+    <title>{{ 'Verification de mail' }}</title>
     <style>
         /* Ajoutez ici votre style personnalisé */
         body {
@@ -11,29 +12,35 @@
             color: #333333;
             background-color: #f5f5f5;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
             background-color: #ffffff;
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .logo {
             max-width: 150px;
             height: auto;
         }
+
         .content {
             margin-bottom: 20px;
         }
+
         .footer {
             text-align: center;
             color: #888888;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -42,7 +49,15 @@
         <div class="content">
             <p>Bonjour {!! $data['name'] !!},</p>
             <p>{{ $data['title'] }}</p>
-            <p>{!! $data['content'] !!}</p>
+            <p>Veuillez trouver en pièce jointe, votre devis !</p>
+            <p>
+
+                Si le devis vous convient, vous pouvez 
+                <a href="https://emc-burkina.com/paiement/public/{{ $data['slug'] }}">
+                    l'accepter et payer</a>
+
+            </p>
+            <p>A très bientôt sur EMC !</p>
 
             <p>Cordialement,<br>{{ "L'Équipe EMC !" }}</p>
         </div>
@@ -51,4 +66,5 @@
         </div>
     </div>
 </body>
+
 </html>

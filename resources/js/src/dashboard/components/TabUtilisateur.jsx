@@ -122,7 +122,7 @@ const TabUtilisateur = ({ setBtnName = () => {}, setRestForm }) => {
 
     const disable = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.users + "/disable",{id:values.id}),
+            request.post(endPoint.users + "/disable",{id:viewData.id}),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -144,6 +144,7 @@ const TabUtilisateur = ({ setBtnName = () => {}, setRestForm }) => {
 
     const editData = (data) => {
         console.log(data);
+        setViewData(data)
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("description", data.description);

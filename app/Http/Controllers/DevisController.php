@@ -236,11 +236,7 @@ class DevisController extends Controller
         'subject' => "Votre demande de devis sur EMC",
         'title' => "Nous vous remercions d’avoir choisi EMC pour l’achat de vos espaces publicitaires.",
         'name' => $name,
-        'content' => `<p>Veuillez trouver en pièce jointe, votre devis !</p>
-        <p>
-            Si le devis vous convient, vous pouvez <a href="https://emc-burkina.com/paiement/public/'.$slug.'"> l'accepter et payer</a>
-        </p> 
-        A très bientôt sur EMC !`
+        'slug' => $slug,
         
       ];
 

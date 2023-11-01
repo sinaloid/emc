@@ -45,7 +45,7 @@ const DateTimeSelect = ({values, setValues, setDates = () => {} }) => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     const onChange = (dates) => {
-        console.log(dates);
+        //console.log(dates);
         const currentDate = new Date();
         const hier = new Date(currentDate);
         hier.setDate(currentDate.getDate() - 1);

@@ -54,6 +54,7 @@ const AccompagnementModal = () => {
             }
         );
     };
+    
     return (
         <>
             <div id="accompagnement" className="modal fade" tabIndex="-1">
@@ -61,8 +62,7 @@ const AccompagnementModal = () => {
                     <div className="modal-content">
                         <div className="modal-header bg-primary">
                             <h5 className="modal-title text-white">
-                                Pour ajouter ce produit à votre panier, veuillez
-                                nous fournir quelques détails
+                            Je souhaite un accompagnement sur-mesure
                             </h5>
                             <button
                                 type="button"

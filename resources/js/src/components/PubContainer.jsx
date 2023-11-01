@@ -24,6 +24,7 @@ const PubContainer = () => {
         counter: 0,
     });
     const [categories, setCategories] = useState([]);
+    const [villes, setVilles] = useState([]);
     const [medias, setMedias] = useState([]);
     const [selectedData, setSelectedData] = useState("");
     const [view, setView] = useState(false);
@@ -35,6 +36,7 @@ const PubContainer = () => {
     useEffect(() => {
         get();
         getCategorie();
+        getVille()
         //console.log(slug);
     }, [slug]);
 
@@ -116,6 +118,43 @@ const PubContainer = () => {
             });
     };
 
+    const getVille = () => {
+        request
+            .get(endPointPublic.villes)
+            .then((res) => {
+                console.log(res.data);
+                //setMedias(res.data.data);
+                setVilles(res.data.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const recherche = (value) => {
+        console.log(value)
+        request
+            .post(endPointPublic.recherche, value)
+            .then((res) => {
+                console.log(res.data.data);
+                const lst = slug
+                    ? pagination(res.data.data, 6)
+                    : pagination(res.data.data, 8);
+                setPages(lst);
+                if (lst.list.length !== 0) {
+                    setDatas(lst.list[0]);
+                    setList(lst.list[0]);
+                }else{
+                    setDatas([]);
+                    setList([]);
+                }
+                getCategorieMedia();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     const changeView = (e) => {
         // e.preventDefault();
         setView(!view);
@@ -139,6 +178,8 @@ const PubContainer = () => {
         <>
             <Hero
                 categories={categories}
+                villes={villes}
+                recherche={recherche}
                 list={list}
                 setList={setList}
                 datas={datas}
@@ -246,7 +287,7 @@ const PubContainer = () => {
                         {
                             pages.list.map((data,idx) => {
                                 return <button
-                                className="btn btn-pub mx-2 px-3"
+                                className={`btn ${currentIndex === idx ? "btn-pub-primary" : "btn-pub"}  mx-2 px-3`}
                                 key={"btn" + idx}
                                 onClick={e =>changePagesByIndex(e,idx)}
                             >

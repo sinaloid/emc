@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MediaProduitOption extends Model
+class Ville extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        "name",
         "slug",
-        "is_deleted",
-        "media_produit_id",
-        "filtre_id",
+        "is_deleted"
     ];
-
-    public function filtre(){
-        return $this->belongsTo(Filtre::class);
-    }
 }

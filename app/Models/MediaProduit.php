@@ -21,12 +21,23 @@ class MediaProduit extends Model
         'status',
     ];
 
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('name', 'like', "%{$term}%")
+            ->orWhere('price', 'like', "%{$term}%")
+            ->orWhere('description', 'like', "%{$term}%");
+    }
+
     public function publicites(){
         return $this->hasMany(Publicite::class);
     }
 
     public function periodes(){
         return $this->hasMany(Periode::class);
+    }
+
+    public function mediaProduitOptions(){
+        return $this->hasMany(MediaProduitOption::class);
     }
 
     public function media(){

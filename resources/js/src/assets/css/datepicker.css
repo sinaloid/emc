@@ -1,11 +1,12 @@
 :root {
-  --rmdp-primary-green: #1f2e54;
+  --rmdp-primary-green: #e5282a;
   --rmdp-secondary-green: #1f2e54;
-  --rmdp-shadow-green: #1f2e54;
+  --rmdp-shadow-green: #e5282a;
   --rmdp-today-green: #1f2e54;
-  --rmdp-hover-green: #1f2e54;
+  --rmdp-hover-green: #e5282a;
   --rmdp-deselect-green: #1f2e54;
 }
+
 
 .green .rmdp-wrapper {
   border: 1px solid var(--rmdp-secondary-green);

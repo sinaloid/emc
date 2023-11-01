@@ -7,6 +7,7 @@ import request, { URL } from "../../services/request";
 import endPoint from "../../services/endPoint";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import MultiSelect from "../../components/MultiSelect";
 
 const initMedia = {
     slug: "",
@@ -27,6 +28,8 @@ const ListeMedia = () => {
     const [datas, setDatas] = useState([]);
     const [categories, setCategories] = useState([]);
     const [viewData, setViewData] = useState(initMedia);
+    const [villes, setVilles] = useState([]);
+    const [listVille, setListVille] = useState([]);
     const viewRef = useRef();
     const tarifRef = useRef();
     const nav = useNavigate();
@@ -40,6 +43,7 @@ const ListeMedia = () => {
     useEffect(() => {
         get();
         getCategorie();
+        getVilles();
     }, []);
     const btnEditProps = {
         "data-bs-target": "#media",
@@ -48,6 +52,7 @@ const ListeMedia = () => {
     const formik = useFormik({
         initialValues: initMedia,
         onSubmit: (values) => {
+            values.villes = villes;
             console.log(values);
             if (values.slug !== "") {
                 values._method = "put";
@@ -186,6 +191,50 @@ const ListeMedia = () => {
         );
     };
 
+    const getVilles = () => {
+        request
+            .get(endPoint.villes)
+            .then((res) => {
+                const tab = res.data.data.map((data) => {
+                    return {
+                        value: data.slug,
+                        label: data.name,
+                    };
+                });
+                setListVille(tab);
+
+                //console.log(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const deleteMediaVille = async (e,slug) => {
+        e.preventDefault();
+        
+        const response = await toast.promise(
+            request.delete(endPoint.mediaVilles+"/"+slug),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data.data.data);
+
+                        //viewRef.current.click();
+                        close.current.click();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.message;
+                    },
+                },
+            }
+        );
+    };
     const editData = (data) => {
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
@@ -202,7 +251,7 @@ const ListeMedia = () => {
         e.preventDefault();
         close.current.click();
         tarifRef.current.click();
-        formikTarif.resetForm()
+        formikTarif.resetForm();
     };
 
     const postTarif = async (values) => {
@@ -250,8 +299,8 @@ const ListeMedia = () => {
         );
     };
 
-    const editTarif = (e,data) => {
-        e.preventDefault()
+    const editTarif = (e, data) => {
+        e.preventDefault();
         formikTarif.setFieldValue("slug", data.slug);
         formikTarif.setFieldValue("price", data.price);
         formikTarif.setFieldValue("period", data.period);
@@ -370,6 +419,10 @@ const ListeMedia = () => {
                                         formik={formik}
                                         options={categories}
                                     />
+                                    <MultiSelect
+                                        options={listVille}
+                                        setData={setVilles}
+                                    />
                                     <Input
                                         type={"file"}
                                         name={"image"}
@@ -450,21 +503,58 @@ const ListeMedia = () => {
                                         </p>
                                         <p>{viewData.description}</p>
                                         <p>
-                                            <p>
-                                                Média ajouté
-                                                <span className="fw-bold">
-                                                    {" le " +
-                                                        new Date(
-                                                            viewData.created_at
-                                                        ).toLocaleDateString() +
-                                                        " à " +
-                                                        new Date(
-                                                            viewData.created_at
-                                                        ).toLocaleTimeString()}
-                                                </span>
-                                            </p>
+                                            Média ajouté
+                                            <span className="fw-bold">
+                                                {" le " +
+                                                    new Date(
+                                                        viewData.created_at
+                                                    ).toLocaleDateString() +
+                                                    " à " +
+                                                    new Date(
+                                                        viewData.created_at
+                                                    ).toLocaleTimeString()}
+                                            </span>
                                         </p>
-                                        <div className="d-flex mb-3">
+                                        <p className="m-0">Liste des villes du média</p>
+                                        <div className="ps-3 w-70">
+                                            
+                                            {viewData?.media_villes?.map(
+                                                (item) => {
+                                                    if (item.is_deleted) {
+                                                        return;
+                                                    }
+                                                    return (
+                                                        <div
+                                                            className="d-flex"
+                                                            key={item.slug}
+                                                        >
+                                                            <div>
+                                                                <span className="text-primary">
+                                                                    {
+                                                                        item
+                                                                            .ville
+                                                                            ?.name
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                className="ms-auto text-primary cursor"
+                                                                onClick={(e) =>
+                                                                    deleteMediaVille(
+                                                                        e,
+                                                                        item.slug
+                                                                    )
+                                                                }
+                                                            >
+                                                                supprimer
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+
+                                        {/**<div className="d-flex mb-3">
                                             <span className="me-auto">
                                                 Tarifs du média
                                             </span>
@@ -474,8 +564,7 @@ const ListeMedia = () => {
                                             >
                                                 Ajouter un tarif
                                             </span>
-                                        </div>
-                                        {
+                                        </div> 
                                             viewData.media_tarifs?.map((data,idx) =>{
                                                 return <div className="d-flex text-14 mb-2" key={idx}>
                                                     <div className="me-auto text-danger fw-bold">{data.price +" FCFA"} / {data.period}</div>
@@ -484,8 +573,7 @@ const ListeMedia = () => {
                                                         <span className="me-2 text-danger">supprimer</span>
                                                     </div>
                                                 </div>
-                                            })
-                                        }
+                                            })*/}
                                     </div>
                                 </div>
                             </div>

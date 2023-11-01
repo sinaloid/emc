@@ -7,11 +7,20 @@ import endPoint from "../services/endPoint";
 import { toast } from "react-toastify";
 import Input from "../components/Input";
 import Search from "../components/imgs/Search";
+import { pagination } from "../services/function";
+import FlechePrec from "../components/imgs/FlechePrec";
+import FlecheSuiv from "../components/imgs/FlecheSuiv";
 
 const initDevis = {};
 const TableauDeBord = () => {
     const close = useRef();
     const [datas, setDatas] = useState([]);
+    const [list, setList] = useState([]);
+    const [pages, setPages] = useState({
+        list: [],
+        counter: 0,
+    });
+    const [currentIndex, setCurrentIndex] = useState(0)
     const [viewData, setViewData] = useState(initDevis);
     const viewRef = useRef();
     const fileModal = useRef();
@@ -38,6 +47,16 @@ const TableauDeBord = () => {
             .then((res) => {
                 setDatas(res.data.data);
                 console.log(res.data.data);
+                //console.log(res.data.data);
+                const lst = pagination(res.data.data, 10);
+                setPages(lst);
+                if (lst.list.length !== 0) {
+                    setDatas(lst.list[0]);
+                    setList(lst.list[0]);
+                }else{
+                    setDatas([]);
+                    setList([]);
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -200,6 +219,22 @@ const TableauDeBord = () => {
             }
         );
     };
+
+    const changePages = (e,idx) => {
+        e.preventDefault();
+        console.log(idx)
+        if(idx >= 0 && idx <= pages.counter - 1){
+            setDatas(pages.list[idx]);
+            setList(pages.list[idx]);
+            setCurrentIndex(idx)
+        }
+    };
+    const changePagesByIndex = (e,idx) => {
+        e.preventDefault();
+        setCurrentIndex(idx)
+        setDatas(pages.list[idx]);
+        setList(pages.list[idx]);
+    };
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 px-1 px-md-2">
@@ -295,6 +330,33 @@ const TableauDeBord = () => {
                             </tbody>
                         </table>
                     </div>
+                    {(datas.length !== 0) && (
+                    <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
+                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex - 1)}>
+                            <span>
+                                <FlechePrec />
+                            </span>
+                            <span className="ms-1">Page précédente</span>
+                        </button>
+                        {
+                            pages?.list?.map((data,idx) => {
+                                return <button
+                                className={`btn ${currentIndex === idx ? "btn-pub-primary" : "btn-pub"}  mx-2 px-3`}
+                                key={"btn" + idx}
+                                onClick={e =>changePagesByIndex(e,idx)}
+                            >
+                                <span>{idx + 1}</span>
+                            </button>
+                            })
+                        }
+                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex + 1)}>
+                            <span className=" me-1">Page suivante</span>
+                            <span>
+                                <FlecheSuiv />
+                            </span>
+                        </button>
+                    </div>
+                )}
                 </div>
             </div>
             <button

@@ -21,6 +21,9 @@ const endPoint = {
     devis:"devis",
     publicites:"publicites",
     messages:"messages",
+    mediaProduitOptions:"mediaProduitOptions",
+    villes:"villes",
+    mediaVilles:"mediaVilles",
 }
 
 export default endPoint

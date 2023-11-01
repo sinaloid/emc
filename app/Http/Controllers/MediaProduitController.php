@@ -42,6 +42,49 @@ class MediaProduitController extends Controller
         return response()->json(['message' => 'Prouits récupérés', 'data' => $data], 200);
     }
 
+    public function recherche(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'media' => 'nullable|string|max:8',
+            'ville' => 'nullable|string|max:8',
+        ]);
+
+        if($request->media != ""){
+            //$data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+            /*$data = MediaProduit::with([
+                'media.categorieMedia' => function ($query) use ($slug) {
+                    //dd($slug);
+                // Utilisez la clause where pour filtrer les articles par titre.
+                //$query->where('slug', $slug)->get();
+            }])->get();*/
+            $slug = $request->media;
+            $data = MediaProduit::search($request->name)->whereHas('media.categorieMedia', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->with("media","media.categorieMedia")->get();
+        }
+
+        if($request->ville != ""){
+            //$data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
+            /*$data = MediaProduit::with([
+                'media.categorieMedia' => function ($query) use ($slug) {
+                    //dd($slug);
+                // Utilisez la clause where pour filtrer les articles par titre.
+                //$query->where('slug', $slug)->get();
+            }])->get();*/
+            $slug = $request->ville;
+            $data = MediaProduit::search($request->name)->whereHas('media.mediaVilles.ville', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->with("media","media.categorieMedia")->get();
+        }
+
+        if ($data->isEmpty()) {
+           // return response()->json(['message' => 'Aucune produit trouvé','data' => []], 404);
+        }
+
+        return response()->json(['message' => 'Produits récupérés', 'data' => $data], 200);
+    }
+
     public function produitByMedia($slug = "")
     {
         if($slug != ""){
@@ -125,7 +168,7 @@ class MediaProduitController extends Controller
      */
     public function show($slug)
     {
-        $data = MediaProduit::with("media","media.mediaProduits")->where("slug",$slug)->first();
+        $data = MediaProduit::with("media","media.mediaProduits","mediaProduitOptions","mediaProduitOptions.filtre","mediaProduitOptions.filtre.categorieFiltre")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Produit non trouvé'], 404);

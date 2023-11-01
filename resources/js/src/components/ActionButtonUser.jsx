@@ -35,6 +35,12 @@ const ActionButtonUser = ({
                 data-bs-toggle="modal"
                 data-bs-target="#destroy"
                 className="btn btn-secondary rounded"
+                onClick={e =>{
+                    e.preventDefault()
+                    console.log(data)
+
+                    editData(data)
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

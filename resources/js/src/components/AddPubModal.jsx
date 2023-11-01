@@ -1,10 +1,11 @@
-import { useEffect,useState } from "react";
+import { useContext, useEffect,useState } from "react";
 import { URL } from "../services/request";
 import InputField from "./InputField";
 import { getCampagne, setCampagne } from "../services/storage";
 import { useFormik } from "formik";
 import Input from "./Input";
 import DateTimeSelect from "./DateTimeSelect";
+import { AppContext } from "../services/context";
 
 const initData = {
     startDate: "",
@@ -17,42 +18,61 @@ const AddPuBModal = ({
     callback = () => {},
     idx,
 }) => {
+    const appCtx = useContext(AppContext);
+    const { user, onUserChange } = appCtx;
     const [dates, setDates] = useState([])
     const [values, setValues] = useState([]);
+    const [refresh, setRefresh] = useState(0);
     useEffect(() => {
         console.log(idx);
         if (update) {
             formik.setFieldValue("startDate", data.startDate);
             formik.setFieldValue("endDate", data.endDate);
         }
-    }, [idx]);
-
-    const ajoutPanier = (values) => {
-        const oldCampagne = getCampagne();
-        console.log({ ...data, ...values });
-        setCampagne([...oldCampagne, { ...data, ...values }]);
-    };
+    }, [idx,refresh]);
 
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
             values.dates = dates
-            console.log(values);
-            if (dates.startDate !== "" || data.endDate !== "") {
-                //updateValue(values);
+            //console.log(values);
+            
+            if(update){
+                updateValue(values)
+            }else{
+                ajoutPanier(values);
             }
-            ajoutPanier(values);
             setValues([])
+            setRefresh(refresh + 1)
         },
     });
+
+    const ajoutPanier = (values) => {
+        const oldCampagne = getCampagne();
+        console.log({ ...data, ...values });
+        const val = [...oldCampagne, { ...data, ...values }]
+        setCampagne(val);
+        onUserChange({
+            ...user,
+            panier: val.length
+        })
+    };
 
     const updateValue = (values) => {
         const campagnes = getCampagne();
         const tab = campagnes.filter(
             (item) => item.slug !== values.slug && item
         );
-        setCampagne([...tab, values]);
+
+        const val = [...tab, values]
+        setCampagne(val);
+
+        onUserChange({
+            ...user,
+            panier: val.length
+        })
     };
+
     return (
         <div id="addModal" className="modal fade" tabIndex="-1">
             <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -110,7 +130,6 @@ const AddPuBModal = ({
                                         formik={formik}
                                     />
                                 </div>
-                                     */}
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit. Aliquam mattis eleifend
@@ -119,6 +138,8 @@ const AddPuBModal = ({
                                     fermentum hendrerit purus. Suspendisse
                                     lacinia neque vitae metus viverra accumsan.
                                 </p>
+                                     */}
+                                
                                 
                                 <div>
                                     <button

@@ -199,6 +199,11 @@ input {
     font-weight: bold;
 }
 
+.btn-pub-primary{
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
 .link {
     color: var(--primary-color);
     text-decoration: none;
@@ -239,8 +244,8 @@ div.border-bottom.d-inline-block {
 }
 
 .li-border-bottom {
-    border-bottom: 2px solid var(--primary-color) !important;
-    padding-bottom: 2px;
+    border-bottom: 1px solid var(--primary-color) !important;
+    padding-bottom: 1px;
 }
 .li-border-bottom:hover {
     border-bottom: 2px solid var(--secondary-color) !important;
@@ -318,7 +323,7 @@ div.border-bottom.d-inline-block {
 }
 
 .h-20 {
-    min-height: 20vw;
+    min-height: 50vh;
 }
 
 input[type="text"],
@@ -351,4 +356,8 @@ textarea, select {
   background-color: var(--secondary-color) !important; /* Couleur de fond lorsque la checkbox est cochée */
   border-color: var(--secondary-color) !important; /* Couleur de la bordure */
   color: #fff; /* Couleur du texte */
+}
+
+.bg-inherit{
+    background-color: inherit;
 }

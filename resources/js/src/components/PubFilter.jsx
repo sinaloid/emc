@@ -24,13 +24,13 @@ const PubFilter = () => {
             });
     };
     return (
-        <div className="card shadow">
+        <form className="card shadow">
             <div className="card-header">
                 <div className="d-flex">
                     <div className="me-auto">
                         <Filter /> <span className="fw-bold">Filtres</span>
                     </div>
-                    <div className="cursor">Effacer</div>
+                    <button type="reset" className="cursor border-0 bg-inherit">Effacer</button>
                 </div>
             </div>
             <div className="card-body">
@@ -54,7 +54,7 @@ const PubFilter = () => {
                     );
                 })}
             </div>
-        </div>
+        </form>
     );
 };
 

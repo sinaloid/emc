@@ -174,8 +174,9 @@ const Header = () => {
                                                 navigate(listLink.panier)
                                             }}
                                         >
-                                            {" "}
-                                            <Dash produit={getCampagne().length} />
+                                            {}
+                                            {/**<Dash produit={getCampagne().length} /> */}
+                                            <Dash produit={user.panier ? user.panier : 0} />
                                         </button>
                                         {/**
                                              * <Link
@@ -204,7 +205,7 @@ const Header = () => {
                                         <Fr />
                                         <div className="btn-group">
                                             <button
-                                                className="btn btn-primary1 dropdown-toggle border-0 px-0 px-2"
+                                                className="btn btn-primary1 dropdown-toggle border-0 px-0 pxx-2"
                                                 type="button"
                                                 data-bs-toggle="dropdown"
                                                 data-bs-auto-close="true"

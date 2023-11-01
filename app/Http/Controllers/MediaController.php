@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\CategorieMedia;
 use App\Models\Media;
+use App\Models\MediaVille;
+use App\Models\Ville;
 
 class MediaController extends Controller
 {
@@ -19,7 +21,7 @@ class MediaController extends Controller
      */
     public function index()
     {
-        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits")->where("is_deleted", false)->get();
+        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits","mediaVilles.ville")->where("is_deleted", false)->get();
 
         if ($data->isEmpty()) {
             return response()->json(['message' => 'Aucune media trouvé'], 404);
@@ -75,6 +77,7 @@ class MediaController extends Controller
                 ]);
 
                 if ($data) {
+                    $this->storeMediaVille($request->villes,$data->id);
                     return response()->json(['message' => 'Media créé avec succès', 'data' => $data], 200);
                 }
             }
@@ -92,7 +95,7 @@ class MediaController extends Controller
      */
     public function show($slug)
     {
-        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits")->where("slug",$slug)->first();
+        $data = Media::with("categorieMedia","mediaTarifs","mediaProduits","mediaVilles.ville")->where("slug",$slug)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Media non trouvé'], 404);
@@ -185,6 +188,7 @@ class MediaController extends Controller
             ]);
                 
         }
+        $this->storeMediaVille($request->villes,$data->id);
 
         return response()->json(['message' => 'Media modifié avec succès', 'data' => $data], 200);
 
@@ -209,5 +213,24 @@ class MediaController extends Controller
         $data->update(["is_deleted" => true]);
 
         return response()->json(['message' => 'Media supprimé avec succès']);
+    }
+
+    public function storeMediaVille ($villes,$media_id){
+
+        if(count($villes) !== 0){
+            foreach($villes as $ville){
+                $item = Ville::where('slug',$ville)->first();
+                if($item){
+                    MediaVille::create([
+                        "media_id" => $media_id,
+                        "ville_id" => $item->id,
+                        "is_deleted" => false,
+                        'slug' => Str::random(8)
+                    ]);
+                }
+                
+            }
+            
+        }
     }
 }

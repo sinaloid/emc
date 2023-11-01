@@ -102,7 +102,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
 
     const destroy = async (values) => {
         const response = await toast.promise(
-            request.delete(endPoint.accompagnements + "/" + values.slug),
+            request.delete(endPoint.accompagnements + "/" + viewData.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -125,6 +125,7 @@ const TabAccompagnement = ({ setBtnName = () => {} }) => {
 
     const editData = (data) => {
         console.log(data);
+        setViewData(data)
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("lastname", data.lastname);
         formik.setFieldValue("firstname", data.firstname);

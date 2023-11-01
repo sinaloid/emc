@@ -117,7 +117,7 @@ const TabCategorieMedia = ({ setBtnName = () => {}, setRestForm}) => {
 
     const destroy = async (values) =>{
         const response = await toast.promise(
-            request.delete(endPoint.categorieMedias+"/"+values.slug),
+            request.delete(endPoint.categorieMedias+"/"+viewData.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -140,6 +140,7 @@ const TabCategorieMedia = ({ setBtnName = () => {}, setRestForm}) => {
     
     const editData = (data) =>{
         console.log(data)
+        setViewData(data);
         formik.setFieldValue('slug',data.slug)
         formik.setFieldValue('name',data.name)
         formik.setFieldValue('description',data.description)

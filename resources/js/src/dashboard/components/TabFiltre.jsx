@@ -133,9 +133,10 @@ const TabFiltre = ({ setBtnName = () => {}, setRestForm }) => {
         );
     };
 
-    const destroy = async (values) => {
+    const destroy = async (val) => {
+        //console.log(viewData)
         const response = await toast.promise(
-            request.delete(endPoint.filtres + "/" + values.slug),
+            request.delete(endPoint.filtres + "/" + viewData.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -158,6 +159,7 @@ const TabFiltre = ({ setBtnName = () => {}, setRestForm }) => {
 
     const editData = (data) => {
         console.log(data);
+        setViewData(data);
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("categorie", data.categorie_filtre?.slug);

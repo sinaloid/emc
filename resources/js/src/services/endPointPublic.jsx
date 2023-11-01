@@ -16,7 +16,9 @@ const endPointPublic = {
     accompagnements:"accompagnements/public",
     categorieAbonnements:"categorieAbonnements/public",
     abonnements:"abonnements/public",
-    demandeDevis:"demandeDevis/public"
+    demandeDevis:"demandeDevis/public",
+    villes:"villes/public",
+    recherche:"recherche/public"
     //campagne:"campagnes/public"
 }
 

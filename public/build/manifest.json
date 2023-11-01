@@ -25,13 +25,19 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-bc71274c.css",
+    "file": "assets/app-01562300.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
       "assets/emc_logo_color-6ffcfc62.png",
       "assets/emc_logo_no_color-931e1315.png",
+      "assets/bf1-b3e06e3a.png",
+      "assets/le_pays-7bde7726.png",
+      "assets/minute.bf-51be628b.png",
+      "assets/rtb-091ad86c.png",
+      "assets/savane_fm-27ee4a89.png",
+      "assets/sidwaya-b77ca5ac.png",
       "assets/gps-e5507b9b.svg",
       "assets/pub_card-b5414e72.png",
       "assets/filtre-842a5333.png",
@@ -43,9 +49,9 @@
       "assets/marker-icon-574c3a5c.png"
     ],
     "css": [
-      "assets/app-bc71274c.css"
+      "assets/app-01562300.css"
     ],
-    "file": "assets/app-d270ca57.js",
+    "file": "assets/app-3ef8416a.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -84,6 +90,30 @@
   "resources/js/src/assets/imgs/pub_card.png": {
     "file": "assets/pub_card-b5414e72.png",
     "src": "resources/js/src/assets/imgs/pub_card.png"
+  },
+  "resources/js/src/assets/partenaires/bf1.png": {
+    "file": "assets/bf1-b3e06e3a.png",
+    "src": "resources/js/src/assets/partenaires/bf1.png"
+  },
+  "resources/js/src/assets/partenaires/le_pays.png": {
+    "file": "assets/le_pays-7bde7726.png",
+    "src": "resources/js/src/assets/partenaires/le_pays.png"
+  },
+  "resources/js/src/assets/partenaires/minute.bf.png": {
+    "file": "assets/minute.bf-51be628b.png",
+    "src": "resources/js/src/assets/partenaires/minute.bf.png"
+  },
+  "resources/js/src/assets/partenaires/rtb.png": {
+    "file": "assets/rtb-091ad86c.png",
+    "src": "resources/js/src/assets/partenaires/rtb.png"
+  },
+  "resources/js/src/assets/partenaires/savane_fm.png": {
+    "file": "assets/savane_fm-27ee4a89.png",
+    "src": "resources/js/src/assets/partenaires/savane_fm.png"
+  },
+  "resources/js/src/assets/partenaires/sidwaya.png": {
+    "file": "assets/sidwaya-b77ca5ac.png",
+    "src": "resources/js/src/assets/partenaires/sidwaya.png"
   },
   "resources/js/src/assets/svg/tv.svg": {
     "file": "assets/tv-1a06eac3.svg",

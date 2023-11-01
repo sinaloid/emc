@@ -22,6 +22,10 @@ class Media extends Model
         return $this->hasMany(MediaProduit::class);
     }
 
+    public function mediaVilles(){
+        return $this->hasMany(MediaVille::class);
+    }
+
     public function mediaTarifs(){
         return $this->hasMany(MediaTarif::class);
     }

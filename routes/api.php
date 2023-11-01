@@ -20,6 +20,8 @@ use App\Http\Controllers\CategorieAbonnementController;
 use App\Http\Controllers\AccompagnementController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\VilleController;
+use App\Http\Controllers\MediaVilleController;
 use App\Http\Controllers\Controller;
 
 /*
@@ -73,6 +75,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('demandeDevis/public', [Controller::class, 'demandeDevis']);
     Route::post('campagnes/public', [CampagneController::class, 'demandeDevis']);
 
+    Route::get('villes/public', [VilleController::class,'index']);
+    Route::post('recherche/public', [MediaProduitController::class, 'recherche']);
+
+
+
 
 
     Route::resources(['abonnements' => AbonnementController::class]);
@@ -108,6 +115,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             'accompagnements' => AccompagnementController::class,
             'messages' => MessageController::class,
             'entreprises' => EntrepriseController::class,
+            'villes' => VilleController::class,
+            'mediaVilles' => MediaVilleController::class,
         ]);
     });
 

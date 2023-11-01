@@ -7,6 +7,8 @@ import request, { URL } from "../../services/request";
 import endPoint from "../../services/endPoint";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import MultiSelect from "../../components/MultiSelect";
 
 const initOffre = {
     slug: "",
@@ -17,16 +19,28 @@ const initOffre = {
     media: "",
 };
 const ListeOffres = () => {
-    const close = useRef();
+    const closeOffre = useRef();
+    const filtreModal = useRef();
     const [datas, setDatas] = useState([]);
     const [medias, setMedias] = useState([]);
     const [viewData, setViewData] = useState(initOffre);
     const viewRef = useRef();
     const nav = useNavigate();
-
+    const [filtres, setFiltres] = useState({
+        categorieID: "",
+        categorieFiltres: [],
+        options: [],
+        selected: "",
+    });
+    const options = [
+        { value: "chocolate", label: "Chocolate" },
+        { value: "strawberry", label: "Strawberry" },
+        { value: "vanilla", label: "Vanilla" },
+    ];
     useEffect(() => {
         get();
         getCategorie();
+        getFiltre();
     }, []);
     const btnEditProps = {
         "data-bs-target": "#offre",
@@ -76,7 +90,7 @@ const ListeOffres = () => {
                 success: {
                     render({ data }) {
                         console.log(data);
-                        close.current.click();
+                        closeOffre.current.click();
                         get();
                         return data.data.message;
                     },
@@ -120,9 +134,9 @@ const ListeOffres = () => {
                 pending: "Veuillez patienté...",
                 success: {
                     render({ data }) {
-                        console.log(data);
-                        close.current.click();
+                        //console.log(data);
                         get();
+                        closeOffre.current.click();
                         return data.data.message;
                     },
                 },
@@ -144,7 +158,7 @@ const ListeOffres = () => {
                 success: {
                     render({ data }) {
                         console.log(data);
-                        close.current.click();
+                        closeOffre.current.click();
                         get();
                         return data.data.message;
                     },
@@ -153,6 +167,75 @@ const ListeOffres = () => {
                     render({ data }) {
                         console.log(data);
                         return data.response.data.errors;
+                    },
+                },
+            }
+        );
+    };
+
+    const getFiltre = () => {
+        request
+            .get(endPoint.categorieFiltres)
+            .then((res) => {
+                setFiltres({
+                    ...filtres,
+                    categorieFiltres: res.data.data,
+                });
+                //console.log(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const postFiltre = async (e) => {
+        e.preventDefault();
+        const filtreData = {
+            mediaProduit: viewData.slug,
+            filtre: filtres.selected,
+        };
+        const response = await toast.promise(
+            request.post(endPoint.mediaProduitOptions, filtreData),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data.data.data);
+
+                        //viewRef.current.click();
+                        closeOffre.current.click();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.message;
+                    },
+                },
+            }
+        );
+    };
+
+    const deleteFiltre = async (e,slug) => {
+        e.preventDefault();
+        
+        const response = await toast.promise(
+            request.delete(endPoint.mediaProduitOptions+"/"+slug),
+            {
+                pending: "Veuillez patienté...",
+                success: {
+                    render({ data }) {
+                        console.log(data.data.data);
+
+                        //viewRef.current.click();
+                        closeOffre.current.click();
+                        return data.data.message;
+                    },
+                },
+                error: {
+                    render({ data }) {
+                        console.log(data);
+                        return data.response.data.message;
                     },
                 },
             }
@@ -233,7 +316,7 @@ const ListeOffres = () => {
                                         </td>
                                         <td>{data.name}</td>
                                         <td>{data.media?.name}</td>
-                                        <td>{data.price+" FCFA"}</td>
+                                        <td>{data.price + " FCFA"}</td>
                                         <td>
                                             <p className="text-container">
                                                 {data.description}
@@ -275,22 +358,24 @@ const ListeOffres = () => {
                                         type={"text"}
                                         name={"name"}
                                         label={"Libellé"}
-                                        placeholder={"Entrez le libellé de l'offre"}
+                                        placeholder={
+                                            "Entrez le libellé de l'offre"
+                                        }
                                         formik={formik}
                                     />
                                     <Input
                                         type={"text"}
                                         name={"price"}
                                         label={"Prix de l'offre"}
-                                        placeholder={"Entrez le prix de l'offre"}
+                                        placeholder={
+                                            "Entrez le prix de l'offre"
+                                        }
                                         formik={formik}
                                     />
                                     <Input
                                         type={"select"}
                                         name={"media"}
-                                        placeholder={
-                                            "Sélectionnez un média"
-                                        }
+                                        placeholder={"Sélectionnez un média"}
                                         label={"Média li l'offre"}
                                         formik={formik}
                                         options={medias}
@@ -318,7 +403,7 @@ const ListeOffres = () => {
                                         type="reset"
                                         className="btn btn-tertiary"
                                         data-bs-dismiss="modal"
-                                        ref={close}
+                                        ref={closeOffre}
                                     >
                                         Annuler
                                     </button>
@@ -367,31 +452,207 @@ const ListeOffres = () => {
                                     </div>
                                     <div className="col-12 col-md-8">
                                         <div className="d-flex align-items-center">
-                                        <h2 className="me-auto">
-                                            {viewData.name}
-                                        </h2>
-                                        <span className="px-2 fw-bold bg-danger text-white">Prix : {viewData.price +" FCFA"}</span>
-                                    </div>
-                                        <p>Média: <span className="fw-bold">{viewData.media?.name}</span> </p>
+                                            <h2 className="me-auto">
+                                                {viewData.name}
+                                            </h2>
+                                            <span className="px-2 fw-bold bg-danger text-white">
+                                                Prix :{" "}
+                                                {viewData.price + " FCFA"}
+                                            </span>
+                                        </div>
+                                        <p>
+                                            Média:{" "}
+                                            <span className="fw-bold">
+                                                {viewData.media?.name}
+                                            </span>{" "}
+                                        </p>
                                         <p>{viewData.description}</p>
                                         <p>
-                                        <p>
-                                        Média ajouté
-                                        <span className="fw-bold">
-                                            {" le " +
-                                                new Date(
-                                                    viewData.created_at
-                                                ).toLocaleDateString() +
-                                                " à " +
-                                                new Date(
-                                                    viewData.created_at
-                                                ).toLocaleTimeString()}
-                                        </span>
-                                    </p>
+                                            <p>
+                                                Média ajouté
+                                                <span className="fw-bold">
+                                                    {" le " +
+                                                        new Date(
+                                                            viewData.created_at
+                                                        ).toLocaleDateString() +
+                                                        " à " +
+                                                        new Date(
+                                                            viewData.created_at
+                                                        ).toLocaleTimeString()}
+                                                </span>
+                                            </p>
                                         </p>
+                                        <p className="mb-0 fw-bold">
+                                            Filtres du produit:{" "}
+                                        </p>
+                                        <div className="ps-3 w-70">
+                                            {viewData?.media_produit_options?.map(
+                                                (item) => {
+                                                    if(item.is_deleted){
+                                                        return
+                                                    }
+                                                    return (
+                                                        <div
+                                                            className="d-flex"
+                                                            key={item.slug}
+                                                        >
+                                                            <div>
+                                                                <span>
+                                                                    {item.filtre
+                                                                        ?.categorie_filtre
+                                                                        ?.name +
+                                                                        " : "}
+                                                                </span>
+                                                                <span className="text-primary">
+                                                                    {
+                                                                        item
+                                                                            .filtre
+                                                                            ?.name
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                            <div className="ms-auto text-primary cursor" onClick={e => deleteFiltre(e, item.slug)}>
+                                                                supprimer
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+                                        <div className="mt-3">
+                                            <span
+                                                className="bg-primary text-white p-1 rounded-1"
+                                                style={{ cursor: "pointer" }}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    closeOffre.current.click();
+                                                    //formikFile.setFieldValue("slug",viewData.slug)
+                                                    filtreModal.current.click();
+                                                }}
+                                            >
+                                                Ajouter un filtre
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    ref={filtreModal}
+                    type="hidden"
+                    data-bs-toggle="modal"
+                    data-bs-target="#filtre"
+                />
+                <div className="modal fade" id="filtre">
+                    <div className="modal-dialog modal-dialog-centered modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header border-0">
+                                <h4 className="modal-title text-meduim text-bold">
+                                    Ajouter un filtre
+                                </h4>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                ></button>
+                            </div>
+                            <form onSubmit={formik.handleSubmit}>
+                                <div className="modal-body">
+                                    <div className="mb-3">
+                                        <select
+                                            className="form-select"
+                                            id={"categorieFiltre"}
+                                            onChange={(e) => {
+                                                const tab =
+                                                    filtres.categorieFiltres[
+                                                        e.target.value
+                                                    ].filtres.map((data) => {
+                                                        return {
+                                                            value: data.slug,
+                                                            label: data.name,
+                                                        };
+                                                    });
+                                                setFiltres({
+                                                    ...filtres,
+                                                    categorieID: e.target.value,
+                                                    options: tab,
+                                                });
+                                                console.log(tab);
+                                            }}
+                                            value={filtres.categorieID}
+                                        >
+                                            <option value={""}>
+                                                {
+                                                    "Sélectionnez une catégorie filtre"
+                                                }
+                                            </option>
+                                            {filtres.categorieFiltres.map(
+                                                (data, idx) => {
+                                                    return (
+                                                        <option
+                                                            value={idx}
+                                                            key={data + idx}
+                                                        >
+                                                            {data.name}
+                                                        </option>
+                                                    );
+                                                }
+                                            )}
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <select
+                                            className="form-select"
+                                            onChange={(e) => {
+                                                setFiltres({
+                                                    ...filtres,
+                                                    selected: e.target.value,
+                                                });
+                                                // console.log(tab);
+                                            }}
+                                            value={filtres.selected}
+                                        >
+                                            <option value={""}>
+                                                {"Sélectionnez un filtre"}
+                                            </option>
+                                            {filtres.options.map(
+                                                (data, idx) => {
+                                                    return (
+                                                        <option
+                                                            value={data.value}
+                                                            key={
+                                                                data.value + idx
+                                                            }
+                                                        >
+                                                            {data.label}
+                                                        </option>
+                                                    );
+                                                }
+                                            )}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="modal-footer d-flex justify-content-start border-0">
+                                    <button
+                                        type="reset"
+                                        className="btn btn-tertiary"
+                                        data-bs-dismiss="modal"
+                                        ref={closeOffre}
+                                    >
+                                        Annuler
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-tertiary-full"
+                                        onClick={(e) => postFiltre(e)}
+                                    >
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

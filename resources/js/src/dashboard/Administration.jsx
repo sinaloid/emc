@@ -13,6 +13,7 @@ import TabAttestation from "./components/TabAttestation";
 import TabCategorieAbonnement from "./components/TabCategorieAbonnement";
 import { AppContext } from "../services/context";
 import { useNavigate } from "react-router-dom";
+import TabVille from "./components/TabVille";
 
 const Administration = () => {
     const appCtx = useContext(AppContext);
@@ -61,6 +62,7 @@ const Administration = () => {
         "accompagnement",
         "attestation",
         "abonnement",
+        "ville",
     ];
 
     useEffect(() => {
@@ -195,6 +197,19 @@ const Administration = () => {
                                     Filtres
                                 </button>
                                 <button
+                                    className="nav-link dash-link text-start"
+                                    id="v-pills-disabled-tab"
+                                    data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-disabled"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="v-pills-disabled"
+                                    aria-selected="false"
+                                    onClick={(e) => changeTab(e, view[9])}
+                                >
+                                    Villes médias
+                                </button>
+                                <button
                                     className="nav-link dash-link active text-start"
                                     id="v-pills-home-tab"
                                     data-bs-toggle="pill"
@@ -262,6 +277,7 @@ const Administration = () => {
                         {tabView === view[6] && <TabAccompagnement setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[7] && <TabAttestation setRestForm={setRestForm} setBtnName={setBtnName} />}
                         {tabView === view[8] && <TabAbonnement setRestForm={setRestForm} setBtnName={setBtnName} />}
+                        {tabView === view[9] && <TabVille setRestForm={setRestForm} setBtnName={setBtnName} />}
                     </div>
                 </div>
             </div>
