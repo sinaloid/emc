@@ -11,7 +11,7 @@ export const BanierContent = ({ title, secondTitle, content, children }) => {
                     </span>
                 )}
             </div>
-            <div className="col-12 col-md-8 py-2">
+            <div className="col-12 col-md-12 py-2">
                 <p className="pt-2">{content}</p>
             </div>
             <div className="col-12 col-md-8">

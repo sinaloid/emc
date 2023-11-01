@@ -19,7 +19,7 @@ import sidwaya from "../assets/partenaires/sidwaya.png";
 
 const Page = ({ children }) => {
     const navigate = useNavigate();
-    const logos = [bf1, le_pays, minute, rtb, savane_fm, sidwaya];
+    const logos = [bf1, le_pays, minute, rtb, savane_fm, sidwaya,bf1, le_pays];
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);

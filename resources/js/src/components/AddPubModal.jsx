@@ -16,6 +16,7 @@ const AddPuBModal = ({
     data = {},
     update = false,
     callback = () => {},
+    setList = () => {},
     idx,
 }) => {
     const appCtx = useContext(AppContext);
@@ -35,9 +36,11 @@ const AddPuBModal = ({
         initialValues: initData,
         onSubmit: (values) => {
             values.dates = dates
-            //console.log(values);
+            console.log("values");
             
             if(update){
+            console.log(values);
+
                 updateValue(values)
             }else{
                 ajoutPanier(values);
@@ -60,16 +63,16 @@ const AddPuBModal = ({
 
     const updateValue = (values) => {
         const campagnes = getCampagne();
-        const tab = campagnes.filter(
-            (item) => item.slug !== values.slug && item
-        );
-
-        const val = [...tab, values]
-        setCampagne(val);
+        const editData = campagnes[idx]
+        editData.dates = values.dates
+        console.log(editData)
+        campagnes[idx] = editData
+        setCampagne(campagnes);
+        setList(campagnes)
 
         onUserChange({
             ...user,
-            panier: val.length
+            panier: campagnes.length
         })
     };
 
@@ -147,10 +150,7 @@ const AddPuBModal = ({
                                         className="btn btn-secondary mt-3"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
-                                        onClick={
-                                            update
-                                                ? callback()
-                                                : formik.handleSubmit
+                                        onClick={formik.handleSubmit
                                         }
                                     >
                                         Ajouter au panier

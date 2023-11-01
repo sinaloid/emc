@@ -14,7 +14,7 @@ const Footer = () => {
                     <LogoForFooter />
                 </div>
                 <div className="row pb-3">
-                    <div className="col col-md-6">
+                    <div className="col col-md-6 pe-lg-5">
                         <p className="text-justify1">
                             Elite Media Connect (EMC) est une plateforme
                             digitale de vente de services des medias. Elle a

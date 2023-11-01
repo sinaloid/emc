@@ -156,7 +156,7 @@ const TabFiltre = ({ setBtnName = () => {}, setRestForm }) => {
             }
         );
     };
-
+ 
     const editData = (data) => {
         console.log(data);
         setViewData(data);

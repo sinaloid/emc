@@ -5,17 +5,20 @@ import { listLink } from "../utils/listLink";
 import Delete from "../components/imgs/Delete";
 import Footer from "../components/Footer";
 import LoginModal from "../components/LoginModal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCampagne, setCampagne } from "../services/storage";
 import { formatDate } from "../services/function";
 import AddPuBModal from "../components/addPubModal";
 import AddPubComfirmationModal from "../components/AddPubComfirmationModal";
 import CampagneModal from "../components/CampagneModal";
+import { AppContext } from "../services/context";
 
 const Panier = () => {
     const [list, setList] = useState([]);
     const [selectedData, setSelectedData] = useState({});
     const [id, setId] = useState();
+    const appCtx = useContext(AppContext);
+    const { user, onUserChange } = appCtx;
 
     useEffect(() => {
         getCampagneList();
@@ -32,6 +35,10 @@ const Panier = () => {
         const tab = list.filter((data, idx) => idx !== id && data);
         setList(tab);
         setCampagne(tab);
+        onUserChange({
+            ...user,
+            panier: tab.length
+        })
     };
     return (
         <>
@@ -97,10 +104,12 @@ const Panier = () => {
                                         </button>
                                         <Link
                                             to={listLink.index}
-                                            type="button"
-                                            className="btn btn-secondary mb-3"
+                                            className="text-decoration-none text-primary"
                                         >
+                                            <button type="button"
+                                        className="btn btn-secondary mb-3">
                                             Continuer mes achats
+                                            </button>
                                         </Link>
                                     </div>
                                 )}
@@ -113,6 +122,7 @@ const Panier = () => {
                             idx={id}
                             update={true}
                             callBack={deleteProduit}
+                            setList={setList}
                         />
                         <AddPubComfirmationModal data={selectedData} />
                     </div>

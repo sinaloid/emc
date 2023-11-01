@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { listLink } from "../utils/listLink";
 import InputField from "./InputField";
 import { URL } from "../services/request";
+import { useContext } from "react";
+import { AppContext } from "../services/context";
 
 const AddPubComfirmationModal = ({ data }) => {
+    const appCtx = useContext(AppContext);
+    const { user } = appCtx;
     const navigate = useNavigate();
     console.log(data);
     return (
@@ -25,7 +29,7 @@ const AddPubComfirmationModal = ({ data }) => {
                     <div className="modal-body">
                         <div className="row">
                             <div className="col-md-12 text-center mx-auto">
-                                <span>Il y a 1 produit dans votre panier</span>
+                                <span>Il y a {user.panier ? user.panier : "0 "} produit dans votre panier</span>
                                 <h2>{data.name}</h2>
                             </div>
                             <div className="col-md-10 mx-auto">
@@ -45,17 +49,21 @@ const AddPubComfirmationModal = ({ data }) => {
                                         Média :
                                     </span>
                                     <span> {data?.media?.name}</span> <br />
-                                    <span className="fw-bold">
+                                    {
+                                        /**
+                                         * <span className="fw-bold">
                                         Disponibilité :
                                     </span>
                                     <span> {data.status !== null ? <>à partir du 26 juin 2021</>:<> Immédiate</>}</span>{" "}
                                     <br />
+                                         */
+                                    }
                                 </div>
                             </div>
                             <div className="col-md-10 mx-auto">
                                 <button
                                     type="button"
-                                    className="btn btn-secondary mb-3 me-1"
+                                    className="btn btn-primary mb-3 me-1"
                                     data-bs-dismiss="modal"
                                     onClick={(e) => {
                                         e.preventDefault();

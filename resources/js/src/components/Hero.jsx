@@ -58,7 +58,7 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
                     médiatiques, reportages, etc).
                 </p>
                 <div className="row mt-5">
-                    <div className="col-10 col-md-8 col-lg-7 mx-auto">
+                    <div className="col-10 col-md-10 col-lg-8 mx-auto">
                         <div className="input-group mb-3">
                             <div class="btn-group bg-gray">
                                 <button
