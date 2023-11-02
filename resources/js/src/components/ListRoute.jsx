@@ -18,7 +18,7 @@ import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
 import Dashboard from "../pages/Dashboard";
 import Compte from "../pages/Compte";
-import Paiement from "../dashboard/Paiement";
+import MesPaiement from "../dashboard/MesPaiement";
 import DevisDash from "../dashboard/DevisDash";
 import Administration from "../dashboard/Administration";
 import MesMedias from "../dashboard/MesMedias";
@@ -343,7 +343,7 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_paiement,
-        Element: <Paiement />,
+        Element: <MesPaiement />,
     },
     {
         path: listLink.dashboard_support_,

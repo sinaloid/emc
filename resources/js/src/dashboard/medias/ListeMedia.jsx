@@ -8,6 +8,10 @@ import endPoint from "../../services/endPoint";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import MultiSelect from "../../components/MultiSelect";
+import { pagination } from "../../services/function";
+import Search from "../../components/imgs/Search";
+import FlecheSuiv from "../../components/imgs/FlecheSuiv";
+import FlechePrec from "../../components/imgs/FlechePrec";
 
 const initMedia = {
     slug: "",
@@ -33,6 +37,12 @@ const ListeMedia = () => {
     const viewRef = useRef();
     const tarifRef = useRef();
     const nav = useNavigate();
+    const [list, setList] = useState([]);
+    const [pages, setPages] = useState({
+        list: [],
+        counter: 0,
+    });
+    const [currentIndex, setCurrentIndex] = useState(0);
     const periods = [
         { slug: "Jour", name: "Jour" },
         { slug: "Semaine", name: "Semaine" },
@@ -81,8 +91,16 @@ const ListeMedia = () => {
         request
             .get(endPoint.medias)
             .then((res) => {
-                setDatas(res.data.data);
-                console.log(res.data.data);
+                let lst = res.data.data;
+                lst = pagination(lst, 10);
+                setPages(lst);
+                if (lst.list.length !== 0) {
+                    setDatas(lst.list[0]);
+                    setList(lst.list[0]);
+                } else {
+                    setDatas([]);
+                    setList([]);
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -210,11 +228,11 @@ const ListeMedia = () => {
             });
     };
 
-    const deleteMediaVille = async (e,slug) => {
+    const deleteMediaVille = async (e, slug) => {
         e.preventDefault();
-        
+
         const response = await toast.promise(
-            request.delete(endPoint.mediaVilles+"/"+slug),
+            request.delete(endPoint.mediaVilles + "/" + slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -305,86 +323,170 @@ const ListeMedia = () => {
         formikTarif.setFieldValue("price", data.price);
         formikTarif.setFieldValue("period", data.period);
     };
-
+    const changePages = (e, idx) => {
+        e.preventDefault();
+        console.log(idx);
+        if (idx >= 0 && idx <= pages.counter - 1) {
+            setDatas(pages.list[idx]);
+            setList(pages.list[idx]);
+            setCurrentIndex(idx);
+        }
+    };
+    const changePagesByIndex = (e, idx) => {
+        e.preventDefault();
+        setCurrentIndex(idx);
+        setDatas(pages.list[idx]);
+        setList(pages.list[idx]);
+    };
     return (
         <>
-            <ContentHeader
-                title={"Mes médias "}
-                firstBtn={
-                    <span onClick={(e) => navigate(e, "")}>
-                        Liste des offres
-                    </span>
-                }
-                secondBtn={
-                    <span onClick={(e) => navigate(e, "/liste-medias")}>
-                        Liste des medias
-                    </span>
-                }
-                addBtn={
-                    <span
-                        data-bs-toggle="modal"
-                        data-bs-target="#media"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            formik.resetForm();
-                        }}
-                    >
-                        Ajouter un media
-                    </span>
-                }
-            />
-
-            <div className="row">
-                <div className="col-12">
-                    <table className="table table-striped">
-                        <thead className="bg-primary text-white">
-                            <tr>
-                                <th>#</th>
-                                <th>Image</th>
-                                <th>Libellé</th>
-                                <th>Catégorie</th>
-                                <th>Tarif</th>
-                                <th className="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {datas.map((data, idx) => {
+            <div className="card p-2 mt-3">
+                <div className="row my-3">
+                    <div className="d-flex">
+                        <div className="me-auto">
+                            <div className="input-group mb-3">
+                                <span
+                                    className="input-group-text h-60"
+                                    id="basic-addon1"
+                                >
+                                    <Search />
+                                </span>
+                                <input
+                                    type="text"
+                                    className="form-control h-60"
+                                    placeholder="Rechercher un devis"
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <button className="btn btn-tertiary h-60 me-2">
+                                <i className="bi bi-plus-circle-fill"></i>{" "}
+                                Ajouter un filtre
+                            </button>
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#formModal"
+                                className="btn h-60"
+                            >
+                                <i class="bi bi-x-lg"></i> {"Tout supprimer"}
+                            </button>
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#media"
+                                className="btn btn-tertiary-full h-60"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    formik.resetForm();
+                                }}
+                            >
+                                Ajouter un media
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <table className="table table-striped">
+                            <thead className="bg-primary text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Libellé</th>
+                                    <th>Catégorie</th>
+                                    <th>Tarif</th>
+                                    <th className="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {datas.map((data, idx) => {
+                                    return (
+                                        <tr key={idx}>
+                                            <td>{idx + 1}</td>
+                                            <td>
+                                                <img
+                                                    width="30px"
+                                                    src={
+                                                        data.image
+                                                            ? URL +
+                                                              "" +
+                                                              data.image
+                                                            : ""
+                                                    }
+                                                    alt=""
+                                                />
+                                            </td>
+                                            <td>{data.name}</td>
+                                            <td>
+                                                {data.categorie_media?.name}
+                                            </td>
+                                            <td>
+                                                <p className="text-container">
+                                                    {data.description}
+                                                </p>
+                                            </td>
+                                            <td className="text-center">
+                                                <ActionButton
+                                                    btnEditProps={btnEditProps}
+                                                    data={data}
+                                                    editData={editData}
+                                                    destroy={destroy}
+                                                    view={view}
+                                                />
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    {list.length !== 0 && (
+                        <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
+                            <button
+                                className="btn btn-pub mx-2"
+                                onClick={(e) =>
+                                    changePages(e, currentIndex - 1)
+                                }
+                            >
+                                <span>
+                                    <FlechePrec />
+                                </span>
+                                <span className="ms-1">Page précédente</span>
+                            </button>
+                            {pages?.list?.map((data, idx) => {
                                 return (
-                                    <tr key={idx}>
-                                        <td>{idx + 1}</td>
-                                        <td>
-                                            <img
-                                                width="30px"
-                                                src={
-                                                    data.image
-                                                        ? URL + "" + data.image
-                                                        : ""
-                                                }
-                                                alt=""
-                                            />
-                                        </td>
-                                        <td>{data.name}</td>
-                                        <td>{data.categorie_media?.name}</td>
-                                        <td>
-                                            <p className="text-container">
-                                                {data.description}
-                                            </p>
-                                        </td>
-                                        <td className="text-center">
-                                            <ActionButton
-                                                btnEditProps={btnEditProps}
-                                                data={data}
-                                                editData={editData}
-                                                destroy={destroy}
-                                                view={view}
-                                            />
-                                        </td>
-                                    </tr>
+                                    <button
+                                        className={`btn ${
+                                            currentIndex === idx
+                                                ? "btn-pub-primary"
+                                                : "btn-pub"
+                                        }  mx-2 px-3`}
+                                        key={"btn" + idx}
+                                        onClick={(e) =>
+                                            changePagesByIndex(e, idx)
+                                        }
+                                    >
+                                        <span>{idx + 1}</span>
+                                    </button>
                                 );
                             })}
-                        </tbody>
-                    </table>
+                            <button
+                                className="btn btn-pub mx-2"
+                                onClick={(e) =>
+                                    changePages(e, currentIndex + 1)
+                                }
+                            >
+                                <span className=" me-1">Page suivante</span>
+                                <span>
+                                    <FlecheSuiv />
+                                </span>
+                            </button>
+                        </div>
+                    )}
                 </div>
+            </div>
+            <div className="row">
                 <div className="modal fade" id="media">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
@@ -515,9 +617,10 @@ const ListeMedia = () => {
                                                     ).toLocaleTimeString()}
                                             </span>
                                         </p>
-                                        <p className="m-0">Liste des villes du média</p>
+                                        <p className="m-0">
+                                            Liste des villes du média
+                                        </p>
                                         <div className="ps-3 w-70">
-                                            
                                             {viewData?.media_villes?.map(
                                                 (item) => {
                                                     if (item.is_deleted) {
