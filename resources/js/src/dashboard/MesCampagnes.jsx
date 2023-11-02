@@ -1,23 +1,20 @@
-import { useState } from "react";
-
-import Document from "./tdb/Document";
+import {useState } from "react";
 import Campagne from "./tdb/Campagne";
-import Devis from "./tdb/Devis";
 
-const initDevis = {};
-const TableauDeBord = () => {
+
+const initCampagne = {};
+const MesCampagnes = () => {
     const menu = [
-        "Derniers devis demandés",
+        "Campagnes en attente",
         "Campagnes en cours",
-        "Campagnes en attente de paiement",
-        "Derniers documents",
+        "Campagnes en terminer",
     ];
     const [activeMenu, setActiveMenu] = useState(menu[0]);
 
     return (
         <>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <h1 className="h2 me-auto">Tableau de bord</h1>
+                <h1 className="h2 me-auto">Mes campagnes</h1>
             </div>
             <div className="d-flex">
                 {menu.map((data, idx) => {
@@ -25,7 +22,8 @@ const TableauDeBord = () => {
                         <div
                             key={"menu" + idx}
                             className={`me-4 mb-3 cursor ${
-                                activeMenu === data && "text-primary"
+                                activeMenu === data &&
+                                "text-primary"
                             }`}
                             onClick={(e) => {
                                 e.preventDefault();
@@ -37,12 +35,11 @@ const TableauDeBord = () => {
                     );
                 })}
             </div>
-            {activeMenu === menu[0] && <Devis />}
+            {activeMenu === menu[0] && <Campagne status={"0"} />}
             {activeMenu === menu[1] && <Campagne status={"1"} />}
-            {activeMenu === menu[2] && <Campagne status={"0"} />}
-            {activeMenu === menu[3] && <Document />}
+            {activeMenu === menu[2] && <Campagne status={"2"} />}
         </>
     );
 };
 
-export default TableauDeBord;
+export default MesCampagnes;

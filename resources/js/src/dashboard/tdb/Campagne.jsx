@@ -12,7 +12,7 @@ import FlecheSuiv from "../../components/imgs/FlecheSuiv";
 import { pagination } from "../../services/function";
 
 const initCampagne = {};
-const CampagneEnCour = ({status}) => {
+const Campagne = ({status}) => {
     const close = useRef();
     const [datas, setDatas] = useState([]);
     const [list, setList] = useState([]);
@@ -460,4 +460,4 @@ const CampagneEnCour = ({status}) => {
     );
 };
 
-export default CampagneEnCour;
+export default Campagne;

@@ -198,7 +198,7 @@ class CampagneController extends Controller
 
     public function getFile ()
     {
-        $data = $user = Auth::user()->with("campagnes.publicites.publiciteDocs", "campagnes.devis.devisDocs", "messages.messageDocs")->first();
+        $data = $user = Auth::user()->with("campagnes.campagneDocs","campagnes.publicites.publiciteDocs", "campagnes.devis.devisDocs", "messages.messageDocs")->first();
         //dd($data);
         if (!$data) {
             return response()->json(['message' => 'Aucune campagne trouvé'], 404);

@@ -10,7 +10,7 @@ import FlecheSuiv from "../../components/imgs/FlecheSuiv";
 import FlechePrec from "../../components/imgs/FlechePrec";
 
 const initCategorie = {};
-const Document = () => {
+const Document = ({ type = "campagnes" }) => {
     const close = useRef();
     const [datas, setDatas] = useState([]);
     const [list, setList] = useState([]);
@@ -46,8 +46,13 @@ const Document = () => {
         request
             .get(endPoint.campagnes + "/docs")
             .then((res) => {
-                console.log(res.data)
-                const lst = pagination(res.data.data.campagnes, 10);
+                console.log(res.data);
+                let lst = [];
+                if (type === "messages") {
+                    lst = pagination(res.data.data.messages, 10);
+                } else {
+                    lst = pagination(res.data.data.campagnes, 10);
+                }
                 setPages(lst);
                 if (lst.list.length !== 0) {
                     setDatas(lst.list[0]);
@@ -223,65 +228,124 @@ const Document = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/*datas.campagnes?.map((data, idx) => {
-                                return data.publicites.map((pub) => {
-                                    return pub.publicite_docs.map((pubDoc) => {
-                                        return (
-                                            <tr key={idx}>
-                                                <td>{idx + 1}</td>
-                                                <td>{pubDoc.name}</td>
-                                                <td>Publicité</td>
-                                                <td>{pubDoc.created_at && new Date(pubDoc.created_at).toLocaleString()}</td>
-                                                <td>
-                                                <a href={URL+""+pubDoc.url} className="badge text-bg-success">
-                                                            Télécharger
-                                                        </a>
-                                                </td>
-                                                {
-                                                    <td className="text-center">
-                                                    <ActionButton />
-                                                </td> 
-                                                }
-                                            </tr>
+                            {type === "campagnes" &&
+                                    list?.map((data, idx) => {
+                                        return data.campagne_docs.map(
+                                            (devDoc) => {
+                                                return (
+                                                    <tr key={idx}>
+                                                        <td>{idx + 1}</td>
+                                                        <td>
+                                                            {devDoc.name}
+                                                        </td>
+                                                        <td>Devis</td>
+                                                        <td>
+                                                            {devDoc.created_at &&
+                                                                new Date(
+                                                                    devDoc.created_at
+                                                                ).toLocaleString()}
+                                                        </td>
+                                                        <td>
+                                                            <a
+                                                                href={
+                                                                    URL +
+                                                                    "" +
+                                                                    devDoc.url
+                                                                }
+                                                                className="badge text-bg-success"
+                                                            >
+                                                                Télécharger
+                                                            </a>
+                                                        </td>
+                                                        {/**<td className="text-center">
+                                                <ActionButton />
+                                            </td> */}
+                                                    </tr>
+                                                );
+                                            }
                                         );
-                                    })
-                                })
-                            })*/}
-                                {list?.map((data, idx) => {
-                                    return data.devis.map((dev) => {
-                                        return dev.devis_docs.map((devDoc) => {
-                                            return (
-                                                <tr key={idx}>
-                                                    <td>{idx + 1}</td>
-                                                    <td>{devDoc.name}</td>
-                                                    <td>Devis</td>
-                                                    <td>
-                                                        {devDoc.created_at &&
-                                                            new Date(
-                                                                devDoc.created_at
-                                                            ).toLocaleString()}
-                                                    </td>
-                                                    <td>
-                                                        <a
-                                                            href={
-                                                                URL +
-                                                                "" +
-                                                                devDoc.url
+                                    })}
+                                {type === "publicites" &&
+                                    list?.map((data, idx) => {
+                                        return data.publicites.map((pub) => {
+                                            return pub.publicite_docs.map(
+                                                (pubDoc) => {
+                                                    return (
+                                                        <tr key={idx}>
+                                                            <td>{idx + 1}</td>
+                                                            <td>
+                                                                {pubDoc.name}
+                                                            </td>
+                                                            <td>Publicité</td>
+                                                            <td>
+                                                                {pubDoc.created_at &&
+                                                                    new Date(
+                                                                        pubDoc.created_at
+                                                                    ).toLocaleString()}
+                                                            </td>
+                                                            <td>
+                                                                <a
+                                                                    href={
+                                                                        URL +
+                                                                        "" +
+                                                                        pubDoc.url
+                                                                    }
+                                                                    className="badge text-bg-success"
+                                                                >
+                                                                    Télécharger
+                                                                </a>
+                                                            </td>
+                                                            {
+                                                                <td className="text-center">
+                                                                    <ActionButton />
+                                                                </td>
                                                             }
-                                                            className="badge text-bg-success"
-                                                        >
-                                                            Télécharger
-                                                        </a>
-                                                    </td>
-                                                    {/**<td className="text-center">
-                                                    <ActionButton />
-                                                </td> */}
-                                                </tr>
+                                                        </tr>
+                                                    );
+                                                }
                                             );
                                         });
-                                    });
-                                })}
-                                {/*datas.messages?.map((data, idx) => {
+                                    })}
+                                {type === "devis" &&
+                                    list?.map((data, idx) => {
+                                        return data.devis.map((dev) => {
+                                            return dev.devis_docs.map(
+                                                (devDoc) => {
+                                                    return (
+                                                        <tr key={idx}>
+                                                            <td>{idx + 1}</td>
+                                                            <td>
+                                                                {devDoc.name}
+                                                            </td>
+                                                            <td>Devis</td>
+                                                            <td>
+                                                                {devDoc.created_at &&
+                                                                    new Date(
+                                                                        devDoc.created_at
+                                                                    ).toLocaleString()}
+                                                            </td>
+                                                            <td>
+                                                                <a
+                                                                    href={
+                                                                        URL +
+                                                                        "" +
+                                                                        devDoc.url
+                                                                    }
+                                                                    className="badge text-bg-success"
+                                                                >
+                                                                    Télécharger
+                                                                </a>
+                                                            </td>
+                                                            {/**<td className="text-center">
+                                                    <ActionButton />
+                                                </td> */}
+                                                        </tr>
+                                                    );
+                                                }
+                                            );
+                                        });
+                                    })}
+                                {/*type === "messages" && list.map((data, idx) => {
                                     return data.message_docs.map((msg) => {
                                         return (
                                             <tr key={idx}>
@@ -306,7 +370,7 @@ const Document = () => {
                                                 </td>
                                                 {/**<td className="text-center">
                                         <ActionButton />
-                                    </td> *}
+                                                    </td> *}
                                             </tr>
                                         );
                                     });

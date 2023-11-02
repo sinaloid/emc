@@ -1,29 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import ActionButton from "../../components/ActionButton";
 import { useFormik } from "formik";
-import request, { URL } from "../../services/request";
+import request, { URL, URL_ } from "../../services/request";
 import endPoint from "../../services/endPoint";
 import { toast } from "react-toastify";
 import Input from "../../components/Input";
+import { useNavigate } from "react-router-dom";
 import Search from "../../components/imgs/Search";
 import { pagination } from "../../services/function";
 import FlechePrec from "../../components/imgs/FlechePrec";
 import FlecheSuiv from "../../components/imgs/FlecheSuiv";
 
 const initDevis = {};
-const DevisDemande = () => {
+const Devis = ({ statusDevis }) => {
     const close = useRef();
     const [datas, setDatas] = useState([]);
+    const [viewData, setViewData] = useState(initDevis);
+    const viewRef = useRef();
+    const fileModal = useRef();
+    const listStatut = ["En attente", "Refuser", "Accepter"];
     const [list, setList] = useState([]);
     const [pages, setPages] = useState({
         list: [],
         counter: 0,
     });
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [viewData, setViewData] = useState(initDevis);
-    const viewRef = useRef();
-    const fileModal = useRef();
-    const listStatut = ["En attente", "En cours", "Terminer"];
+    const navigate = useNavigate();
     useEffect(() => {
         get();
     }, []);
@@ -42,11 +44,14 @@ const DevisDemande = () => {
 
     const get = () => {
         request
-            .get(endPoint.publicites)
+            .get(endPoint.devis)
             .then((res) => {
-               
-                //console.log(res.data.data);
-                const lst = pagination(res.data.data, 10);
+                let lst = res.data.data;
+                if (statusDevis) {
+                    lst = lst.filter((item) => item.status === statusDevis);
+                    console.log(lst);
+                }
+                lst = pagination(lst, 10);
                 setPages(lst);
                 if (lst.list.length !== 0) {
                     setDatas(lst.list[0]);
@@ -62,7 +67,7 @@ const DevisDemande = () => {
     };
     const post = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.publicites, values),
+            request.post(endPoint.devis, values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -84,7 +89,7 @@ const DevisDemande = () => {
     };
     const view = async (values) => {
         const response = await toast.promise(
-            request.get(endPoint.publicites + "/" + values.slug),
+            request.get(endPoint.devis + "/" + values.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -107,7 +112,7 @@ const DevisDemande = () => {
 
     const update = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.publicites + "/" + values.slug, values),
+            request.post(endPoint.devis + "/" + values.slug, values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -130,7 +135,7 @@ const DevisDemande = () => {
 
     const destroy = async (values) => {
         const response = await toast.promise(
-            request.delete(endPoint.publicites + "/" + values.slug),
+            request.delete(endPoint.devis + "/" + values.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -153,7 +158,7 @@ const DevisDemande = () => {
 
     const status = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.publicites + "/" + values.slug, values),
+            request.post(endPoint.devis + "/" + values.slug, values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -185,7 +190,6 @@ const DevisDemande = () => {
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("description", data.description);
     };
-
     const formikFile = useFormik({
         initialValues: { files: "" },
         onSubmit: (values) => {
@@ -197,7 +201,7 @@ const DevisDemande = () => {
 
     const postFile = async (values) => {
         const response = await toast.promise(
-            request.post(endPoint.publicites + "/docs", values),
+            request.post(endPoint.devis + "/docs", values),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -218,6 +222,18 @@ const DevisDemande = () => {
         );
     };
 
+    const paiement = (e, viewData) => {
+        e.preventDefault();
+
+        if (false) {
+            close.current.click();
+            formikFile.setFieldValue("slug", viewData.slug);
+            fileModal.current.click();
+        } else {
+            //navigate("/paiement/public/"+viewData.slug)
+            window.location.href(URL + "paiement/public/" + viewData.slug);
+        }
+    };
     const changePages = (e, idx) => {
         e.preventDefault();
         console.log(idx);
@@ -272,33 +288,34 @@ const DevisDemande = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-striped">
+                        <table class="table table-striped">
                             <thead className="bg-primary text-white">
                                 <tr>
                                     <th>#</th>
-                                    <th>Nom de la campagne</th>
-                                    <th>Type de publicité</th>
-                                    <th>publicité</th>
-                                    <th>Date de création</th>
-                                    <th>État</th>
+                                    <th>N° Devis</th>
+                                    <th>Date de la demande</th>
+                                    <th>Estimation du Coût</th>
+                                    <th>État du devis</th>
                                     <th className="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {list.map((data, idx) => {
+                                {datas.map((data, idx) => {
                                     return (
                                         <tr key={idx}>
                                             <td>{idx + 1}</td>
-                                            <td>{data.campagne.name}</td>
-                                            <td>
-                                                {data.media_produit.media.name}
-                                            </td>
-                                            <td>{data.media_produit.name}</td>
-
+                                            <td>{data.reference}</td>
                                             <td>
                                                 {new Date(
                                                     data.created_at
                                                 ).toLocaleString()}
+                                            </td>
+
+                                            <td>
+                                                {parseFloat(
+                                                    (data.price * 18) / 100
+                                                ) + parseFloat(data.price)}{" "}
+                                                FCFA
                                             </td>
                                             <td>
                                                 {data.status &&
@@ -364,6 +381,7 @@ const DevisDemande = () => {
                     )}
                 </div>
             </div>
+
             <button
                 ref={viewRef}
                 data-bs-toggle="modal"
@@ -375,7 +393,7 @@ const DevisDemande = () => {
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Détails de la publicité
+                                Détails du devis
                             </h4>
                             <button
                                 type="button"
@@ -391,7 +409,7 @@ const DevisDemande = () => {
                                 <div className="col-12 col-md-8">
                                     <div className="d-flex align-items-center">
                                         <h2 className="me-auto">
-                                            {viewData.media_produit?.name}
+                                            {viewData.reference}
                                         </h2>
                                         <span
                                             className={`px-2 fw-bold ${
@@ -400,86 +418,89 @@ const DevisDemande = () => {
                                                     : "bg-danger text-white"
                                             }`}
                                         >
-                                            Publicité :{" "}
+                                            Devis :{" "}
                                             {viewData.status &&
                                                 listStatut[viewData.status]}
                                         </span>
                                     </div>
                                     <p>
-                                        Campagne:{" "}
+                                        Prix HT:{" "}
                                         <span className="fw-bold">
-                                            {viewData?.campagne?.name}
+                                            {viewData?.price + " FCFA"}
                                         </span>
                                     </p>
                                     <p>
-                                        Type de publicité:{" "}
+                                        TVA 18%:{" "}
                                         <span className="fw-bold">
-                                            {
-                                                viewData?.media_produit?.media
-                                                    ?.name
-                                            }
+                                            {(viewData?.price * 18) / 100 +
+                                                " FCFA"}
                                         </span>
                                     </p>
                                     <p>
-                                        Date de création:{" "}
+                                        Prix TTC:{" "}
                                         <span className="fw-bold">
-                                            {viewData?.created_at &&
-                                                new Date(
-                                                    viewData?.created_at
-                                                ).toLocaleString()}
+                                            {parseFloat(
+                                                (viewData?.price * 18) / 100
+                                            ) +
+                                                parseFloat(viewData?.price) +
+                                                " FCFA"}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        Date de debut:{" "}
+                                        <span className="fw-bold">
+                                            {viewData?.startDate}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        Date de fin:{" "}
+                                        <span className="fw-bold">
+                                            {viewData?.endDate}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        Description:{" "}
+                                        <span className="fw-bold">
+                                            {viewData?.description}
                                         </span>
                                     </p>
                                     <p className="mb-0 fw-bold">
-                                        Dates de diffusion:{" "}
+                                        Historique des devis:{" "}
                                     </p>
                                     <div className="ps-3">
-                                        {viewData?.media_produit?.periodes?.map(
-                                            (item) => {
-                                                return (
-                                                    <span key={item.slug}>
-                                                        Diffusion le :{" "}
-                                                        <span
-                                                            className="text-primary p-1 rounded-1 me-2"
-                                                            target="blank"
-                                                        >
-                                                            {new Date(
-                                                                item.date
-                                                            ).toLocaleDateString()}
-                                                        </span>{" "}
-                                                        <br />
-                                                    </span>
-                                                );
-                                            }
-                                        )}
+                                        {viewData?.devis_docs?.map((item) => {
+                                            return (
+                                                <span>
+                                                    {new Date(
+                                                        item.created_at
+                                                    ).toLocaleString()}{" "}
+                                                    :{" "}
+                                                    <a
+                                                        href={
+                                                            URL + "" + item.url
+                                                        }
+                                                        className="text-primary p-1 rounded-1 me-2"
+                                                        target="blank"
+                                                    >
+                                                        Télécharger le devis
+                                                    </a>{" "}
+                                                    <br />
+                                                </span>
+                                            );
+                                        })}
                                     </div>
-                                    <p className="mb-0 fw-bold">
-                                        Fichiers de la publicité:{" "}
-                                    </p>
-                                    <div className="ps-3">
-                                        {viewData?.publicite_docs?.map(
-                                            (item) => {
-                                                return (
-                                                    <span key={item.slug}>
-                                                        {new Date(
-                                                            item.created_at
-                                                        ).toLocaleString()}{" "}
-                                                        :{" "}
-                                                        <a
-                                                            href={
-                                                                URL +
-                                                                "" +
-                                                                item.url
-                                                            }
-                                                            className="text-primary p-1 rounded-1 me-2"
-                                                            target="blank"
-                                                        >
-                                                            Télécharger le
-                                                            fichier
-                                                        </a>{" "}
-                                                        <br />
-                                                    </span>
-                                                );
-                                            }
+                                    <div className="d-flex">
+                                        {viewData.status == 2 && (
+                                            <a
+                                                href={
+                                                    URL +
+                                                    "paiement/public/" +
+                                                    viewData.slug
+                                                }
+                                                className="btn btn-primary me-2"
+                                            >
+                                                Payer la facture
+                                            </a>
                                         )}
                                     </div>
                                     <div className="mt-3">
@@ -496,8 +517,7 @@ const DevisDemande = () => {
                                                 fileModal.current.click();
                                             }}
                                         >
-                                            Ajouter des fichiers pour la
-                                            publicité
+                                            Envoyer un devis
                                         </span>
                                     </div>
                                 </div>
@@ -511,7 +531,7 @@ const DevisDemande = () => {
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Statut de la publicité
+                                Statut du devis
                             </h4>
                             <button
                                 type="button"
@@ -526,13 +546,13 @@ const DevisDemande = () => {
                                     name={"status"}
                                     label={"statut"}
                                     placeholder={
-                                        "Sélectionnez le statut de la publicité"
+                                        "Sélectionnez le statut du devis"
                                     }
                                     formik={formik}
                                     options={[
                                         { slug: 0, name: "En attente" },
-                                        { slug: 1, name: "En cours" },
-                                        { slug: 2, name: "Terminer" },
+                                        { slug: 1, name: "Refuser" },
+                                        { slug: 2, name: "Accepter" },
                                     ]}
                                 />
                             </div>
@@ -568,7 +588,7 @@ const DevisDemande = () => {
                     <div className="modal-content">
                         <div className="modal-header border-0">
                             <h4 className="modal-title text-meduim text-bold">
-                                Fichiers de la publicité
+                                Envoyer un devis
                             </h4>
                             <button
                                 type="button"
@@ -578,6 +598,15 @@ const DevisDemande = () => {
                         </div>
                         <form onSubmit={formikFile.handleSubmit}>
                             <div className="modal-body">
+                                <Input
+                                    type={"text"}
+                                    name={"price"}
+                                    label={"Montant total"}
+                                    placeholder={
+                                        "Entrez le montant total du devis"
+                                    }
+                                    formik={formikFile}
+                                />
                                 <Input
                                     type={"files"}
                                     name={"files"}
@@ -602,7 +631,7 @@ const DevisDemande = () => {
                                     type="submit"
                                     className="btn btn-tertiary-full"
                                 >
-                                    Enregistrer
+                                    Envoyer
                                 </button>
                             </div>
                         </form>
@@ -613,4 +642,4 @@ const DevisDemande = () => {
     );
 };
 
-export default DevisDemande;
+export default Devis;

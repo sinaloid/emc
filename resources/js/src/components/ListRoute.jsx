@@ -18,10 +18,8 @@ import PubContainer from "./PubContainer";
 import TelechargerDevis from "./TelechargerDevis";
 import Dashboard from "../pages/Dashboard";
 import Compte from "../pages/Compte";
-import Demande from "../dashboard/Publicite";
 import Paiement from "../dashboard/Paiement";
 import DevisDash from "../dashboard/DevisDash";
-import Campagne from "../dashboard/Campagne";
 import Administration from "../dashboard/Administration";
 import MesMedias from "../dashboard/MesMedias";
 import MesDocuments from "../dashboard/MesDocuments";
@@ -30,6 +28,8 @@ import ListeMedia from "../dashboard/medias/ListeMedia";
 import DetailMedia from "../pages/MediaCategorieDetail";
 import MesMessages from "../dashboard/MesMessages";
 import TableauDeBord from "../dashboard/TableauDeBord";
+import MesCampagnes from "../dashboard/MesCampagnes";
+import MesPublicites from "../dashboard/MesPublicites";
 
 const appRoute = [
     {
@@ -331,11 +331,11 @@ const dashboardRoute = [
     },
     {
         path: listLink.dashboard_demande,
-        Element: <Demande />,
+        Element: <MesPublicites />,
     },
     {
         path: listLink.dashboard_campagne,
-        Element: <Campagne />,
+        Element: <MesCampagnes />,
     },
     {
         path: listLink.dashboard_devis,
