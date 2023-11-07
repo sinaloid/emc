@@ -24,6 +24,7 @@ const endPoint = {
     mediaProduitOptions:"mediaProduitOptions",
     villes:"villes",
     mediaVilles:"mediaVilles",
+    paiements:"paiements"
 }
 
 export default endPoint

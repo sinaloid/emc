@@ -22,6 +22,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\MediaVilleController;
+use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\Controller;
 
 /*
@@ -117,6 +118,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
             'entreprises' => EntrepriseController::class,
             'villes' => VilleController::class,
             'mediaVilles' => MediaVilleController::class,
+            'paiements' => PaiementController::class,
         ]);
     });
 

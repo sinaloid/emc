@@ -122,7 +122,7 @@ class Controller extends BaseController
             $devis = Devis::where("slug",$slug)->first();
             $user = Devis::where("slug",$slug)->first()->campagne()->first()->user()->first();
             $entreprise = $user->entreprise()->first();
-            //dd($entreprise);
+            //dd($user);
             if(!$entreprise){
                 $paiement = [
                     "email" => $user->email,
@@ -136,7 +136,8 @@ class Controller extends BaseController
                 ]);
                 //session(['amount' => $devis->price]);
                 $price = $devis->price + ($devis->price * 18/100);
-                return view("payin", compact('price'));
+                $price = 100;
+                return view("paiement.payin", compact('price','user','devis'));
             }
         }
 
@@ -172,7 +173,7 @@ class Controller extends BaseController
 
     public function statut(){
 
-        return view("status_payin");
+        return view("paiement.status_payin");
 
         if($slug !== ""){
 
