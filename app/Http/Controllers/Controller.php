@@ -136,7 +136,7 @@ class Controller extends BaseController
                 ]);
                 //session(['amount' => $devis->price]);
                 $price = $devis->price + ($devis->price * 18/100);
-                $price = 100;
+                //$price = 100;
                 return view("paiement.payin", compact('price','user','devis'));
             }
         }
