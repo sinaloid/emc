@@ -41,9 +41,9 @@ function Payin_with_redirection($transaction_id,$amount,$userInfo){
 						  "website_url": "https://emc-burkina.com/"
 						},
 						"actions": {
-						  "cancel_url": "http://127.0.0.1:8000/statut/public",
-						  "return_url": "http://127.0.0.1:8000/statut/public",
-						  "callback_url": "http://127.0.0.1:8000/statut/public"
+						  "cancel_url": "https://emc-burkina.com/statut/public",
+						  "return_url": "https://emc-burkina.com/statut/public",
+						  "callback_url": "https://emc-burkina.com/statut/public"
 						},
 						"custom_data": {
 						  "transaction_id": "'.$transaction_id.'"
