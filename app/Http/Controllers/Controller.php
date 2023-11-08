@@ -121,7 +121,7 @@ class Controller extends BaseController
 
             $devis = Devis::where("slug",$slug)->first();
             $user = Devis::where("slug",$slug)->first()->campagne()->first()->user()->first();
-            $entreprise = $user->entreprise()->first();
+            $entreprise = $user->entreprises()->first();
             //dd($user);
             if(!$entreprise){
                 $paiement = [

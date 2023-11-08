@@ -11,6 +11,7 @@ use App\Models\MediaProduit;
 use App\Models\Campagne;
 use App\Models\Publicite;
 use App\Models\Periode;
+use App\Models\PubPeriode;
 use App\Models\PubliciteDoc;
 
 class PubliciteController extends Controller
@@ -71,11 +72,13 @@ class PubliciteController extends Controller
             'is_deleted' => false,
             'slug' => Str::random(8),
         ]);
-        foreach($request->dates as $date){
-            $periode = Periode::create([
-                "date" => $date["date"],
+
+        //dd($data);
+        foreach($request->dates as $item){
+            $periode = PubPeriode::create([
+                "date" => $item["date"],
                 "time" => "0",
-                "media_produit_id" => $mediaProduit->id,
+                "publicite_id" => $data->id,
                 'is_used' => false,
                 'is_deleted' => false,
                 'slug' => Str::random(8),

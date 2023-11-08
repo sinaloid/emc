@@ -4,7 +4,33 @@
 
 function StorePaiement($from_data, $user,$devis){
     App\Models\Paiement::create($from_data);
-    /*$pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('devis', compact('user','devis','details'));
+    $listPub = App\Models\Devis::where("id", $devis->id)->first()->campagne()->first()->publicites()->get();
+    $details = [];
+    $price = 0;
+    //dd($listPub);
+    foreach($listPub as $item){
+        //dd($item["slug"]);
+        $element = App\Models\MediaProduit::where("id",$item->media_produit_id)->first();// $mediaProduit->mediaProduit()->first();
+        $quantite = $item->pubPeriodes()->get();
+        $quantite = count($quantite);
+        if($element){
+            array_push($details,[
+                "name" =>$element->name,
+                "price" =>$element->price,
+                "total" =>$quantite * $element->price,
+                "quantite" => $quantite,
+                "media" =>$element->media()->first()->name,
+                "categorie" =>$element->media()->first()->categorieMedia()->first()->name,
+            ]);
+            $price = $quantite * $element->price + $price;
+        }
+    }
+
+    //dd($details);
+    $entreprise = App\Models\User::where('id',$user->id)->first()->entreprises()->first();
+    //dd($entreprise);
+    $data = $devis;
+    $pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('facture', compact('user','data','details','entreprise'));
     //return $pdf->download();
     
     // Générez un nom de fichier unique pour le PDF
@@ -15,13 +41,14 @@ function StorePaiement($from_data, $user,$devis){
     file_put_contents($pdfPath, $output);
 
     $data = [
-        'subject' => "Votre demande de devis sur EMC",
+        'subject' => "Votre paiement de facture sur EMC",
         'title' => "Nous vous remercions d’avoir choisi EMC pour l’achat de vos espaces publicitaires.",
         'name' => $user->lastname."".$user->firstname,
         'slug' => "slug",
         
       ];    
-      Mail::to($user->email)->send(new SendDevis($data,$file));*/
+      
+      Illuminate\Support\Facades\Mail::to($user->email)->send(new App\Mail\SendFacture($data,$pdfPath));
 
     \Session::flash('success','Paiement effectué avec succès !!!');
 }
@@ -137,6 +164,8 @@ if(isset($Payin)) {
         //echo 'response_text='.$Payin->response_text;
     }
     elseif(trim($Payin->status)=="nocompleted") {
+        //StorePaiement($from_data, $user, $devis);
+
         include("pending.blade.php");
         /*echo "Le client(Payer) a annulé le paiement donc vous devez executer vos traitements correspondant<br><br>";
         //print_r($Payin);
@@ -145,6 +174,8 @@ if(isset($Payin)) {
         echo 'response_text='.$Payin->response_text;*/
     }
     elseif(trim($Payin->status)=="pending") {
+        //StorePaiement($from_data, $user, $devis);
+
         include("pending.blade.php");
         //echo '<script>window.location ="/paiement/public/'.$devis->slug.'";</script>';
         /*echo "Le client(Payer) n'a pas encore validé le paiement mobile money,donc vous devez executer vos traitements correspondant<br><br>";

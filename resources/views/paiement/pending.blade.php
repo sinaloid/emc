@@ -40,6 +40,10 @@
                     <a type="button" href="https://emc-burkina.com" class="btn btn-secondary d-inline-block pt-2 mx-2">Non</a>
                     <a type="button" href="https://emc-burkina.com/paiement/public/<?php echo $devis->slug ?>" class="btn btn-primary d-inline-block pt-2 mx-2">Oui</a>
                 </div>
+                <!--div class="mt-5 d-flex justify-content-center">
+                    <a type="button" href="http://127.0.0.1:8000" class="btn btn-secondary d-inline-block pt-2 mx-2">Non</a>
+                    <a type="button" href="http://127.0.0.1:8000/paiement/public/<?php echo $devis->slug ?>" class="btn btn-primary d-inline-block pt-2 mx-2">Oui</a>
+                </div-->
             </div>
         </div>
     </div>

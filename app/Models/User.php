@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function messages(){
         return $this->hasMany(Message::class,"receiver_id");
     }
-    public function entreprise(){
+    public function entreprises(){
         return $this->hasMany(Entreprise::class);
     }
 }

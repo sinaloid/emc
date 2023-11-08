@@ -29,7 +29,7 @@ const AddPubComfirmationModal = ({ data }) => {
                     <div className="modal-body">
                         <div className="row">
                             <div className="col-md-12 text-center mx-auto">
-                                <span>Il y a {user.panier ? user.panier : "0 "} produit dans votre panier</span>
+                                <span>Il y a {user.panier ? user.panier : "0 "} produit(s) dans votre panier</span>
                                 <h2>{data.name}</h2>
                             </div>
                             <div className="col-md-10 mx-auto">

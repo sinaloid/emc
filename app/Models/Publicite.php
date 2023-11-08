@@ -31,4 +31,8 @@ class Publicite extends Model
 
         return $this->hasMany(PubliciteDoc::class);
     }
+
+    public function pubPeriodes(){
+        return $this->hasMany(PubPeriode::class);
+    }
 }
