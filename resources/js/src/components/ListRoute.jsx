@@ -1,21 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import Accompagnement from "../pages/ReferencerMedia";
 import Accueil from "../pages/Accueil";
-import Carte from "../pages/Carte";
 import Devis from "../pages/Devis";
-import Journaux from "../pages/Journaux";
-import Media from "../pages/Media";
-import MediaDetail from "../pages/MediaDetail";
+
 import Panier from "../pages/Panier";
-import Presse from "../pages/Presse";
+
 import Produit from "../pages/Produit";
-import Radio from "../pages/Radio";
-import Tele from "../pages/Tele";
+
 import { listLink } from "../utils/listLink";
-import FormDevis from "./FormDevis";
-import ProduitHeader from "./ProduitHeader";
 import PubContainer from "./PubContainer";
-import TelechargerDevis from "./TelechargerDevis";
 import Dashboard from "../pages/Dashboard";
 import Compte from "../pages/Compte";
 import MesPaiement from "../dashboard/MesPaiement";
@@ -25,11 +17,12 @@ import MesMedias from "../dashboard/MesMedias";
 import MesDocuments from "../dashboard/MesDocuments";
 import ListeOffres from "../dashboard/medias/ListeOffres";
 import ListeMedia from "../dashboard/medias/ListeMedia";
-import DetailMedia from "../pages/MediaCategorieDetail";
+
 import MesMessages from "../dashboard/MesMessages";
 import TableauDeBord from "../dashboard/TableauDeBord";
 import MesCampagnes from "../dashboard/MesCampagnes";
 import MesPublicites from "../dashboard/MesPublicites";
+import Accompagnement from "../pages/Accompagnement";
 
 const appRoute = [
     {
@@ -40,52 +33,14 @@ const appRoute = [
         path: listLink.home,
         Element: <Accueil />,
     },
-    {
-        path: listLink.mediaByCategorie,
-        Element: <Accueil />,
-    },
-    {
-        path: listLink.detail_media,
-        Element: <DetailMedia />,
-    },
-    {
-        path: listLink.detail_media_produit,
-        Element: (
-            <Produit />
-        ),
-    },
-    {
-        path: listLink.devis,
-        Element: (
-            <Devis />
-        ),
-    },
-    {
-        path: listLink.telecharger_devis,
-        Element: (
-            <Devis />
-        ),
-    },
-    //delete
-    {
-        path: listLink.radio_,
-        Element: <Radio />,
-    },
-    {
-        path: listLink.tele_,
-        Element: <Tele />,
-    },
-    {
-        path: listLink.presse_,
-        Element: <Presse />,
-    },
-    {
-        path: listLink.journaux_,
-        Element: <Journaux />,
-    },
+    
     {
         path: listLink.panier,
         Element: <Panier />,
+    },
+    {
+        path: listLink.accompagnement,
+        Element: <Accompagnement />,
     },
     {
         path: listLink.dashboard_,
@@ -98,25 +53,10 @@ const homeRoute = [
         path: listLink.index,
         Element: <PubContainer />,
     },
-    {
-        path: listLink.affichage,
-        Element: <PubContainer />,
-    },
-    {
-        path: listLink.carte,
-        Element: <Carte />,
-    },
-    {
-        path: listLink.media,
-        Element: <Media />,
-    },
-    {
-        path: listLink.referencer,
-        Element: <Accompagnement />,
-    },
+    
 ];
 
-const radioRoute = [
+/*const radioRoute = [
     {
         path: listLink.index,
         Element: (
@@ -322,7 +262,7 @@ const journauxRoute = [
             </Devis>
         ),
     },
-];
+];*/
 
 const dashboardRoute = [
     {
@@ -371,7 +311,7 @@ const dashboardRoute = [
     },
     
 ];
-
+/*
 const mediaRoute = [
     {
         path: listLink.index,
@@ -381,7 +321,7 @@ const mediaRoute = [
         path: listLink.dashboard_liste_media,
         Element: <ListeMedia />,
     },
-];
+];*/
 
 const GetRoute = ({ list }) => {
     return (
@@ -397,11 +337,11 @@ export {
     GetRoute,
     appRoute,
     homeRoute,
-    radioRoute,
-    teleRoute,
-    presseRoute,
-    journauxRoute,
+    //radioRoute,
+    //teleRoute,
+    //presseRoute,
+    //journauxRoute,
     dashboardRoute,
-    mediaRoute,
-    mediaDetailRoute
+    //mediaRoute,
+    //mediaDetailRoute
 };

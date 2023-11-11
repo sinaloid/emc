@@ -154,8 +154,10 @@ const Header = () => {
                                 <li className="nav-item">
                                     <button
                                         className="btn btn-primary-no-hover mx-1"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#accompagnement"
+                                        onClick={e =>{
+                                            e.preventDefault()
+                                            navigate(listLink.accompagnement)
+                                        }}
                                     >
                                         Accompagnement sur-mesure
                                     </button>

@@ -53,7 +53,7 @@ body {
 }
 
 .text-13 {
-  font-size: 0.8125rem;
+    font-size: 0.8125rem;
 }
 
 .text-14 {
@@ -72,12 +72,16 @@ body {
     font-size: 1.25rem;
 }
 
-.text-26{
-  font-size: 26px !important;
+.text-22 {
+    font-size: 1.375rem;
 }
 
-.text-22 {
-  font-size: 1.375rem;
+.text-26 {
+    font-size: 26px !important;
+}
+
+.text-30 {
+    font-size: 1.875rem;
 }
 
 .text-40 {
@@ -199,7 +203,7 @@ input {
     font-weight: bold;
 }
 
-.btn-pub-primary{
+.btn-pub-primary {
     background-color: var(--primary-color) !important;
     color: #fff !important;
 }
@@ -295,8 +299,8 @@ div.border-bottom.d-inline-block {
 }
 
 .dash-link.active {
-  color: #fff !important;
-  background-color: var(--primary-color) !important;
+    color: #fff !important;
+    background-color: var(--primary-color) !important;
 }
 
 .dropdown-item.active,
@@ -330,34 +334,43 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="checkbox"],
-textarea, select {
+input[type="radio"],
+textarea,
+select {
     outline: none;
     box-shadow: none !important;
     border: 1px solid #ccc !important;
 }
 
-.cursor{
-  cursor: pointer;
+.cursor {
+    cursor: pointer;
 }
 
-.panier-circle{
-  border: 1px solid #fff;
-  right: 0;
-  top: 0;
-  margin-top: -5px;
-  margin-right: -10px;
-  min-width: 20px;
-  min-height: 20px;
-  
-  border-radius: 50%;
+.panier-circle {
+    border: 1px solid #fff;
+    right: 0;
+    top: 0;
+    margin-top: -5px;
+    margin-right: -10px;
+    min-width: 20px;
+    min-height: 20px;
+
+    border-radius: 50%;
 }
 
 .custom-checkbox .form-check-input:checked {
-  background-color: var(--secondary-color) !important; /* Couleur de fond lorsque la checkbox est cochée */
-  border-color: var(--secondary-color) !important; /* Couleur de la bordure */
-  color: #fff; /* Couleur du texte */
+    background-color: var(
+        --secondary-color
+    ) !important; /* Couleur de fond lorsque la checkbox est cochée */
+    border-color: var(--secondary-color) !important; /* Couleur de la bordure */
+    color: #fff; /* Couleur du texte */
 }
 
-.bg-inherit{
+.bg-inherit {
     background-color: inherit;
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }

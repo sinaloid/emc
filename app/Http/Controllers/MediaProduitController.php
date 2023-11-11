@@ -62,9 +62,7 @@ class MediaProduitController extends Controller
             $data = MediaProduit::search($request->name)->whereHas('media.categorieMedia', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })->with("media","media.categorieMedia")->get();
-        }
-
-        if($request->ville != ""){
+        }elseif($request->ville != ""){
             //$data = MediaProduit::with("media","media.categorieMedia")->where("is_deleted", false)->get();
             /*$data = MediaProduit::with([
                 'media.categorieMedia' => function ($query) use ($slug) {
@@ -76,6 +74,8 @@ class MediaProduitController extends Controller
             $data = MediaProduit::search($request->name)->whereHas('media.mediaVilles.ville', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })->with("media","media.categorieMedia")->get();
+        }else{
+            $data = MediaProduit::search($request->name)->with("media","media.categorieMedia")->get();
         }
 
         if ($data->isEmpty()) {

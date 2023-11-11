@@ -151,6 +151,25 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
             </div>
         );
     }
+
+    if (type === "radio") {
+        return (
+            <div className="mb-31">
+                
+                <input
+                    className="form-check-input me-2"
+                    type="radio"
+                    id={name}
+                    name={name}
+                    onChange={formik.handleChange}
+                    value={formik.values[name]}
+                />
+                <label htmlFor={name} className="form-label fw-bold1 ">
+                    {" "+ label}
+                </label>
+            </div>
+        );
+    }
 };
 
 export default Input;
