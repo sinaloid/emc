@@ -33,6 +33,10 @@ const appRoute = [
         path: listLink.home,
         Element: <Accueil />,
     },
+    {
+        path: listLink.mediaByCategorie,
+        Element: <Accueil />,
+    },
     
     {
         path: listLink.panier,
@@ -53,7 +57,6 @@ const homeRoute = [
         path: listLink.index,
         Element: <PubContainer />,
     },
-    
 ];
 
 /*const radioRoute = [
