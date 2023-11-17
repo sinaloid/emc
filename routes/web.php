@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 */
 Route::post('paiement/public/entrepise', [Controller::class, 'entreprise'])->name("entreprise");
 Route::get('paiement/public/{slug}', [Controller::class, 'paiement']);
+Route::get('paiement-electronique/public/{slug}', [Controller::class, 'paiementEletronique']);
 Route::get('statut/public', [Controller::class, 'statut']);
 Route::view('{path}', 'welcome')->where('path', '([A-z\d\-\/_.]+)?');
 

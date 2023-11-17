@@ -1,8 +1,8 @@
 <?php
 
 function Payin_with_redirection($transaction_id,$amount,$userInfo){
-    $url = "https://emc-burkina.com/statut/public";
-   // $url = "http://127.0.0.1:8000/statut/public";
+    //$url = "https://emc-burkina.com/statut/public";
+    $url = "http://127.0.0.1:8000/statut/public";
     $curl = curl_init();
 
     curl_setopt_array($curl, array(

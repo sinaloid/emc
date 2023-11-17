@@ -137,6 +137,34 @@ class Controller extends BaseController
                 //session(['amount' => $devis->price]);
                 $price = $devis->price + ($devis->price * 18/100);
                 //$price = 100;
+                return view("paiement.methode", compact('slug'));
+            }
+        }
+
+    }
+
+    public function paiementEletronique($slug = ""){
+
+        if($slug !== ""){
+
+            $devis = Devis::where("slug",$slug)->first();
+            $user = Devis::where("slug",$slug)->first()->campagne()->first()->user()->first();
+            $entreprise = $user->entreprises()->first();
+            //dd($user);
+            if(!$entreprise){
+                $paiement = [
+                    "email" => $user->email,
+                    "slug" => $slug
+                ];
+                return view("entreprise", compact('paiement'));
+            }
+            if($devis){
+                $devis->update([
+                    "status" => 2
+                ]);
+                //session(['amount' => $devis->price]);
+                $price = $devis->price + ($devis->price * 18/100);
+                //$price = 100;
                 return view("paiement.payin", compact('price','user','devis'));
             }
         }
