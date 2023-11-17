@@ -29,8 +29,8 @@
 </head>
 
 <body class="bg-gray">
-    <div class="container h-100 m-top">
-        <div class="row">
+    <div class="container h-100 m-5">
+        <div class="row mt-5">
             <div class="col-md-6 mx-auto card p-3">
                 <p class="text-center">
                     <img width="100px" src="https://emc-burkina.com/Logo.png" />
