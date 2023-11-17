@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -303,7 +304,8 @@ class AuthController extends Controller
 
             if ($imagePath) {
                 // Créer la nouvelle catégorie de média
-                Storage::delete($user->image);
+                //Storage::delete($user->image);
+                File::delete(public_path($user->image));
                 $user->update([
                     'image' => 'users/' . $imageName,
                 ]);

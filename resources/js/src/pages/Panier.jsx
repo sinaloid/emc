@@ -28,6 +28,10 @@ const Panier = () => {
         const campagnes = getCampagne();
         setList(campagnes);
         campagnes.length !== 0 && setSelectedData(campagnes[0]);
+        onUserChange({
+            ...user,
+            panier: campagnes.length
+        })
     };
 
     const deleteProduit = (id) => {

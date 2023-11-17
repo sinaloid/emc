@@ -12,11 +12,12 @@ import Fr from "./imgs/Fr";
 
 const Header = () => {
     const appCtx = useContext(AppContext);
-    const { user } = appCtx;
+    const { user,onUserChange } = appCtx;
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         getCategorie();
+        upadatePanier()
     }, []);
     const isAuth = () => {
         alert(user.isAuth);
@@ -44,7 +45,15 @@ const Header = () => {
 
     const goToDashboard = (e) => {
         e.preventDefault();
-        navigate(listLink.dashboard+"tdb");
+        navigate(listLink.dashboard + "tdb");
+    };
+
+    const upadatePanier = () => {
+        const campagnes = getCampagne();
+        onUserChange({
+            ...user,
+            panier: campagnes.length,
+        });
     };
     return (
         <Section bg="bg-white">
@@ -88,7 +97,7 @@ const Header = () => {
                                     <ul className="dropdown-menu">
                                         {categories.map((data) => {
                                             return (
-                                                <li key={"link"+data.slug}>
+                                                <li key={"link" + data.slug}>
                                                     <NavLink
                                                         className="dropdown-item nav-link"
                                                         to={
@@ -154,9 +163,9 @@ const Header = () => {
                                 <li className="nav-item">
                                     <button
                                         className="btn btn-primary-no-hover mx-1"
-                                        onClick={e =>{
-                                            e.preventDefault()
-                                            navigate(listLink.accompagnement)
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            navigate(listLink.accompagnement);
                                         }}
                                     >
                                         Accompagnement sur-mesure
@@ -171,14 +180,20 @@ const Header = () => {
                                         <button
                                             type="button"
                                             className="btn bg-primary1 btn-tertiary-full1"
-                                            onClick={e =>{
-                                                e.preventDefault()
-                                                navigate(listLink.panier)
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                navigate(listLink.panier);
                                             }}
                                         >
                                             {}
                                             {/**<Dash produit={getCampagne().length} /> */}
-                                            <Dash produit={user.panier ? user.panier : 0} />
+                                            <Dash
+                                                produit={
+                                                    user.panier
+                                                        ? user.panier
+                                                        : 0
+                                                }
+                                            />
                                         </button>
                                         {/**
                                              * <Link
@@ -213,10 +228,11 @@ const Header = () => {
                                                 data-bs-auto-close="true"
                                                 aria-expanded="false"
                                             >
-                                                <span className="d-inline-block px-1">FR</span>
+                                                <span className="d-inline-block px-1">
+                                                    FR
+                                                </span>
                                             </button>
-                                            {
-                                                /**
+                                            {/**
                                                  * <ul className="dropdown-menu">
                                                 <li>
                                                     <a
@@ -227,8 +243,7 @@ const Header = () => {
                                                     </a>
                                                 </li>
                                             </ul>
-                                                 */
-                                            }
+                                                 */}
                                         </div>
                                     </div>
                                 </li>
