@@ -28,8 +28,15 @@ const CampagneModal = ({ refresh }) => {
     const close = useRef();
     const comfirm = useRef();
     const list = getCampagne();
-    const [email, setEmail] = useState("")
-
+    const [email, setEmail] = useState("");
+    const entreprises = [
+        {slug:"société en commandite simple (SCS)",name:"La société en commandite simple (SCS)"},
+        {slug:"société en nom collectif (SNC)",name:"La société en nom collectif (SNC)"},
+        {slug:"société à responsabilité limitée (SARL)",name:"La société à responsabilité limitée (SARL)"},
+        {slug:"société anonyme (SA)",name:"La société anonyme (SA)"},
+        {slug:"société par actions simplifiée (SAS)",name:"La société par actions simplifiée (SAS)"},
+        {slug:"société en participation (SEP)",name:"La société en participation (SEP)"}
+    ]
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
@@ -67,7 +74,7 @@ const CampagneModal = ({ refresh }) => {
                         comfirm.current.click();
                         setCampagne([]);
                         refresh();
-                        setEmail(data.data.data)
+                        setEmail(data.data.data);
                         //get();
                         return "Votre demande de devis a bien été reçue !";
                     },
@@ -107,7 +114,7 @@ const CampagneModal = ({ refresh }) => {
                                     {!user.campagne && (
                                         <>
                                             <div className="border-bottom d-inline-block mb-3 text-22">
-                                                Informations personnel
+                                                Informations personnelles
                                             </div>
                                             <div>
                                                 <Input
@@ -129,6 +136,19 @@ const CampagneModal = ({ refresh }) => {
                                                     formik={formik}
                                                 />
                                                 <Input
+                                                    type={"select"}
+                                                    name={"genre"}
+                                                    label={"Genre"}
+                                                    placeholder={
+                                                        "Sélectionnez votre genre"
+                                                    }
+                                                    formik={formik}
+                                                    options={[
+                                                        {slug:"Homme",name:"Homme"},
+                                                        {slug:"Femme",name:"Femme"},
+                                                    ]}
+                                                />
+                                                <Input
                                                     type={"text"}
                                                     name={"email"}
                                                     label={"Email"}
@@ -143,6 +163,40 @@ const CampagneModal = ({ refresh }) => {
                                                     label={"Téléphone"}
                                                     placeholder={
                                                         "Entrez votre numéro"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                            </div>
+                                            <div className="border-bottom d-inline-block mb-3 text-22">
+                                                Informations de votre entreprise
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    type={"text"}
+                                                    name={"lastname"}
+                                                    label={"Nom de l'entreprise"}
+                                                    placeholder={
+                                                        "Entrez le nom de l'entreprise"
+                                                    }
+                                                    formik={formik}
+                                                />
+                                                <Input
+                                                    type={"select"}
+                                                    name={"lastname"}
+                                                    label={"Type d'entreprise"}
+                                                    placeholder={
+                                                        "Sélectionnez le type d'entreprise"
+                                                    }
+                                                    formik={formik}
+                                                    options={entreprises}
+                                                />
+
+                                                <Input
+                                                    type={"text"}
+                                                    name={"lastname"}
+                                                    label={"Secteur d'activité"}
+                                                    placeholder={
+                                                        "Entrez le secteur d'activité"
                                                     }
                                                     formik={formik}
                                                 />
@@ -254,7 +308,7 @@ const CampagneModal = ({ refresh }) => {
                             <div className="row">
                                 <div className="col-md-8 mx-auto">
                                     <div className="border-bottom d-inline-block mb-3 text-22">
-                                    Votre demande a été envoyée avec succès
+                                        Votre demande a été envoyée avec succès
                                     </div>
 
                                     <p>
@@ -262,8 +316,10 @@ const CampagneModal = ({ refresh }) => {
                                         pour acheter vos espaces publicitaires.
                                         Nous vous avons envoyé votre devis par
                                         mail à l’adresse suivante :<br />
-                                        <span className="text-primary">{email}</span>. <br />
-                                        A très vite sur EMC !
+                                        <span className="text-primary">
+                                            {email}
+                                        </span>
+                                        . <br />A très vite sur EMC !
                                     </p>
                                     <div className="d-flex justify-content-center">
                                         <button

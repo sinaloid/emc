@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Search from "./imgs/Search";
 import Section from "./Section";
 import { makeSearch } from "../services/function";
+import { useFormik } from "formik";
 
 const Hero = ({ categories, setList, datas, villes, recherche }) => {
     const [search, setSearch] = useState("");
@@ -13,6 +14,18 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
     useEffect(() => {
         setDataByCategorie(datas);
     }, [datas]);
+
+    const formikSearch = useFormik({
+        initialValues: {},
+        onSubmit: (values) => {
+            if (searchInput) {
+                recherche({
+                    [searchBy.type]: searchBy.slug,
+                    name: searchInput,
+                });
+            }
+        },
+    });
 
     const onSearch = (e) => {
         setSearch(e.target.value);
@@ -32,11 +45,11 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
             setList(datas);
         }
     };
-    const changeSearchBy = (e, data,type) => {
+    const changeSearchBy = (e, data, type) => {
         e.preventDefault();
         setSearchBy({
             ...data,
-            type:type
+            type: type,
         });
     };
     return (
@@ -59,7 +72,7 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
                 </p>
                 <div className="row mt-5">
                     <div className="col-10 col-md-10 col-lg-8 mx-auto">
-                        <div className="input-group mb-3">
+                        <form className="input-group mb-3" onSubmit={formikSearch.handleSubmit}>
                             <div class="btn-group bg-gray">
                                 <button
                                     class="btn rounded-0 dropdown-toggle"
@@ -138,6 +151,7 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
                                     </div>
                                 </ul>
                             </div>
+
                             <input
                                 type="text"
                                 className="form-control"
@@ -151,19 +165,19 @@ const Hero = ({ categories, setList, datas, villes, recherche }) => {
                             <div
                                 className="pt-3 btn btn-primary-no-hover text-center"
                                 style={{ height: "60px", width: "100px" }}
-                                onClick={e => {
-                                    e.preventDefault()
+                                onClick={(e) => {
+                                    e.preventDefault();
                                     recherche({
-                                        [searchBy.type]:searchBy.slug,
-                                        name:searchInput
-                                    })
+                                        [searchBy.type]: searchBy.slug,
+                                        name: searchInput,
+                                    });
                                 }}
                             >
                                 <span className="d-inline-block mx-auto pt-1">
                                     <Search />
                                 </span>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

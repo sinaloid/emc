@@ -7,6 +7,8 @@ import Input from "../components/Input";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import request from "../services/request";
+import { useRef } from "react";
 
 const initData = {
     lastname: "",
@@ -19,6 +21,7 @@ const initData = {
 };
 
 const Accompagnement = () => {
+    const comfirm = useRef();
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {
@@ -37,7 +40,8 @@ const Accompagnement = () => {
                 success: {
                     render({ data }) {
                         console.log(data);
-                        //get();
+                        comfirm.current.click();
+
                         return "Votre demande d'accompagnement a bien été reçue !";
                     },
                 },
@@ -60,7 +64,10 @@ const Accompagnement = () => {
                 <div className="col-12 col-md-10 col-lg-9 mx-auto pb-5">
                     <div className="row mt-3">
                         <div className="col-12 mb-3">
-                            <Link className="text-decoration-none text-body-emphasis" to={"/"}>
+                            <Link
+                                className="text-decoration-none text-body-emphasis text-14 opacity-64"
+                                to={"/"}
+                            >
                                 Accueil / Accompagnement sur mesure
                             </Link>
                         </div>
@@ -107,14 +114,6 @@ const Accompagnement = () => {
                                         et se chargera de vous accompagner sur
                                         tout le processus, de A à Z.
                                     </span>
-                                </div>
-                                <div className="text-muted">
-                                    Nous vous demandons de remplir vos
-                                    coordonnées dans le formulaire ci-contre
-                                    uniquement pour que nos experts média
-                                    puissent échanger avec vous sur votre
-                                    projet. Vos données ne seront utilisées à
-                                    aucune autre fin que celle-ci.
                                 </div>
                             </div>
                         </div>
@@ -173,38 +172,62 @@ const Accompagnement = () => {
                                     formik={formik}
                                 />
                             </div>
-                            <div className="d-inline-block">
-                                Besoin d’éléments publicitaires ?
-                            </div>
 
-                            <p className="p-0 m-0 text-muted">
-                                (Visuel publicitaire, Sport radio ou TV,
-                                Communiqué, etc)
-                            </p>
-                            <div>
-                                <Input
-                                    type={"radio"}
-                                    name={"visuel"}
-                                    label={"Oui, j’en ai besoin !"}
-                                    formik={formik}
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <Input
-                                    type={"radio"}
-                                    name={"visuel"}
-                                    label={"Non, j’en ai déjà !"}
-                                    formik={formik}
-                                />
-                            </div>
                             <div>
                                 <button
                                     type="button"
-                                    className="btn btn-primary w-100"
+                                    className="btn btn-secondary w-100"
                                     onClick={formik.handleSubmit}
                                 >
                                     Envoyer ma demande
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    ref={comfirm}
+                    type="hidden"
+                    data-bs-toggle="modal"
+                    data-bs-target="#comfirmation"
+                />
+                <div id="comfirmation" className="modal fade" tabIndex="-1">
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header bg-primary">
+                                <h5 className="modal-title text-white"></h5>
+                                <button
+                                    type="button"
+                                    className="btn-close bg-white"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                    ref={close}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="row">
+                                    <div className="col-md-8 mx-auto">
+                                        <div className="border-bottom d-inline-block mb-3 text-22">
+                                            Demande d'accompagnement sur mésure
+                                        </div>
+
+                                        <p>
+                                            Votre demande a été envoyée avec
+                                            succès. Nous vous contacterons très
+                                            bientôt pour une prise en charge .{" "}
+                                            <br />A très vite sur EMC !
+                                        </p>
+                                        <div className="d-flex justify-content-center">
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary"
+                                                data-bs-dismiss="modal"
+                                            >
+                                                Fermer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

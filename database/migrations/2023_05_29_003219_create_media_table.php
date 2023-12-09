@@ -21,6 +21,13 @@ return new class extends Migration
             $table->string("slug");
             $table->boolean("is_deleted");
 
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')
+                    ->references('id')
+                    ->on('media')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+
             $table->unsignedBigInteger('categorie_media_id')->nullable();
             $table->foreign('categorie_media_id')
                     ->references('id')

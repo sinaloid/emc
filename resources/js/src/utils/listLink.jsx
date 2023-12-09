@@ -6,7 +6,8 @@ export  const listLink = {
     panier:"/panier",
     produit:"produits",
     mediaByCategorie:"/media-categorie/:slug?",
-    accompagnement:"accompagnement-sur-mesure",
+    accompagnement:"/accompagnement-sur-mesure",
+    commentCaMarche:"/comment-ca-marche",
     
     dashboard_:"/tableau-de-bord/*",
     dashboard:"/tableau-de-bord/",

@@ -115,7 +115,7 @@ const Header = () => {
                                 <li className="nav-item">
                                     <NavLink
                                         className="nav-link"
-                                        to={listLink.referencer}
+                                        to={listLink.commentCaMarche}
                                     >
                                         Comment ça marche
                                     </NavLink>

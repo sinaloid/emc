@@ -142,7 +142,15 @@ const AddPuBModal = ({
                                     lacinia neque vitae metus viverra accumsan.
                                 </p>
                                      */}
-                                
+                                <div className="col-md-12 mt-3">
+                                    <Input
+                                        type={"checkbox"}
+                                        name={"file"}
+                                        label={"je certifie avoir lu et accepté les conditions d’utilisation "}
+                                        placeholder={""}
+                                        formik={formik}
+                                    />
+                                </div>
                                 
                                 <div>
                                     <button

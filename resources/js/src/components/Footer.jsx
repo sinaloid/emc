@@ -4,7 +4,7 @@ import Logo from "./imgs/Logo";
 import { Link } from "react-router-dom";
 import ReseauxSociaux from "./imgs/ReseauxSociaux";
 import LogoForFooter from "./imgs/LogoForFooter";
-import Fleche from "./imgs/Fleche"
+import Fleche from "./imgs/Fleche";
 
 const Footer = () => {
     return (
@@ -16,17 +16,19 @@ const Footer = () => {
                 <div className="row pb-3">
                     <div className="col col-md-6 pe-lg-5">
                         <p className="text-justify1">
-                            Elite Media Connect (EMC) est une plateforme
-                            digitale de vente de services des medias. Elle a
-                            pour ambition de limiter les deplacements des
-                            clients des medias pour l’achat des espaces
-                            publicitaires et autres commandes.{" "}
+                            EMC est une plateforme dédiée à l'achat d'espaces
+                            publicitaires sur les médias traditionnels et
+                            digitaux. De là où vous êtes, communiquez sur les
+                            meilleurs médias aux meilleurs tarifs et ce, sans
+                            parcourir la moindre distance grâce à notre
+                            plateforme.
                         </p>
+
                         <div>
                             <ReseauxSociaux />
                         </div>
                     </div>
-                    
+
                     <div className="col text-white">
                         <h5 className="text-uppercase text-18 fw-bold">
                             RESSOURCES
@@ -34,43 +36,37 @@ const Footer = () => {
                         <ul className="nav flex-column">
                             <li className="nav-item">
                                 <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                Annonceur / Agences
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    Annonceur / Agences
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                    Déposer un brief
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                    Editeurs/Régies publicitaires
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
+                                <Fleche />
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
                                     FAQs
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                    Demande de démo
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
+                                <Fleche />
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
                                     Nos offres publicitaires
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
+                                <Fleche />
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
                                     Plan du site
                                 </Link>
                             </li>
@@ -82,48 +78,63 @@ const Footer = () => {
                         </h5>
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                            <Fleche />
+                                <Fleche />
 
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                <span className="text-uppercase">à</span> propos
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    <span className="text-uppercase">à</span>{" "}
+                                    propos
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
+                                <Fleche />
 
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                Contactez-nous
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    Contactez-nous
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
+                                <Fleche />
 
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                Blog
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    Blog
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
+                                <Fleche />
 
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                CGU - CGV
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    CGU - CGV
                                 </Link>
                             </li>
                             <li className="nav-item">
-                            <Fleche />
+                                <Fleche />
 
-                                <Link to="#" className="nav-link p-0 text-white d-inline-block ms-1">
-                                Mentions légales
+                                <Link
+                                    to="#"
+                                    className="nav-link p-0 text-white d-inline-block ms-1"
+                                >
+                                    Mentions légales
                                 </Link>
                             </li>
                         </ul>
                     </div>
                 </div>
-                
             </div>
             <div className="bg-secondary text-center py-2">
-            © 2023 Elite Media Connect SARL. Tous droits réservés.
-                </div>
+            © 2023 Elite Régie SARL. Tous droits réservés.
+            </div>
         </Section>
     );
 };

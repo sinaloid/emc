@@ -93,8 +93,10 @@ body {
 }
 
 .btn,
-input {
-    height: 45px;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    min-height: 45px;
 }
 
 .fa-5x {
@@ -373,4 +375,17 @@ select {
 .form-check-input:checked {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
+}
+
+.circle {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.opacity-64 {
+    opacity: 64%;
 }

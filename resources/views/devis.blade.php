@@ -49,6 +49,10 @@
             text-align: center;
         }
 
+        .text-8 {
+            font-size: 8px;
+        }
+
         .text-14 {
             font-size: 14px;
         }
@@ -143,6 +147,10 @@
             bottom: 50%;
             right: 0;
             opacity: 0.08;
+        }
+        .footer{
+            line-height: 10px;
+            padding-top: 5px;
         }
     </style>
 </head>
@@ -323,8 +331,8 @@
             </div>
         </div>
         
-        <div class="footer text-14 m-100 border-top">
-            <p class="text-center text-14 mt-5">
+        <div class="footer text-8 m-100 border-top">
+            <p class="text-center text-8 mt-51">
                 <span class="fw-bold">Elie Régie</span> - Société à
                 Responsabilité Limitée (SARL) au capital de 1.000.000 de
                 Francs CFA | <span class="fw-bold">Siège social</span>:

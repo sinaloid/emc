@@ -170,6 +170,29 @@ const Input = ({ type, label, name, placeholder, formik, options = [] }) => {
             </div>
         );
     }
+
+    if (type === "checkbox") {
+        return (
+            <div className={"mb-0 "}>
+                <div className="form-check custom-checkbox">
+                    <input
+                        className={` form-check-input  ${formik.values[name] && " bg-primary"}`}
+                        type="checkbox"
+                        id={name}
+                        name={name}
+                        onChange={formik.handleChange}
+                        value={formik.values[name]}
+                    />
+                    <label
+                        className="form-check-label "
+                        htmlFor="flexCheckIndeterminate"
+                    >
+                        {label}
+                    </label>
+                </div>
+            </div>
+        );
+    }
 };
 
 export default Input;

@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
-            $table->string("denomination");
-            $table->string("forme_juridique");
-            $table->string("regime_imposition");
-            $table->string("ifu");
-            $table->string("rccm");
-            $table->string("boite_postale");
-            $table->string("telephone");
-            $table->string("situation_geo");
+            $table->string("denomination")->nullable();
+            $table->string("forme_juridique")->nullable();
+            $table->string("regime_imposition")->nullable();
+            $table->string("ifu")->nullable();
+            $table->string("rccm")->nullable();
+            $table->string("boite_postale")->nullable();
+            $table->string("telephone")->nullable();
+            $table->string("situation_geo")->nullable();
+            $table->string("type_entreprise")->nullable();
+            $table->string("secteur_activite")->nullable();
+            $table->string("nom_entreprise")->nullable();
             $table->string("slug");
             $table->boolean("is_deleted")->default(false);
 

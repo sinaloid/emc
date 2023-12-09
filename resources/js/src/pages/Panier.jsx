@@ -22,8 +22,10 @@ const Panier = () => {
 
     useEffect(() => {
         getCampagneList();
-    }, []);
+        window.scrollTo(0, 0);
 
+    }, []);
+    
     const getCampagneList = () => {
         const campagnes = getCampagne();
         setList(campagnes);
@@ -54,7 +56,7 @@ const Panier = () => {
                             <div className="col-md-6 bg-gray p-3">
                                 {list.map((data, idx) => {
                                     return (
-                                        <div className="d-flex mb-3" key={idx}>
+                                        <div className="d-flex mb-3 border-bottom pb-2" key={idx}>
                                             <div className="me-auto">
                                                 <h2 className="text-18 fw-bold">
                                                     {data.name}
@@ -69,7 +71,7 @@ const Panier = () => {
                                                     );
                                                 })}
                                                 <span
-                                                    className="text-primary"
+                                                    className="text-primary cursor"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#addModal"
                                                     onClick={(e) => {

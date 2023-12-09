@@ -23,6 +23,7 @@ import TableauDeBord from "../dashboard/TableauDeBord";
 import MesCampagnes from "../dashboard/MesCampagnes";
 import MesPublicites from "../dashboard/MesPublicites";
 import Accompagnement from "../pages/Accompagnement";
+import CommentCaMarche from "../pages/CommentCaMarche";
 
 const appRoute = [
     {
@@ -45,6 +46,10 @@ const appRoute = [
     {
         path: listLink.accompagnement,
         Element: <Accompagnement />,
+    },
+    {
+        path: listLink.commentCaMarche,
+        Element: <CommentCaMarche />,
     },
     {
         path: listLink.dashboard_,
