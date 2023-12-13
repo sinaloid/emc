@@ -12,10 +12,10 @@ export const BanierContent = ({ title, secondTitle, content, children, titleCss 
                 )}
                 
             </div>
-            <div className="col-12 col-md-12 py-2">
-                <p className="pt-2">{content}</p>
+            <div className="col-12 col-md-12 py-20">
+                <p className="pt-2 m-0">{content}</p>
             </div>
-            <div className="col-12 col-md-8">
+            <div className="col-12 col-md-8 mt-2">
                 {children}
             </div>
         </>

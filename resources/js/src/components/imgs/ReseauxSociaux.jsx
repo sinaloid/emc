@@ -77,6 +77,36 @@ const ReseauxSociaux = () => {
                     </g>
                 </svg>
             </Link>
+            <Link to="https://www.facebook.com/profile.php?id=61554605730358&mibextid=ZbWKwL" className="mx-1">
+                <svg
+                    width="38"
+                    height="38"
+                    viewBox="0 0 38 38"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M19 37C28.9411 37 37 28.9411 37 19C37 9.05888 28.9411 1 19 1C9.05888 1 1 9.05888 1 19C1 28.9411 9.05888 37 19 37Z"
+                        stroke="white"
+                    />
+                    <g clip-path="url(#clip0_719_1061)">
+                        <path
+                            d="M20.8152 14.3934V15.541H24.7609L24.163 19.4426H20.8152V29.8852H16.75V19.4426H14V15.541H16.75V13.5902C16.8696 11.2951 17.587 9.11475 21.6522 9H25V13.0164H22.1304C21.413 13.0164 20.8152 13.5902 20.8152 14.3934Z"
+                            fill="white"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_719_1061">
+                            <rect
+                                width="11"
+                                height="21"
+                                fill="white"
+                                transform="translate(14 9)"
+                            />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </Link>
         </>
     );
 };
