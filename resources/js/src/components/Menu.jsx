@@ -59,6 +59,9 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                                 </Link>
 
                                 {categories.map((categorie) => {
+                                    if(categorie.is_deleted){
+                                        return
+                                    }
                                     return (
                                         <Link
                                             to={
@@ -111,6 +114,9 @@ const Menu = ({ categories, medias, getProduitByMedia, slug }) => {
                             {slug && (
                                 <div className="d-flex bg-gray p-2">
                                     {medias.map((data, idx) => {
+                                        if(data.is_deleted){
+                                            return
+                                        }
                                         return (
                                             <div
                                                 key={data.slug}
