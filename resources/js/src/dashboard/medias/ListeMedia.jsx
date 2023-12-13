@@ -187,8 +187,9 @@ const ListeMedia = () => {
     };
 
     const destroy = async (values) => {
+        
         const response = await toast.promise(
-            request.delete(endPoint.medias + "/" + values.slug),
+            request.delete(endPoint.medias + "/" + viewData.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -254,6 +255,7 @@ const ListeMedia = () => {
         );
     };
     const editData = (data) => {
+        setViewData(data);
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("categorie", data.categorie_media?.slug);

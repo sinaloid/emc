@@ -170,7 +170,7 @@ const ListeOffres = () => {
 
     const destroy = async (values) => {
         const response = await toast.promise(
-            request.delete(endPoint.offres + "/" + values.slug),
+            request.delete(endPoint.offres + "/" + viewData.slug),
             {
                 pending: "Veuillez patienté...",
                 success: {
@@ -262,6 +262,7 @@ const ListeOffres = () => {
 
     const editData = (data) => {
         console.log(data);
+        setViewData(data);
         formik.setFieldValue("slug", data.slug);
         formik.setFieldValue("name", data.name);
         formik.setFieldValue("price", data.price);
