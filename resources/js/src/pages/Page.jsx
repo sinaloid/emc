@@ -23,7 +23,7 @@ import { StepThree } from "../components/imgs/StepThree";
 
 const Page = ({ children }) => {
     const navigate = useNavigate();
-    const logos = [bf1, le_pays, minute, rtb, savane_fm, sidwaya, bf1];
+    const logos = [bf1, le_pays, minute, rtb, savane_fm, sidwaya];
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -33,9 +33,7 @@ const Page = ({ children }) => {
 
             <Banier bg={"bg-gray"}>
                 <BanierContent
-                    title={
-                        "Ils sont partenaires et vendent leurs supports sur EMC."
-                    }
+                    title={"Ils sont partenaires et vendent leurs supports sur EMC."}
                     content={""}
                 ></BanierContent>
 

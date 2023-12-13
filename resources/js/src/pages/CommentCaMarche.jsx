@@ -103,7 +103,7 @@ const CommentCaMarche = () => {
                     <div className="row mt-5">
                         <div className="col-12 col-md-6">
                             <div>
-                                <div className="text-primary text-36 my-3">
+                                <div className="text-primary text-36" style={{lineHeight:"110%"}}>
                                     Réception du devis & Paiement
                                 </div>
                                 <div>
@@ -127,7 +127,7 @@ const CommentCaMarche = () => {
                         </div>
                         <div className="col-12 col-md-6">
                             <div>
-                                <div className="text-primary text-36 my-3">
+                                <div className="text-primary text-36" style={{lineHeight:"110%"}}>
                                     Diffusion & Envoi des justificatifs de
                                     campagne
                                 </div>
