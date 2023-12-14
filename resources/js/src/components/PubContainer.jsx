@@ -137,9 +137,11 @@ const PubContainer = () => {
             .post(endPointPublic.recherche, value)
             .then((res) => {
                 console.log(res.data.data);
+
+                const tab = res.data.data.filter((data) => !data.is_deleted && data)
                 const lst = slug
-                    ? pagination(res.data.data, 6)
-                    : pagination(res.data.data, 8);
+                    ? pagination(tab, 6)
+                    : pagination(tab, 8);
                 setPages(lst);
                 if (lst.list.length !== 0) {
                     setDatas(lst.list[0]);

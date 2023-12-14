@@ -18,7 +18,10 @@ const Header = () => {
     useEffect(() => {
         getCategorie();
         upadatePanier()
+        window.scrollTo(0, 0);
+
     }, []);
+    
     const isAuth = () => {
         alert(user.isAuth);
         if (

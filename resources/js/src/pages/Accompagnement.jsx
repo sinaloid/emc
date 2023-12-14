@@ -8,7 +8,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import request from "../services/request";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const initData = {
     lastname: "",
@@ -22,6 +22,11 @@ const initData = {
 
 const Accompagnement = () => {
     const comfirm = useRef();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     const formik = useFormik({
         initialValues: initData,
         onSubmit: (values) => {

@@ -17,6 +17,9 @@ const initUser = {
     lastname: "",
     status: "",
     password: "",
+    nom_entreprise: "",
+    type_entreprise: "",
+    secteur_activite: "",
 };
 
 const LoginModal = () => {
@@ -51,16 +54,31 @@ const LoginModal = () => {
         { name: "Régie publicitaire", slug: "Régie publicitaire" },
     ];
     const entreprises = [
-        {slug:"société en commandite simple (SCS)",name:"La société en commandite simple (SCS)"},
-        {slug:"société en nom collectif (SNC)",name:"La société en nom collectif (SNC)"},
-        {slug:"société à responsabilité limitée (SARL)",name:"La société à responsabilité limitée (SARL)"},
-        {slug:"société anonyme (SA)",name:"La société anonyme (SA)"},
-        {slug:"société par actions simplifiée (SAS)",name:"La société par actions simplifiée (SAS)"},
-        {slug:"société en participation (SEP)",name:"La société en participation (SEP)"}
-    ]
+        {
+            slug: "société en commandite simple (SCS)",
+            name: "La société en commandite simple (SCS)",
+        },
+        {
+            slug: "société en nom collectif (SNC)",
+            name: "La société en nom collectif (SNC)",
+        },
+        {
+            slug: "société à responsabilité limitée (SARL)",
+            name: "La société à responsabilité limitée (SARL)",
+        },
+        { slug: "société anonyme (SA)", name: "La société anonyme (SA)" },
+        {
+            slug: "société par actions simplifiée (SAS)",
+            name: "La société par actions simplifiée (SAS)",
+        },
+        {
+            slug: "société en participation (SEP)",
+            name: "La société en participation (SEP)",
+        },
+    ];
     const modalBtn = useRef();
     const onConnect = () => {
-        navigate(listLink.dashboard+"tdb");
+        navigate(listLink.dashboard + "tdb");
     };
     const changeForm = (e) => {
         e.preventDefault();
@@ -417,7 +435,9 @@ const LoginModal = () => {
                             <div className="row py-4">
                                 <div className="col-md-10 mx-auto">
                                     <div className="d-inline-block mb-3 text-22 text-center">
-                                        {editePassword ? "Mot de passe oublié ?" : stepMessage[formStep].title}
+                                        {editePassword
+                                            ? "Mot de passe oublié ?"
+                                            : stepMessage[formStep].title}
                                     </div>
 
                                     {formStep === "email" && (
@@ -501,8 +521,14 @@ const LoginModal = () => {
                                                     }
                                                     formik={formik}
                                                     options={[
-                                                        {slug:"Homme",name:"Homme"},
-                                                        {slug:"Femme",name:"Femme"},
+                                                        {
+                                                            slug: "Homme",
+                                                            name: "Homme",
+                                                        },
+                                                        {
+                                                            slug: "Femme",
+                                                            name: "Femme",
+                                                        },
                                                     ]}
                                                 />
                                                 <Input
@@ -541,39 +567,48 @@ const LoginModal = () => {
                                                     formik={formik}
                                                 />
                                                 <div className="border-bottom d-inline-block mb-3 text-22">
-                                                Informations de votre entreprise
-                                            </div>
-                                            <div>
-                                                <Input
-                                                    type={"text"}
-                                                    name={"lastname"}
-                                                    label={"Nom de l'entreprise"}
-                                                    placeholder={
-                                                        "Entrez le nom de l'entreprise"
-                                                    }
-                                                    formik={formik}
-                                                />
-                                                <Input
-                                                    type={"select"}
-                                                    name={"lastname"}
-                                                    label={"Type d'entreprise"}
-                                                    placeholder={
-                                                        "Sélectionnez le type d'entreprise"
-                                                    }
-                                                    formik={formik}
-                                                    options={entreprises}
-                                                />
+                                                    Informations de votre
+                                                    entreprise
+                                                </div>
+                                                <div>
+                                                    <Input
+                                                        type={"text"}
+                                                        name={"nom_entreprise"}
+                                                        label={
+                                                            "Nom de l'entreprise"
+                                                        }
+                                                        placeholder={
+                                                            "Entrez le nom de l'entreprise"
+                                                        }
+                                                        formik={formik}
+                                                    />
+                                                    <Input
+                                                        type={"select"}
+                                                        name={"type_entreprise"}
+                                                        label={
+                                                            "Type d'entreprise"
+                                                        }
+                                                        placeholder={
+                                                            "Sélectionnez le type d'entreprise"
+                                                        }
+                                                        formik={formik}
+                                                        options={entreprises}
+                                                    />
 
-                                                <Input
-                                                    type={"text"}
-                                                    name={"lastname"}
-                                                    label={"Secteur d'activité"}
-                                                    placeholder={
-                                                        "Entrez le secteur d'activité"
-                                                    }
-                                                    formik={formik}
-                                                />
-                                            </div>
+                                                    <Input
+                                                        type={"text"}
+                                                        name={
+                                                            "secteur_activite"
+                                                        }
+                                                        label={
+                                                            "Secteur d'activité"
+                                                        }
+                                                        placeholder={
+                                                            "Entrez le secteur d'activité"
+                                                        }
+                                                        formik={formik}
+                                                    />
+                                                </div>
                                             </div>
                                         )}
                                     {formStep === "editePassword" &&

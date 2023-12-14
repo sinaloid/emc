@@ -173,7 +173,7 @@ const CampagneModal = ({ refresh }) => {
                                             <div>
                                                 <Input
                                                     type={"text"}
-                                                    name={"lastname"}
+                                                    name={"nom_entreprise"}
                                                     label={"Nom de l'entreprise"}
                                                     placeholder={
                                                         "Entrez le nom de l'entreprise"
@@ -182,7 +182,7 @@ const CampagneModal = ({ refresh }) => {
                                                 />
                                                 <Input
                                                     type={"select"}
-                                                    name={"lastname"}
+                                                    name={"type_entreprise"}
                                                     label={"Type d'entreprise"}
                                                     placeholder={
                                                         "Sélectionnez le type d'entreprise"
@@ -193,7 +193,7 @@ const CampagneModal = ({ refresh }) => {
 
                                                 <Input
                                                     type={"text"}
-                                                    name={"lastname"}
+                                                    name={"secteur_activite"}
                                                     label={"Secteur d'activité"}
                                                     placeholder={
                                                         "Entrez le secteur d'activité"

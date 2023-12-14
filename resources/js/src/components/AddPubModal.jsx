@@ -11,6 +11,7 @@ const initData = {
     startDate: "",
     endDate: "",
     file: "",
+    certifie:""
 };
 const AddPuBModal = ({
     data = {},
@@ -36,7 +37,7 @@ const AddPuBModal = ({
         initialValues: initData,
         onSubmit: (values) => {
             values.dates = dates
-            console.log("values");
+            console.log(values);
             
             if(update){
             console.log(values);
@@ -45,6 +46,8 @@ const AddPuBModal = ({
             }else{
                 ajoutPanier(values);
             }
+            //formik.setFieldValue("certifie","")
+            formik.resetForm()
             setValues([])
             setRefresh(refresh + 1)
         },
@@ -145,7 +148,7 @@ const AddPuBModal = ({
                                 <div className="col-md-12 mt-3">
                                     <Input
                                         type={"checkbox"}
-                                        name={"file"}
+                                        name={"certifie"}
                                         label={"je certifie avoir lu et accepté les conditions d’utilisation "}
                                         placeholder={""}
                                         formik={formik}
@@ -158,8 +161,8 @@ const AddPuBModal = ({
                                         className="btn btn-secondary mt-3"
                                         data-bs-toggle="modal"
                                         data-bs-target="#addComfirmationModal"
-                                        onClick={formik.handleSubmit
-                                        }
+                                        onClick={formik.handleSubmit}
+                                        //disabled={formik.values["certifie"] !== true ? true : false}
                                     >
                                         Ajouter au panier
                                     </button>
