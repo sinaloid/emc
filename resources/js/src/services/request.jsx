@@ -2,7 +2,9 @@ import axios from 'axios';
 import { getUser } from './storage';
 
 //export const URL = "https://emc.edic-municipalities.com/"
-export const URL = "https://emc-burkina.com/"
+//export const URL = "https://emc-burkina.com/"
+export const URL = "https://root.emc-burkina.com/"
+
 //export const URL = "http://127.0.0.1:8000/"
 export const URL_ = URL
 
