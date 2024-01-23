@@ -283,7 +283,7 @@ const PubContainer = () => {
                 </div>
                 {(slug && list.length !== 0) && (
                     <div className="col-12 col-md-10 col-lg-9 mx-auto text-center text-primary mb-3 pb-3">
-                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex - 1)}>
+                        <button className="btn mb-3 btn-pub mx-2" onClick={e => changePages(e, currentIndex - 1)}>
                             <span>
                                 <FlechePrec />
                             </span>
@@ -292,7 +292,7 @@ const PubContainer = () => {
                         {
                             pages.list.map((data,idx) => {
                                 return <button
-                                className={`btn ${currentIndex === idx ? "btn-pub-primary" : "btn-pub"}  mx-2 px-3`}
+                                className={`btn mb-3 ${currentIndex === idx ? "btn-pub-primary" : "btn-pub"}  mx-2 px-3`}
                                 key={"btn" + idx}
                                 onClick={e =>changePagesByIndex(e,idx)}
                             >
@@ -300,7 +300,7 @@ const PubContainer = () => {
                             </button>
                             })
                         }
-                        <button className="btn btn-pub mx-2" onClick={e => changePages(e, currentIndex + 1)}>
+                        <button className="btn mb-3 btn-pub mx-2" onClick={e => changePages(e, currentIndex + 1)}>
                             <span className=" me-1">Page suivante</span>
                             <span>
                                 <FlecheSuiv />
